@@ -1,0 +1,30 @@
+{
+  "name": "acceso-de-afiliados-y-grupo-familiar---be",
+  "version": "1.0.0",
+  "description": "Aca va el readme",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon src/main.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DesApp-2025c2-Grupo-12/Acceso-de-afiliados-y-grupo-familiar---BE.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DesApp-2025c2-Grupo-12/Acceso-de-afiliados-y-grupo-familiar---BE/issues"
+  },
+  "homepage": "https://github.com/DesApp-2025c2-Grupo-12/Acceso-de-afiliados-y-grupo-familiar---BE#readme",
+  "devDependencies": {
+    "nodemon": "^3.1.10",
+    "sequelize-cli": "^6.6.3"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "mysql2": "^3.15.1",
+    "sequelize": "^6.37.7"
+  }
+}
