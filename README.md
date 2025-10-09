@@ -3,31 +3,29 @@
 ## 📁 Estructura del Proyecto
 
 ```
-Acceso-de-afiliados-y-grupo-familiar---BE/
+ACCESO-DE-AFILIADOS-Y-GRUPO-FAMILIAR---BE/
 │
 ├─ node_modules/
 │
 ├─ src/
 │   ├─ controllers/
-│   │   ├─ affiliate.controllers.js
-│   │   ├─ recipe.controllers.js
-│   │   └─ index.js
+│   │   ├─ affiliate.controller.js
+│   │   └─ recipe.controller.js
 │   │
 │   ├─ db/
 │   │   ├─ config/
 │   │   │   └─ config.json
-│   │   └─ migrations/
-│   │       ├─ 20251005153957-create-affiliate.js
-│   │       └─ 20251005155025-create-recipe.js
-│   │
-│   ├─ models/
-│   │   ├─ affiliate.js
-│   │   ├─ recipe.js
-│   │   └─ index.js
+│   │   ├─ migrations/
+│   │   │   ├─ 20251005153957-create-affiliate.js
+│   │   │   └─ 20251005155025-create-recipe.js
+│   │   └─ models/
+│   │       ├─ affiliate.js
+│   │       ├─ recipe.js
+│   │       └─ index.js
 │   │
 │   └─ routes/
 │       ├─ affiliate.routes.js
-│       └─ index.routes.js
+│       └─ recipe.routes.js
 │
 ├─ main.js
 ├─ .gitignore
