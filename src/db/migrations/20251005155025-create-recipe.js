@@ -27,12 +27,12 @@ module.exports = {
       cantidad: {
         type: Sequelize.INTEGER
       },
-      estado: {
-        type: Sequelize.STRING
-      },
-      observaciones: {
-        type: Sequelize.STRING
-      },
+     estado: {
+    type: Sequelize.STRING
+  },
+  observaciones: {
+    type: Sequelize.STRING
+  },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
