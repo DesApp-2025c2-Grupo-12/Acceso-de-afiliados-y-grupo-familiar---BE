@@ -77,12 +77,10 @@ const updateRecipe = async (req, res) => {
 const deleteRecipe = async (req, res) => {
     try {
         const id = req.params.id;
-        const receta = await Recipe.findByPk(id);
-        if (!receta) {
+        const deleted = await Recipe.destroy({ where: { id } });
+        if (!deleted) {
             return res.status(404).json({ error: "Receta no encontrada" });
         }
-
-        await Recipe.destroy({ where: { id } });
         res.status(200).json({ message: "Receta eliminada correctamente" });
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -96,3 +94,4 @@ module.exports = {
     updateRecipe,
     deleteRecipe
 };
+
