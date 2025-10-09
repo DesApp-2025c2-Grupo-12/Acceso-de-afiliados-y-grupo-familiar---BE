@@ -1,39 +1,39 @@
 const express = require("express");
+const cors = require("cors");
 const db = require("./db/models");
+const rutaAfiliados = require("./src/routes/affiliate.routes");
+const rutaRecetas = require("./src/routes/recipe.routes");
+
 const affiliate = require("./db/models/affiliate");
 const recipe = require("./db/models/recipe")
+
 const app = express();
 const PORT = 3000;
-const rutaAfiliados = require("./routes/affiliate.routes")
-const rutaRecetas = require("./routes/recipe.routes")
-const cors = require("cors");
 
 
-
-
-
+// Middlewares
 app.use(cors());
 app.use(express.json());
+
+// Rutas
 app.use("/affiliate", rutaAfiliados);
 app.use("/recipes", rutaRecetas);
 
 
 
 const start = async () => {
-  
-    // si exportaste sequelize como db.sequelize
+  try {
     await db.sequelize.authenticate();
     console.log("✔️ Conexión a la base de datos OK");
 
-    // NO sincronizar si usás migraciones (comentado intencionalmente)
-    // await db.sequelize.sync();
-    
-    app.listen(PORT, async () => {
-      console.log(`La app arrancó en el puerto ${PORT}.`);
-      // ¡No sincronizar porque ya estamos usando migraciones!
-      // await db.sequelize.sync({ force: true });
+    app.listen(PORT, () => {
+      console.log(`🚀 La app arrancó en el puerto ${PORT}`);
     });
-  };
+  } catch (error) {
+    console.error("❌ Error al conectar con la base de datos:", error);
+  }
+};
 
-  start()
+start();
+
 
