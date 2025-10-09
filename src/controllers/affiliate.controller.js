@@ -12,58 +12,121 @@ const createAffiliate = async (req, res) => {
 };
 
 
-const getAffiliates = async(req,res) =>{
- try {
-    const affiliates = await Affiliate.findAll({attributes:["id","nombre","apellido","numeroDeDocumento","numeroDeAfiliado","planMedico"]})
+const getAffiliates = async (req, res) => {
+  try {
+    const affiliates = await Affiliate.findAll({ attributes: ["id", "nombre", "apellido", "numeroDeDocumento", "numeroDeAfiliado", "planMedico"] })
     res.json(affiliates);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 }
 
-const getAffiliateById = async(req,res) =>{
-    const id = req.params.id
-    const afiliado  = await Affiliate.findByPk(id);
-    try {
-        res.status(201).json(afiliado)
-    } catch (error) {
-        res.status(400).json({ error: error.message });
-    }
+const getAffiliateById = async (req, res) => {
+  const id = req.params.id
+  const afiliado = await Affiliate.findByPk(id);
+  try {
+    res.status(201).json(afiliado)
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
 }
 
-const updateAffiliate = async(req,res) =>{
+const updateAffiliate = async (req, res) => {
 
   try {
-     const id = req.params.id
-     const afiliadoAModificar = await Affiliate.findByPk(id)
-     const afiliadoModificado = await afiliadoAModificar.update(req.body)
-     res.status(201).json(afiliadoModificado)
+    const id = req.params.id
+    const afiliadoAModificar = await Affiliate.findByPk(id)
+    const afiliadoModificado = await afiliadoAModificar.update(req.body)
+    res.status(201).json(afiliadoModificado)
 
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 }
 
-const deleteAffiliate = async (req,res) =>{
+const deleteAffiliate = async (req, res) => {
   try {
-     const id = req.params.id
-        await Affiliate.destroy(
-            {
-                where: { id }
-            })
-       
-        res.status(201).json({ message: "Afiliado eliminada correctamente"})
+    const id = req.params.id
+    await Affiliate.destroy(
+      {
+        where: { id }
+      })
+
+    res.status(201).json({ message: "Afiliado eliminada correctamente" })
   } catch (error) {
-     res.status(400).json({ error: error.message });
+    res.status(400).json({ error: error.message });
   }
 }
 
 
+const verificarsiHayAfiliadoConDocumento = async (req, res) => {
+  try {
+    const documentoAVerificar = req.params.documento
+    const ususarioVerificado = await Affiliate.findOne({
+      where: { numeroDeDocumento: documentoAVerificar }
+    })
+    if (ususarioVerificado) {
+      return res.status(200).json({ existe: true });
+    } else {
+      return res.status(200).json({ existe: false });
+    }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 
-module.exports =  {
+}
+
+
+const agregarContraseña = async (req, res) => {
+  try {
+    const { documento, password } = req.params;
+    const usuarioVerificado = await Affiliate.findOne({
+      where: { numeroDeDocumento: documento },
+    });
+
+    if (!usuarioVerificado) {
+      return res.status(404).json({ error: "Afiliado no encontrado" });
+    }
+
+    usuarioVerificado.password = password;
+    await usuarioVerificado.save();
+
+    res.status(200).json({
+      message: "Contraseña actualizada correctamente",
+      afiliado: usuarioVerificado,
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+const tieneContraseña = async (req, res) => {
+
+  try {
+    const { documento } = req.params
+    const usuarioVerificado = await Affiliate.findOne({
+      where: { numeroDeDocumento: documento },
+    });
+    if (await usuarioVerificado.password != null) {
+      return res.status(200).json({ existe: true });
+    } else {
+      return res.status(200).json({ existe: false });
+    }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+
+
+}
+
+
+module.exports = {
   createAffiliate,
   getAffiliates,
   getAffiliateById,
   updateAffiliate,
-  deleteAffiliate
+  deleteAffiliate,
+  verificarsiHayAfiliadoConDocumento,
+  agregarContraseña,
+  tieneContraseña
 }

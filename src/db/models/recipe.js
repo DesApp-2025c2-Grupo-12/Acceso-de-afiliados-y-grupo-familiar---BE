@@ -14,14 +14,14 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Recipe.init({
-    nombreDelMedicamento: DataTypes.STRING,
-    presentacion: DataTypes.STRING,
-    paciente: DataTypes.STRING,
-    numeroDeDocumento: DataTypes.STRING,
-    fechaDeEmision: DataTypes.DATEONLY,
-    cantidad: DataTypes.INTEGER,
-    estado: DataTypes.STRING,
-    observaciones: DataTypes.STRING
+    nombreDelMedicamento: {type:DataTypes.STRING,allowNull:false},
+    presentacion: {type:DataTypes.STRING,allowNull:false},
+    paciente: {type:DataTypes.STRING,allowNull:false},
+    numeroDeDocumento:{ type:DataTypes.STRING,allowNull:false},
+    fechaDeEmision: {type:DataTypes.DATEONLY,allowNull:false},
+    cantidad: {type:DataTypes.INTEGER,allowNull:false},
+    estado: {type:DataTypes.STRING,allowNull:false},
+    observaciones: {type:DataTypes.STRING,allowNull:false}
   }, {
     sequelize,
     modelName: 'Recipe',
