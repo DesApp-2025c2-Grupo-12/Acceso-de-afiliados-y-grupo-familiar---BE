@@ -119,6 +119,23 @@ const tieneContraseña = async (req, res) => {
 
 }
 
+const esSuContraseña = async (req, res) => {
+  try {
+    const { documento, password } = req.params
+    const usuarioVerificado = await Affiliate.findOne({
+      where: { numeroDeDocumento: documento },
+    });
+    if (await usuarioVerificado.password == password) {
+      return res.status(200).json({ existe: true });
+    } else {
+      return res.status(200).json({ existe: false });
+    }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+
+}
+
 
 module.exports = {
   createAffiliate,
@@ -128,5 +145,6 @@ module.exports = {
   deleteAffiliate,
   verificarsiHayAfiliadoConDocumento,
   agregarContraseña,
-  tieneContraseña
+  tieneContraseña,
+  esSuContraseña
 }

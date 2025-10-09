@@ -7,6 +7,7 @@ router.get("/",AffiliateController.getAffiliates);
 router.get("/:id",AffiliateController.getAffiliateById);
 router.get("/verificar-documento/:documento", AffiliateController.verificarsiHayAfiliadoConDocumento);
 router.get("/verificar-password/:documento",AffiliateController.tieneContraseña)
+router.get("/es-su-contrasena/:documento/:password",AffiliateController.esSuContraseña)
 router.post("/",AffiliateController.createAffiliate);
 router.put("/agregar-password/:documento/:password",AffiliateController.agregarContraseña);
 router.put("/:id",AffiliateController.updateAffiliate);

@@ -1,8 +1,8 @@
 const express = require("express");
 const cors = require("cors");
 const db = require("./db/models");
-const rutaAfiliados = require("./src/routes/affiliate.routes");
-const rutaRecetas = require("./src/routes/recipe.routes");
+const rutaAfiliados = require("./routes/affiliate.routes");
+const rutaRecetas = require("./routes/recipe.routes");
 
 const affiliate = require("./db/models/affiliate");
 const recipe = require("./db/models/recipe")
