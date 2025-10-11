@@ -1,9 +1,10 @@
 const { Recipe } = require("../db/models");
+const { Op } = require("sequelize"); //Consultar
 
-// CREAR RECETA
+// Crear receta
 const createRecipe = async (req, res) => {
     try {
-        // Validación de campos obligatorios
+        // Validación de campos obligatorios - consultar
         const {
             nombreDelMedicamento,
             presentacion,
@@ -34,7 +35,7 @@ const createRecipe = async (req, res) => {
     }
 };
 
-// OBTENER TODAS LAS RECETAS
+// Obtener tods las recetas
 const getRecipes = async (req, res) => {
     try {
         const recetas = await Recipe.findAll();
@@ -44,21 +45,26 @@ const getRecipes = async (req, res) => {
     }
 };
 
-// OBTENER RECETA POR ID
-const getRecipeById = async (req, res) => {
+// Obtener recetas por nombre del medicamento
+//Permite que el buscador traiga todas las recetas que contengan "ibu" en el nombre del medicamento.
+const getRecipesByName = async (req, res) => {
     try {
-        const id = req.params.id;
-        const recetaPorId = await Recipe.findByPk(id);
-        if (!recetaPorId) {
-            return res.status(404).json({ error: "Receta no encontrada" });
-        }
-        res.status(200).json(recetaPorId);
+        const { nombre } = req.query;
+        const recetas = await Recipe.findAll({
+            where: {
+                nombreDelMedicamento: {
+                    [Op.like]: `%${nombre}%`
+                }
+            }
+        });
+        res.status(200).json(recetas);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 };
 
-// ACTUALIZAR RECETA
+
+// Actualizar recetas
 const updateRecipe = async (req, res) => {
     try {
         const id = req.params.id;
@@ -73,7 +79,7 @@ const updateRecipe = async (req, res) => {
     }
 };
 
-// ELIMINAR RECETA
+// Eliminar recetas
 const deleteRecipe = async (req, res) => {
     try {
         const id = req.params.id;
@@ -90,7 +96,7 @@ const deleteRecipe = async (req, res) => {
 module.exports = {
     createRecipe,
     getRecipes,
-    getRecipeById,
+    getRecipesByName,
     updateRecipe,
     deleteRecipe
 };
