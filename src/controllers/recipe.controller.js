@@ -15,7 +15,7 @@ const createRecipe = async (req, res) => {
       observaciones,
     } = req.body;
 
-    // Validación campos obligatorios
+    // Validación de campos obligatorios
     if (
       !nombreDelMedicamento ||
       !presentacion ||
@@ -28,22 +28,27 @@ const createRecipe = async (req, res) => {
       return res.status(400).json({ error: "Faltan campos obligatorios" });
     }
 
-    // Validaciones
+    // Validaciones básicas de formato
     if (!/^[A-Za-zÁÉÍÓÚáéíóúÑñ0-9 ]{1,60}$/.test(nombreDelMedicamento)) {
       return res.status(400).json({
-        error: "El nombre del medicamento debe tener solo letras, números o espacios y no superar los 60 caracteres",
+        error:
+          "El nombre del medicamento debe tener solo letras, números o espacios y no superar los 60 caracteres",
       });
     }
 
     if (isNaN(cantidad) || cantidad < 1 || cantidad > 2) {
-      return res.status(400).json({ error: "La cantidad debe ser un número válido entre 1 y 2" });
+      return res
+        .status(400)
+        .json({ error: "La cantidad debe ser un número válido entre 1 y 2" });
     }
 
     if (!/^[0-9]{7,9}$/.test(numeroDeDocumento)) {
-      return res.status(400).json({ error: "El número de documento debe tener entre 7 y 9 dígitos" });
+      return res
+        .status(400)
+        .json({ error: "El número de documento debe tener entre 7 y 9 dígitos" });
     }
 
-    // Validación de fecha
+    // Validación de fecha (debe estar en el mes actual o siguiente)
     const fecha = new Date(fechaDeEmision);
     const hoy = new Date();
     const inicioMesActual = new Date(hoy.getFullYear(), hoy.getMonth(), 1);
@@ -51,30 +56,61 @@ const createRecipe = async (req, res) => {
 
     if (fecha < inicioMesActual || fecha > finMesSiguiente) {
       return res.status(400).json({
-        error: "La fecha de emisión debe estar dentro del mes actual o el siguiente"
+        error:
+          "La fecha de emisión debe estar dentro del mes actual o el siguiente",
       });
     }
 
-    // Validación límite de 2 recetas por paciente por mes
-    const mes = fecha.getMonth();        
+    const mes = fecha.getMonth();
     const anio = fecha.getFullYear();
 
+    //  No permitir recetas idénticas en el mismo mes
+    const recetasIdenticasMes = await Recipe.findAll({
+      where: {
+        paciente: paciente,
+        nombreDelMedicamento: nombreDelMedicamento,
+        fechaDeEmision: {
+          [Op.gte]: new Date(anio, mes, 1),
+          [Op.lte]: new Date(anio, mes + 1, 0),
+        },
+      },
+    });
+
+    if (recetasIdenticasMes.length > 0) {
+      return res.status(400).json({
+        error: `Ya existe una receta para "${nombreDelMedicamento}" en el mes seleccionado. No se permiten recetas idénticas en el mismo mes.`,
+      });
+    }
+
+    // Validar límite de 2 unidades por paciente por mes
     const recetasMes = await Recipe.findAll({
       where: {
         paciente,
         fechaDeEmision: {
           [Op.gte]: new Date(anio, mes, 1),
-          [Op.lte]: new Date(anio, mes + 1, 0)
-        }
-      }
+          [Op.lte]: new Date(anio, mes + 1, 0),
+        },
+      },
     });
 
-const totalCantidad = recetasMes.reduce((acc, r) => acc + r.cantidad, 0);
-if (totalCantidad + cantidad > 2) {
-  return res.status(400).json({
-    error: "Este paciente ya alcanzó el límite de 2 unidades en el mes seleccionado"
-  });
-}
+    const totalCantidad = recetasMes.reduce(
+      (acc, r) => acc + parseInt(r.cantidad),
+      0
+    );
+
+    if (totalCantidad + parseInt(cantidad) > 2) {
+      return res.status(400).json({
+        error: `Este paciente ya tiene ${totalCantidad} unidades en el mes seleccionado. No puede superar 2 unidades.`,
+      });
+    }
+
+    // Límite de 30 recetas diferentes por mes
+    if (recetasMes.length >= 30) {
+      return res.status(400).json({
+        error:
+          "Se ha alcanzado el límite de 30 recetas diferentes por mes para este paciente",
+      });
+    }
 
     // Crear receta
     const nuevaReceta = await Recipe.create({
@@ -89,11 +125,11 @@ if (totalCantidad + cantidad > 2) {
     });
 
     res.status(201).json(nuevaReceta);
-
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
+
 
 // Obtener todas las recetas
 const getRecipes = async (req, res) => {
@@ -134,49 +170,101 @@ const getRecipeById = async (req, res) => {
 const updateRecipe = async (req, res) => {
   try {
     const receta = await Recipe.findByPk(req.params.id);
-    if (!receta) return res.status(404).json({ error: "Receta no encontrada" });
+    if (!receta)
+      return res.status(404).json({ error: "Receta no encontrada" });
 
     const data = req.body;
 
-    if (data.nombreDelMedicamento && !/^[A-Za-zÁÉÍÓÚáéíóúÑñ0-9 ]{1,60}$/.test(data.nombreDelMedicamento)) {
-      return res.status(400).json({ error: "El nombre del medicamento debe tener solo letras, números o espacios y no superar los 60 caracteres" });
+    // Validaciones básicas
+    if (
+      data.nombreDelMedicamento &&
+      !/^[A-Za-zÁÉÍÓÚáéíóúÑñ0-9 ]{1,60}$/.test(data.nombreDelMedicamento)
+    ) {
+      return res.status(400).json({
+        error:
+          "El nombre del medicamento debe tener solo letras, números o espacios y no superar los 60 caracteres",
+      });
     }
 
-    if (data.numeroDeDocumento && !/^[0-9]{7,9}$/.test(data.numeroDeDocumento)) {
-      return res.status(400).json({ error: "El número de documento debe tener entre 7 y 9 dígitos" });
+    if (
+      data.numeroDeDocumento &&
+      !/^[0-9]{7,9}$/.test(data.numeroDeDocumento)
+    ) {
+      return res
+        .status(400)
+        .json({ error: "El número de documento debe tener entre 7 y 9 dígitos" });
     }
 
+    // Si se modifica la fecha de emisión, validar todo lo relacionado
     if (data.fechaDeEmision) {
       const fecha = new Date(data.fechaDeEmision);
       const hoy = new Date();
       const inicioMesActual = new Date(hoy.getFullYear(), hoy.getMonth(), 1);
       const finMesSiguiente = new Date(hoy.getFullYear(), hoy.getMonth() + 2, 0);
 
+      // Validación de rango de fecha
       if (fecha < inicioMesActual || fecha > finMesSiguiente) {
-        return res.status(400).json({ error: "La fecha de emisión debe estar dentro del mes actual o el siguiente" });
+        return res.status(400).json({
+          error: "La fecha de emisión debe estar dentro del mes actual o el siguiente",
+        });
       }
 
-      // Validación límite de 2 recetas por paciente por mes (excepto esta receta) 
       const mes = fecha.getMonth();
       const anio = fecha.getFullYear();
-      const recetasMes = await Recipe.findAll({
+
+      // No permitir recetas idénticas en el mismo mes (excluyendo la actual)
+      const recetasIdenticasMes = await Recipe.findAll({
         where: {
-          paciente: receta.paciente,
+          paciente: data.paciente || receta.paciente,
+          nombreDelMedicamento: data.nombreDelMedicamento || receta.nombreDelMedicamento,
           fechaDeEmision: {
             [Op.gte]: new Date(anio, mes, 1),
-            [Op.lte]: new Date(anio, mes + 1, 0)
+            [Op.lte]: new Date(anio, mes + 1, 0),
           },
-          id: { [Op.ne]: receta.id }
-        }
+          id: { [Op.ne]: receta.id },
+        },
       });
 
-      if (recetasMes.length >= 2) {
+      if (recetasIdenticasMes.length > 0) {
         return res.status(400).json({
-          error: "Este paciente ya tiene 2 recetas en el mes seleccionado"
+          error: `Ya existe una receta para "${data.nombreDelMedicamento || receta.nombreDelMedicamento}" en el mes seleccionado. No se permiten recetas idénticas en el mismo mes.`,
+        });
+      }
+
+      //Límite de 2 unidades por paciente por mes
+      const recetasMes = await Recipe.findAll({
+        where: {
+          paciente: data.paciente || receta.paciente,
+          fechaDeEmision: {
+            [Op.gte]: new Date(anio, mes, 1),
+            [Op.lte]: new Date(anio, mes + 1, 0),
+          },
+          id: { [Op.ne]: receta.id },
+        },
+      });
+
+      const totalCantidad = recetasMes.reduce(
+        (acc, r) => acc + parseInt(r.cantidad),
+        0
+      );
+      const nuevaCantidad = parseInt(data.cantidad || receta.cantidad);
+
+      if (totalCantidad + nuevaCantidad > 2) {
+        return res.status(400).json({
+          error: `Este paciente ya tiene ${totalCantidad} unidades en el mes seleccionado. No puede superar 2 unidades.`,
+        });
+      }
+
+      //  Límite de 30 recetas diferentes por mes
+      if (recetasMes.length >= 30) {
+        return res.status(400).json({
+          error:
+            "Se ha alcanzado el límite de 30 recetas diferentes por mes para este paciente",
         });
       }
     }
 
+    // Actualizar receta
     const recetaModificada = await receta.update(data);
     res.status(200).json(recetaModificada);
 
@@ -184,6 +272,7 @@ const updateRecipe = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
 
 // Eliminar receta
 const deleteRecipe = async (req, res) => {

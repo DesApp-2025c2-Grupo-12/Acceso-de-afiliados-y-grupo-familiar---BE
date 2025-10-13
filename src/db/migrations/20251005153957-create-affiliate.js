@@ -33,6 +33,16 @@ module.exports = {
       perteneceA: {
         type: Sequelize.STRING
       },
+
+
+      parentesco: { //AGREGA ESTO 
+          type: Sequelize.STRING,
+          allowNull: false
+        },
+      
+
+
+
       planMedico: {
         type: Sequelize.STRING
       },
