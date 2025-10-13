@@ -1,8 +1,7 @@
 const express = require("express");
 const cors = require("cors");
-const db = require("./db/models");
 
-// Importar rutas
+const db = require("./db/models");
 const rutaAfiliados = require("./routes/affiliate.routes");
 const rutaRecetas = require("./routes/recipe.routes");
 
@@ -17,12 +16,14 @@ app.use(express.json());
 app.use("/affiliate", rutaAfiliados);
 app.use("/recipes", rutaRecetas);
 
+// Función de inicio
 const start = async () => {
   try {
     await db.sequelize.authenticate();
     console.log("✔️ Conexión a la base de datos OK");
 
-    await db.sequelize.sync({ alter: true });
+    await db.sequelize.sync();
+
     console.log("✔️ Generación de tablas OK");
 
     app.listen(PORT, () => {
