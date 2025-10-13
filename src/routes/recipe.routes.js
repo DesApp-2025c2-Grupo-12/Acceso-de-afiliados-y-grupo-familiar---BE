@@ -1,12 +1,20 @@
-const { Router } = require("express");
-const router = Router();
-const RecipeControllers = require("../controllers/recipe.controller");
+const express = require("express");
+const router = express.Router();
+const {
+  createRecipe,
+  getRecipes,
+  getRecipesByName,
+  updateRecipe,
+  deleteRecipe,
+  getRecipeById
+} = require("../controllers/recipe.controller");
 
-router.get("/", RecipeControllers.getRecipes); 
-router.get("/buscar", RecipeControllers.getRecipesByName); 
-router.get("/:id", RecipeControllers.getRecipeById); 
-router.post("/", RecipeControllers.createRecipe);
-router.put("/:id", RecipeControllers.updateRecipe);
-router.delete("/:id", RecipeControllers.deleteRecipe);
+// Definición de rutas
+router.get("/", getRecipes);
+router.get("/buscar", getRecipesByName);
+router.get("/:id", getRecipeById);
+router.post("/", createRecipe);
+router.put("/:id", updateRecipe);
+router.delete("/:id", deleteRecipe);
 
 module.exports = router;

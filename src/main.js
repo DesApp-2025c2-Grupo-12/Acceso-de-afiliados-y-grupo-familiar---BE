@@ -1,12 +1,10 @@
 const express = require("express");
 const cors = require("cors");
-
 const db = require("./db/models");
+
+// Importar rutas
 const rutaAfiliados = require("./routes/affiliate.routes");
 const rutaRecetas = require("./routes/recipe.routes");
-
-const affiliate = require("./db/models/affiliate");
-const recipe = require("./db/models/recipe");
 
 const app = express();
 const PORT = 3000;
@@ -36,4 +34,3 @@ const start = async () => {
 };
 
 start();
-
