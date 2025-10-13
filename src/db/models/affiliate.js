@@ -22,6 +22,7 @@ module.exports = (sequelize, DataTypes) => {
     numeroDeAfiliado: {type:DataTypes.STRING,allowNull:false},
     situacionTerapeutica: {type:DataTypes.STRING,allowNull:false},
     parentesco: {type:DataTypes.STRING,allowNull:false},
+    perteneceA: {type:DataTypes.STRING,allowNull:false},
     planMedico: {type:DataTypes.STRING,allowNull:false},
     telefono: {type:DataTypes.STRING,allowNull:false},
     correoElectronico: {type:DataTypes.STRING,allowNull:false},

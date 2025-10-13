@@ -30,7 +30,7 @@ module.exports = {
       situacionTerapeutica: {
         type: Sequelize.STRING
       },
-      parentesco: {
+      perteneceA: {
         type: Sequelize.STRING
       },
       planMedico: {

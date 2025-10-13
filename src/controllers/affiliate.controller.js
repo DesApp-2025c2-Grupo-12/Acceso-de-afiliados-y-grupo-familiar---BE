@@ -136,6 +136,42 @@ const esSuContraseña = async (req, res) => {
 
 }
 
+const getAffiliateByDocument = async (req, res) => {
+  
+  try {
+    const documento = req.params.documento
+
+    const usuarioVerificado = await Affiliate.findOne({
+      where: { numeroDeDocumento: documento }
+    });
+    if (!usuarioVerificado) {
+      return res.status(404).json({ message: "Afiliado no encontrado" });
+    }
+    res.status(201).json(usuarioVerificado)
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
+
+
+const getGrupoFamiliar = async (req,res) => {
+   try {
+    const documento = req.params.documento
+
+    const grupoFamiliar = await Affiliate.findAll({
+      where: { perteneceA: documento }
+    });
+    if (!grupoFamiliar) {
+      return res.status(404).json({ message: "Grupo Familiar  no encontrado" });
+    }
+    res.status(201).json(grupoFamiliar)
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
+
+
+
 
 module.exports = {
   createAffiliate,
@@ -146,5 +182,9 @@ module.exports = {
   verificarsiHayAfiliadoConDocumento,
   agregarContraseña,
   tieneContraseña,
-  esSuContraseña
+  esSuContraseña,
+  getAffiliateByDocument,
+  getGrupoFamiliar
 }
+
+
