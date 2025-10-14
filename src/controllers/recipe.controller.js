@@ -85,15 +85,15 @@ const createRecipe = async (req, res) => {
 
     // Límite de 2 unidades por paciente por mes
     const recetasMes = await Recipe.findAll({
-      where: {
-        paciente,
-        fechaDeEmision: {
-          [Op.gte]: new Date(anio, mes, 1),
-          [Op.lte]: new Date(anio, mes + 1, 0),
-        },
-      },
-    });
-
+  where: {
+    paciente,
+    nombreDelMedicamento, // 🔹 solo mismo medicamento
+    fechaDeEmision: {
+      [Op.gte]: new Date(anio, mes, 1),
+      [Op.lte]: new Date(anio, mes + 1, 0),
+    },
+  },
+});
     const totalCantidad = recetasMes.reduce(
       (acc, r) => acc + parseInt(r.cantidad),
       0
@@ -231,16 +231,17 @@ const updateRecipe = async (req, res) => {
         });
       }
 
-      const recetasMes = await Recipe.findAll({
-        where: {
-          paciente: data.paciente || receta.paciente,
-          fechaDeEmision: {
-            [Op.gte]: new Date(anio, mes, 1),
-            [Op.lte]: new Date(anio, mes + 1, 0),
-          },
-          id: { [Op.ne]: receta.id },
-        },
-      });
+   const recetasMes = await Recipe.findAll({
+  where: {
+    paciente: data.paciente || receta.paciente,
+    nombreDelMedicamento: data.nombreDelMedicamento || receta.nombreDelMedicamento, // 🔹 filtra por medicamento
+    fechaDeEmision: {
+      [Op.gte]: new Date(anio, mes, 1),
+      [Op.lte]: new Date(anio, mes + 1, 0),
+    },
+    id: { [Op.ne]: receta.id },
+  },
+});
 
       const totalCantidad = recetasMes.reduce(
         (acc, r) => acc + parseInt(r.cantidad),
