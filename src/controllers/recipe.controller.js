@@ -1,7 +1,7 @@
 const { Recipe } = require("../db/models");
 const { Op } = require("sequelize");
 
-// ✅ Crear receta
+//  Crear receta
 const createRecipe = async (req, res) => {
   try {
     const {
@@ -154,7 +154,7 @@ const createRecipe = async (req, res) => {
   }
 };
 
-// ✅ Obtener todas las recetas
+//  Obtener todas las recetas
 const getRecipes = async (req, res) => {
   try {
     const recetas = await Recipe.findAll();
@@ -164,7 +164,7 @@ const getRecipes = async (req, res) => {
   }
 };
 
-// ✅ Obtener receta por ID
+// Obtener receta por ID
 const getRecipeById = async (req, res) => {
   try {
     const receta = await Recipe.findByPk(req.params.id);
@@ -175,7 +175,7 @@ const getRecipeById = async (req, res) => {
   }
 };
 
-// ✅ Obtener recetas por nombre de medicamento
+// Obtener recetas por nombre de medicamento
 const getRecipesByName = async (req, res) => {
   try {
     const { nombre } = req.query;
@@ -190,7 +190,7 @@ const getRecipesByName = async (req, res) => {
   }
 };
 
-// ✅ Actualizar receta
+// Actualizar receta
 const updateRecipe = async (req, res) => {
   try {
     const receta = await Recipe.findByPk(req.params.id);
@@ -270,7 +270,7 @@ const updateRecipe = async (req, res) => {
   }
 };
 
-// ✅ Eliminar receta (solo si no está aprobada)
+// Eliminar receta (solo si no está aprobada)
 const deleteRecipe = async (req, res) => {
   try {
     const receta = await Recipe.findByPk(req.params.id);
