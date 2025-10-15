@@ -27,6 +27,7 @@ const createRecipe = async (req, res) => {
       return res.status(400).json({ error: "Faltan campos obligatorios" });
     }
 
+
     // Validar estado
     if (!["Pendiente", "Aprobada"].includes(estado)) {
       return res
