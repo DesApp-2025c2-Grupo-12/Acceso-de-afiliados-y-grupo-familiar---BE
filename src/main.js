@@ -22,7 +22,7 @@ const start = async () => {
     await db.sequelize.authenticate();
     console.log("✔️ Conexión a la base de datos OK");
 
-    await db.sequelize.sync();
+    await db.sequelize.sync({alter: true});
 
     console.log("✔️ Generación de tablas OK");
 
