@@ -5,6 +5,7 @@ const db = require("./db/models");
 const rutaAfiliados = require("./routes/affiliate.routes");
 const rutaRecetas = require("./routes/recipe.routes");
 const rutaReintegros = require("./routes/refund.routes")
+const rutaAutorizaciones = require("./routes/authorization.routes")
 
 const app = express();
 const PORT = 3000;
@@ -17,6 +18,7 @@ app.use(express.json());
 app.use("/affiliate", rutaAfiliados);
 app.use("/recipes", rutaRecetas);
 app.use("/refund", rutaReintegros)
+app.use("/authorization", rutaAutorizaciones)
 
 // Función de inicio
 const start = async () => {
