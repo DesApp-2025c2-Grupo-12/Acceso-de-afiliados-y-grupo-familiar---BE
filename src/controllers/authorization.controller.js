@@ -1,6 +1,6 @@
 const { Authorization } = require("../db/models");
 
-// Creación de una autorización
+// Crear una autorización
 const createAuthorization = async (req, res) => {
     try {
         // Validación de campos obligatorios

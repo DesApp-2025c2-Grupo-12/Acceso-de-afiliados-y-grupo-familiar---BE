@@ -1,6 +1,6 @@
 const { Refund } = require("../db/models");
 
-// Creacion de reintegro
+// Crear un reintegro
 const createRefund = async (req, res) => {
     try {
         // Validación de campos obligatorios
@@ -66,7 +66,7 @@ const getRefundById = async (req, res) => {
     }
 };
 
-// actualizacion de un reintegro
+// actualizar un reintegro
 const updateRefund = async (req, res) => {
     try {
         const id = req.params.id;
@@ -81,7 +81,7 @@ const updateRefund = async (req, res) => {
     }
 };
 
-// eliminación de un reintegro
+// eliminar un reintegro
 const deleteRefund = async (req, res) => {
     try {
         const id = req.params.id;
