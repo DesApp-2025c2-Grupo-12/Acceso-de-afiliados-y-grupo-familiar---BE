@@ -7,6 +7,7 @@ const rutaRecetas = require("./routes/recipe.routes");
 const rutaReintegros = require("./routes/refund.routes")
 const rutaAutorizaciones = require("./routes/authorization.routes")
 const rutaTurnos = require("./routes/appointment.routes")
+const rutaAgendaDeTurnos = require("./routes/appointmentSchedule.routes")
 
 const app = express();
 const PORT = 3000;
@@ -21,6 +22,7 @@ app.use("/recipes", rutaRecetas);
 app.use("/refund", rutaReintegros)
 app.use("/authorization", rutaAutorizaciones)
 app.use("/appointment", rutaTurnos)
+app.use("/appointmentSchedule", rutaAgendaDeTurnos)
 
 // Función de inicio
 const start = async () => {
