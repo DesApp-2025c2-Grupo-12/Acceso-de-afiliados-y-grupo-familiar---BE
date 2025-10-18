@@ -9,32 +9,20 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      presentacion: {
+      nombreDelPrestador: {
         type: Sequelize.STRING
       },
-      nombreDelPrestador: {
+      lugarDeAtencion: {
         type: Sequelize.STRING
       },
       especialidad: {
         type: Sequelize.STRING
       },
-      nombreDelPaciente: {
-        type: Sequelize.STRING
-      },
-      fechaDeEmision: {
-        type: Sequelize.DATEONLY
-      },
-      hora: {
+      horario: {
         type: Sequelize.TIME
       },
-      lugarDeAtencion: {
-        type: Sequelize.STRING
-      },
-      estado: {
-        type: Sequelize.STRING
-      },
-      observaciones: {
-        type: Sequelize.STRING
+      fecha: {
+        type: Sequelize.DATEONLY
       },
       createdAt: {
         allowNull: false,

@@ -5,23 +5,19 @@ const createAppointment = async (req, res) => {
     try {
         // Validación de campos obligatorios
         const {
-            presentacion,
             nombreDelPrestador,
-            especialidad,
-            fechaDeEmision,
-            hora,
             lugarDeAtencion,
-            estado
+            especialidad,
+            horario,
+            fecha
         } = req.body;
 
         if (
-            !presentacion ||
             !nombreDelPrestador ||
-            !especialidad ||
-            !fechaDeEmision ||
-            !hora ||
             !lugarDeAtencion ||
-            !estado
+            !especialidad ||
+            !horario ||
+            !fecha 
         ) {
             return res.status(400).json({ error: "Faltan campos obligatorios" });
         }

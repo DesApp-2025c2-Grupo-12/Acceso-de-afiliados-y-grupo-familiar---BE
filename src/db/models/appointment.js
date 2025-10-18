@@ -14,15 +14,11 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Appointment.init({
-    presentacion: {type:DataTypes.STRING, allowNull:false},
     nombreDelPrestador: {type:DataTypes.STRING, allowNull:false},
-    especialidad: {type:DataTypes.STRING, allowNull:false},
-    nombreDelPaciente: {type:DataTypes.STRING},
-    fechaDeEmision: {type:DataTypes.DATEONLY, allowNull:false},
-    hora: {type:DataTypes.TIME, allowNull:false},
     lugarDeAtencion: {type:DataTypes.STRING, allowNull:false},
-    estado: {type:DataTypes.STRING, allowNull:false},
-    observaciones: {type:DataTypes.STRING}
+    especialidad: {type:DataTypes.STRING, allowNull:false},
+    horario: {type:DataTypes.TIME, allowNull:false},
+    fecha: {type:DataTypes.DATEONLY, allowNull:false}
   }, {
     sequelize,
     modelName: 'Appointment',
