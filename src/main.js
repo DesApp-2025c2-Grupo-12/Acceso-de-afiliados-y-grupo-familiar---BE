@@ -8,6 +8,7 @@ const rutaReintegros = require("./routes/refund.routes")
 const rutaAutorizaciones = require("./routes/authorization.routes")
 const rutaTurnos = require("./routes/appointment.routes")
 const rutaAgendaDeTurnos = require("./routes/appointmentSchedule.routes")
+const rutaPrestadores = require("./routes/provider.routes")
 
 const app = express();
 const PORT = 3000;
@@ -23,6 +24,7 @@ app.use("/refund", rutaReintegros)
 app.use("/authorization", rutaAutorizaciones)
 app.use("/appointment", rutaTurnos)
 app.use("/appointmentSchedule", rutaAgendaDeTurnos)
+app.use("/provider", rutaPrestadores)
 
 // Función de inicio
 const start = async () => {
