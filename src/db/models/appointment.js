@@ -10,15 +10,18 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      this.belongsTo(models.Affiliate, {
+        foreignKey: 'affiliateId',
+        as: 'afiliado',
+      })
     }
   }
   Appointment.init({
-    nombreDelPrestador: {type:DataTypes.STRING, allowNull:false},
-    lugarDeAtencion: {type:DataTypes.STRING, allowNull:false},
-    especialidad: {type:DataTypes.STRING, allowNull:false},
-    horario: {type:DataTypes.TIME, allowNull:false},
-    fecha: {type:DataTypes.DATEONLY, allowNull:false}
+    nombreDelPrestador: { type: DataTypes.STRING, allowNull: false },
+    lugarDeAtencion: { type: DataTypes.STRING, allowNull: false },
+    especialidad: { type: DataTypes.STRING, allowNull: false },
+    horario: { type: DataTypes.TIME, allowNull: false },
+    fecha: { type: DataTypes.DATEONLY, allowNull: false }
   }, {
     sequelize,
     modelName: 'Appointment',

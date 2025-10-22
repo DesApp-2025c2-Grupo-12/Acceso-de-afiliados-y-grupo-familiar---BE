@@ -1,4 +1,7 @@
+const { where } = require("sequelize");
 const { Appointment } = require("../db/models");
+const { Affiliate } = require("../db/models/");
+
 
 // crear un turno médico
 const createAppointment = async (req, res) => {
@@ -9,7 +12,7 @@ const createAppointment = async (req, res) => {
             lugarDeAtencion,
             especialidad,
             horario,
-            fecha
+            fecha,
         } = req.body;
 
         if (
@@ -17,7 +20,7 @@ const createAppointment = async (req, res) => {
             !lugarDeAtencion ||
             !especialidad ||
             !horario ||
-            !fecha 
+            !fecha
         ) {
             return res.status(400).json({ error: "Faltan campos obligatorios" });
         }
@@ -82,11 +85,66 @@ const deleteAppointment = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 };
+//obtenes todos los turnos de un afiliado en especifico
+
+const apointmentsFromAffiliate = async (req, res) => {
+    try {
+        const idAfilliate = req.params.id;
+        const affiliateExists = await Affiliate.findByPk(idAfilliate);
+        if (!affiliateExists) {
+            return res.status(404).json({ error: "Afiliado no encontrado" })
+        }
+        const afilliatedAppointments = await Appointment.findAll(
+            { where: { AffiliateId: idAfilliate } }
+        );
+        if (afilliatedAppointments.length === 0) {
+            return res.status(404).json({ error: "Afiliado no tiene turnos" })
+        }
+        res.status(200).json(afilliatedAppointments);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}
+
+
+//obtener todos los turnos sin reservar por ningun afiliado 
+const unreservedAppointments = async (req, res) => {
+    try {
+        
+        const unreserved = await Appointment.findAll({
+            where: { AffiliateId: null }
+        });
+        
+        if (unreserved.length === 0) {  
+            return res.status(404).json({ error: "No hay turnos que no hayan sido reservados" });
+        }
+        
+        res.status(200).json(unreserved);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}
+
+const especialidadesDisponibles = async(req,res) => {
+    try {
+        const turnosMedicos = await Appointment.findAll();
+    
+        const especialidades = [...new Set(turnosMedicos.map(turno => turno.especialidad))];
+
+        res.status(200).json(especialidades);
+        
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}
 
 module.exports = {
     createAppointment,
     getAppointments,
     getAppointmentById,
     updateAppointment,
-    deleteAppointment
+    deleteAppointment,
+    apointmentsFromAffiliate,
+    unreservedAppointments,
+    especialidadesDisponibles
 }
