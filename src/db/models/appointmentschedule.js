@@ -18,7 +18,8 @@ module.exports = (sequelize, DataTypes) => {
     lugarDeAtencion: {type:DataTypes.STRING, allowNull:false},
     especialidad: {type:DataTypes.STRING, allowNull:false},
     horarioInicio: {type:DataTypes.TIME, allowNull:false},
-    horarioFin: {type:DataTypes.TIME,  allowNull:false}
+    horarioFin: {type:DataTypes.TIME, allowNull:false},
+    dias: {type:DataTypes.STRING, allowNull:false}
   }, {
     sequelize,
     modelName: 'AppointmentSchedule',

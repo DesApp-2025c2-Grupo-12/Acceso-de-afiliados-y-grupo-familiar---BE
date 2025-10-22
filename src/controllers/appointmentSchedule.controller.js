@@ -9,7 +9,8 @@ const createAppointmentSchedule = async (req, res) => {
             lugarDeAtencion,
             especialidad,
             horarioInicio,
-            horarioFin
+            horarioFin,
+            dias
         } = req.body;
 
         if (
@@ -17,7 +18,8 @@ const createAppointmentSchedule = async (req, res) => {
             !lugarDeAtencion ||
             !especialidad ||
             !horarioInicio ||
-            !horarioFin
+            !horarioFin ||
+            !dias
         ) {
             return res.status(400).json({ error: "Faltan campos obligatorios" });
         }

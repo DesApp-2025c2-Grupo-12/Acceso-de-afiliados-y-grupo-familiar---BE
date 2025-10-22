@@ -2,38 +2,29 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Providers', {
+    await queryInterface.createTable('AppointmentSchedules', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      numeroDeCuit_Cuil: {
+      nombreDelPrestador: {
         type: Sequelize.STRING
       },
-      nombreCompleto: {
+      lugarDeAtencion: {
         type: Sequelize.STRING
       },
       especialidad: {
         type: Sequelize.STRING
       },
-      esCentroOIndep: {
-        type: Sequelize.STRING
+      horarioInicio: {
+        type: Sequelize.TIME
       },
-      integraCentro: {
-        type: Sequelize.STRING
+      horarioFin: {
+        type: Sequelize.TIME
       },
-      telefono: {
-        type: Sequelize.STRING
-      },
-      correoElectronico: {
-        type: Sequelize.STRING
-      },
-      direccion: {
-        type: Sequelize.STRING
-      },
-      horarioDeAtencion: {
+      dias: {
         type: Sequelize.STRING
       },
       createdAt: {
@@ -47,6 +38,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Providers');
+    await queryInterface.dropTable('AppointmentSchedules');
   }
 };
