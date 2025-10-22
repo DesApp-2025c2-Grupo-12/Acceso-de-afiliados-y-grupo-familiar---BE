@@ -8,24 +8,26 @@ const createProvider = async (req, res) => {
             numeroDeCuit_Cuil,
             nombreCompleto,
             especialidad,
-            esCentroOIndep,
-            integraCentro,
+            esCentro,
             telefono,
             correoElectronico,
             direccion,
-            horarioDeAtencion
+            horarioInicio,
+            horarioFin, 
+            dias
         } = req.body;
 
         if (
             !numeroDeCuit_Cuil ||
             !nombreCompleto ||
             !especialidad ||
-            !esCentroOIndep||
-            !integraCentro ||
+            !esCentro == null ||
             !telefono || 
             !correoElectronico || 
             !direccion || 
-            !horarioDeAtencion 
+            !horarioInicio ||
+            !horarioFin ||
+            !dias
         ) {
             return res.status(400).json({ error: "Faltan campos obligatorios" });
         }
