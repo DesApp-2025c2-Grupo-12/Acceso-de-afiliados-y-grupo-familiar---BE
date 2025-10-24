@@ -1,40 +1,18 @@
 const { Provider } = require("../db/models");
+const validateProvider = require("../validators/validateProvider");
 
 // Crear un prestador
 const createProvider = async (req, res) => {
     try {
-        // Validación de campos obligatorios
-        const {
-            numeroDeCuit_Cuil,
-            nombreCompleto,
-            especialidad,
-            esCentro,
-            telefono,
-            correoElectronico,
-            direccion,
-            horarioInicio,
-            horarioFin, 
-            dias
-        } = req.body;
-
-        if (
-            !numeroDeCuit_Cuil ||
-            !nombreCompleto ||
-            !especialidad ||
-            !esCentro == null ||
-            !telefono || 
-            !correoElectronico || 
-            !direccion || 
-            !horarioInicio ||
-            !horarioFin ||
-            !dias
-        ) {
-            return res.status(400).json({ error: "Faltan campos obligatorios" });
+        const errores = validateProvider(req.body);
+        if (errores.length > 0) {
+            return res.status(400).json({ errores });
         }
 
         // Crear prestador
         const nuevoPrestador = await Provider.create(req.body);
         res.status(201).json(nuevoPrestador);
+
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -46,20 +24,20 @@ const createProvider = async (req, res) => {
 const { Op } = require("sequelize");
 
 const getProviders = async (req, res) => {
-  try {
-    const { nombre, especialidad, location, zona } = req.query;
-    const where = {};
+    try {
+        const { nombre, especialidad, location, zona } = req.query;
+        const where = {};
 
-    if (nombre) where.nombreCompleto = { [Op.iLike]: `%${nombre}%` };
-    if (especialidad) where.especialidad = especialidad;
-    if (location) where.direccion = { [Op.iLike]: `%${location}%` };
-    if (zona) where.integraCentro = zona;
+        if (nombre) where.nombreCompleto = { [Op.iLike]: `%${nombre}%` };
+        if (especialidad) where.especialidad = especialidad;
+        if (location) where.direccion = { [Op.iLike]: `%${location}%` };
+        if (zona) where.integraCentro = zona;
 
-    const prestadores = await Provider.findAll({ where });
-    res.status(200).json(prestadores);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
+        const prestadores = await Provider.findAll({ where });
+        res.status(200).json(prestadores);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
 };
 
 
