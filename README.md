@@ -10,28 +10,52 @@ ACCESO-DE-AFILIADOS-Y-GRUPO-FAMILIAR---BE/
 ├─ src/
 │   ├─ controllers/
 │   │   ├─ affiliate.controller.js
-│   │   └─ recipe.controller.js
+│   │   ├─ appointment.controller.js
+│   │   ├─ authorization.controller.js
+│   │   ├─ provider.controller.js
+│   │   ├─ recipe.controller.js
+│   │   └─ refund.controller.js
 │   │
 │   ├─ db/
 │   │   ├─ config/
 │   │   │   └─ config.json
 │   │   ├─ migrations/
 │   │   │   ├─ 20251005153957-create-affiliate.js
-│   │   │   └─ 20251005155025-create-recipe.js
+│   │   │   ├─ 20251005155025-create-recipe.js
+│   │   │   ├─ 20251017000730-create-authorization.js
+│   │   │   ├─ 20251018205902-create-appointment.js
+│   │   │   ├─ 20251022211210-create-appointment-schedule.js
+│   │   │   └─ 20251022214500-create-provider.js
 │   │   └─ models/
 │   │       ├─ affiliate.js
+│   │       ├─ appointment.js
+│   │       ├─ appointmentschedule.js
+│   │       ├─ authorization.js
+│   │       ├─ provider.js
 │   │       ├─ recipe.js
-│   │       └─ index.js
+│   │       └─ refund.js
+│   │
+│   ├─ seeders/
+│   │   └─ prestadores.json
 │   │
 │   └─ routes/
 │       ├─ affiliate.routes.js
-│       └─ recipe.routes.js
+│       ├─ appointment.routes.js
+│       ├─ appointmentSchedule.routes.js
+│       ├─ authorization.routes.js
+│       ├─ provider.routes.js
+│       ├─ recipe.routes.js
+│       └─ refund.routes.js
 │
 ├─ main.js
+├─ seedProviders.js
 ├─ .gitignore
+├─ 127.0.0.1
 ├─ package.json
 ├─ package-lock.json
 └─ README.md
+
+
 
 ```
 
