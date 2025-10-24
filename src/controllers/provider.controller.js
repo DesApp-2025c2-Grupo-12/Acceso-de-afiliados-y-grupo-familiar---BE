@@ -41,14 +41,27 @@ const createProvider = async (req, res) => {
 };
 
 // Obtener todos los prestadores
+//Esto mantiene la validación esCentro intacta
+// y ya no hace falta filtrar zonas en el frontend.
+const { Op } = require("sequelize");
+
 const getProviders = async (req, res) => {
-    try {
-        const prestadores = await Provider.findAll();
-        res.status(200).json(prestadores);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
+  try {
+    const { nombre, especialidad, location, zona } = req.query;
+    const where = {};
+
+    if (nombre) where.nombreCompleto = { [Op.iLike]: `%${nombre}%` };
+    if (especialidad) where.especialidad = especialidad;
+    if (location) where.direccion = { [Op.iLike]: `%${location}%` };
+    if (zona) where.integraCentro = zona;
+
+    const prestadores = await Provider.findAll({ where });
+    res.status(200).json(prestadores);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 };
+
 
 // Obtener prestador por ID
 const getProviderById = async (req, res) => {

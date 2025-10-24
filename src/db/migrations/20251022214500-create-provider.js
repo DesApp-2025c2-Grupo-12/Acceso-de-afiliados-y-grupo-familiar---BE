@@ -18,6 +18,7 @@ module.exports = {
       especialidad: {
         type: Sequelize.STRING
       },
+      
       esCentro: {
         type: Sequelize.BOOLEAN
       },
