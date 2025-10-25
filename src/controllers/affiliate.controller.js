@@ -186,5 +186,3 @@ module.exports = {
   getAffiliateByDocument,
   getGrupoFamiliar
 }
-
-
