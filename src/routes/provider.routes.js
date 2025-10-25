@@ -1,11 +1,12 @@
 const { Router } = require("express");
 const router = Router();
-const ProviderControllers = require("../controllers/provider.controller");
+const providerController = require("../controllers/providers.controller");
 
-router.get("/", ProviderControllers.getProviders);
-router.get("/:id", ProviderControllers.getProviderById);
-router.post("/", ProviderControllers.createProvider);
-router.put("/:id", ProviderControllers.updateProvider);
-router.delete("/:id", ProviderControllers.deleteProvider);
+
+router.get("/", providerController.getProviders);          
+router.get("/:id", providerController.getProviderById);   
+router.post("/", providerController.createProvider);      
+router.put("/:id", providerController.updateProvider);   
+router.delete("/:id", providerController.deleteProvider); 
 
 module.exports = router;

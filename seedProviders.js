@@ -1,5 +1,5 @@
 const db = require("./src/db/models"); // apunta a tus modelos Sequelize
-const providersData = require("./src/db/seeders/prestadores.json"); // tu JSON
+const providersData = require("./src/db/seeders/prestadores.json"); // mi JSON
 
 const seedProviders = async () => {
   try {
