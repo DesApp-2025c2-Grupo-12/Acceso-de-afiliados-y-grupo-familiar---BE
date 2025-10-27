@@ -1,18 +1,19 @@
-const db = require("./src/db/models"); // apunta a tus modelos Sequelize
-const providersData = require("./src/db/seeders/prestadores.json"); // mi JSON
+const db = require("./src/db/models"); 
+const providersData = require("./src/db/seeders/prestadores.json"); 
 
 const seedProviders = async () => {
   try {
     await db.sequelize.authenticate();
     console.log("✔️ Conectado a la base de datos.");
 
-    await db.sequelize.sync();
+    // Solo para desarrollo: sincronizar tablas y alterar si hay cambios
+    await db.sequelize.sync({ alter: true }); // reemplaza sync() normal
+    console.log("✔️ Tablas sincronizadas (alter:true)");
 
-    // Limpiar tabla antes de cargar
-    await db.Provider.destroy({ where: {} });
+    // ⚠️ Para producción, comentar la siguiente línea para no borrar datos
+    // await db.Provider.destroy({ where: {} });
 
-    // Insertar prestadores del JSON
-    await db.Provider.bulkCreate(providersData);
+    await db.Provider.bulkCreate(providersData, { ignoreDuplicates: true }); 
     console.log(`🚀 ${providersData.length} prestadores cargados correctamente.`);
 
     process.exit(0);
