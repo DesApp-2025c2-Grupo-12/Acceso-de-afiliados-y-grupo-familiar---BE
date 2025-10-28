@@ -10,29 +10,37 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       nombreDelMedicamento: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
       },
       presentacion: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
       },
       paciente: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
       },
       numeroDeDocumento: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
       },
       fechaDeEmision: {
-        type: Sequelize.DATEONLY
+        type: Sequelize.DATEONLY,
+        allowNull: true   // <-- Cambiado para permitir null
       },
       cantidad: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: false
       },
-     estado: {
-    type: Sequelize.STRING
-  },
-  observaciones: {
-    type: Sequelize.STRING
-  },
+      estado: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      observaciones: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
