@@ -3,7 +3,6 @@ const { Authorization } = require("../db/models");
 // Crear una autorización
 const createAuthorization = async (req, res) => {
     try {
-        // Validación de campos obligatorios
         const {
             fechaDePrestacion,
             nombreDelAfiliado,
@@ -12,7 +11,7 @@ const createAuthorization = async (req, res) => {
             lugarDePrestacion,
             diasDeInternacion
         } = req.body;
-
+        // Validación de campos obligatorios
         if (
             !fechaDePrestacion ||
             !nombreDelAfiliado ||
@@ -24,8 +23,17 @@ const createAuthorization = async (req, res) => {
             return res.status(400).json({ error: "Faltan campos obligatorios" });
         }
 
-        // Crear autorización
-        const nuevaAutorizacion = await Authorization.create(req.body);
+        // Crear autorización con estado inicial
+        const nuevaAutorizacion = await Authorization.create({
+            fechaDePrestacion,
+            nombreDelAfiliado,
+            nombreDelMedico,
+            especialidad,
+            lugarDePrestacion,
+            diasDeInternacion,
+            estado: "Pendiente", // por defecto
+        });
+
         res.status(201).json(nuevaAutorizacion);
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -35,7 +43,9 @@ const createAuthorization = async (req, res) => {
 // Obtener todas las autorizaciones
 const getAuthorizations = async (req, res) => {
     try {
-        const autorizaciones = await Authorization.findAll();
+        const autorizaciones = await Authorization.findAll(
+            {order: [["createdAt", "DESC"]],} //esto es para el orden de visualización.
+        );
         res.status(200).json(autorizaciones);
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -56,7 +66,7 @@ const getAuthorizationById = async (req, res) => {
     }
 };
 
-// Actualización de una autorización
+// Actualización de una autorización (ej: estado)
 const updateAuthorization = async (req, res) => {
     try {
         const id = req.params.id;

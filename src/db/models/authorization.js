@@ -20,7 +20,8 @@ module.exports = (sequelize, DataTypes) => {
     especialidad: {type:DataTypes.STRING, allowNull:false},
     lugarDePrestacion: {type:DataTypes.STRING, allowNull:false},
     diasDeInternacion: {type:DataTypes.INTEGER, allowNull:false},
-    observaciones: {type:DataTypes.STRING}
+    observaciones: {type:DataTypes.STRING},
+    estado: {type: DataTypes.ENUM('Pendiente', "Observada", "Rechazada", "En análisis", "Aprobada"), allowNull: false, defaultValue: 'Pendiente'}
   }, {
     sequelize,
     modelName: 'Authorization',
