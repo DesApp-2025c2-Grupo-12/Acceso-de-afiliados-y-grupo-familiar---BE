@@ -21,7 +21,15 @@ module.exports = (sequelize, DataTypes) => {
     lugarDeAtencion: { type: DataTypes.STRING, allowNull: false },
     especialidad: { type: DataTypes.STRING, allowNull: false },
     horario: { type: DataTypes.TIME, allowNull: false },
-    fecha: { type: DataTypes.DATEONLY, allowNull: false }
+    fecha: { type: DataTypes.DATEONLY, allowNull: false },
+    affiliateId: {
+      type: DataTypes.INTEGER,
+      allowNull: true,  
+      references: {
+        model: 'Affiliates',
+        key: 'id'
+      }
+    }
   }, {
     sequelize,
     modelName: 'Appointment',

@@ -17,6 +17,7 @@ const PORT = 3000;
 app.use(cors());
 app.use(express.json());
 
+
 // Rutas
 app.use("/affiliate", rutaAfiliados);
 app.use("/recipes", rutaRecetas);
@@ -31,8 +32,9 @@ const start = async () => {
   try {
     await db.sequelize.authenticate();
     console.log("✔️ Conexión a la base de datos OK");
-    // await db.sequelize.sync({ force: true })
-    await db.sequelize.sync({alter: true});
+    
+    //await db.sequelize.sync({force:true});
+    //await db.sequelize.sync({alter:true});
 
     console.log("✔️ Generación de tablas OK");
 

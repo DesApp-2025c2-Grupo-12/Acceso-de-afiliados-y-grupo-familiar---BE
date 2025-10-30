@@ -60,6 +60,7 @@ const getAppointmentById = async (req, res) => {
 // Actualizar turno medico
 const updateAppointment = async (req, res) => {
     try {
+        
         const id = req.params.id;
         const turnoAModificar = await Appointment.findByPk(id);
         if (!turnoAModificar) {
@@ -110,33 +111,35 @@ const apointmentsFromAffiliate = async (req, res) => {
 //obtener todos los turnos sin reservar por ningun afiliado 
 const unreservedAppointments = async (req, res) => {
     try {
-        
+
         const unreserved = await Appointment.findAll({
-            where: { AffiliateId: null }
+            where: { affiliateId: null }
         });
-        
-        if (unreserved.length === 0) {  
+
+        if (unreserved.length === 0) {
             return res.status(404).json({ error: "No hay turnos que no hayan sido reservados" });
         }
-        
+
         res.status(200).json(unreserved);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 }
 
-const especialidadesDisponibles = async(req,res) => {
+const especialidadesDisponibles = async (req, res) => {
     try {
         const turnosMedicos = await Appointment.findAll();
-    
+
         const especialidades = [...new Set(turnosMedicos.map(turno => turno.especialidad))];
 
         res.status(200).json(especialidades);
-        
+
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 }
+
+
 
 module.exports = {
     createAppointment,
