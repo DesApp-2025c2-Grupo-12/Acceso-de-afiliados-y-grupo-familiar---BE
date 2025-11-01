@@ -27,10 +27,11 @@ const validateRecipeData = async (data, isUpdate = false, recipeId = null) => {
     throw new Error("Las observaciones no pueden superar los 300 caracteres");
   }
 
-  // Estado válido
-  if (estado && !["Pendiente", "Aprobada"].includes(estado)) {
-    throw new Error('El estado debe ser "Pendiente" o "Aprobada"');
-  }
+  // Estado válido 
+ if (estado && !["Recibido", "En análisis", "Observado", "Aprobado", "Rechazado"].includes(estado)) {
+  throw new Error('Estado inválido');
+}
+
 
   // Nombre del medicamento válido
   if (

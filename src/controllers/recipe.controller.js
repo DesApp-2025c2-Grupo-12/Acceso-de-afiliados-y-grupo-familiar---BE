@@ -11,10 +11,13 @@ const createRecipe = async (req, res) => {
     const hoy = new Date();
     const fechaHoy = new Date(hoy.getFullYear(), hoy.getMonth(), hoy.getDate());
 
+    
     const nuevaReceta = await Recipe.create({
-      ...data,
-      fechaDeEmision: fechaHoy,
-    });
+  ...data,
+  fechaDeEmision: fechaHoy,
+  estado: data.estado || "Recibido"
+});
+
 
     res.status(201).json(nuevaReceta);
   } catch (error) {
@@ -75,6 +78,8 @@ const updateRecipe = async (req, res) => {
   }
 };
 
+
+
 // Eliminar receta (solo para prueba)
 const deleteRecipe = async (req, res) => {
   try {
@@ -83,11 +88,14 @@ const deleteRecipe = async (req, res) => {
       return res.status(404).json({ error: "Receta no encontrada" });
     }
 
-    if (receta.estado === "Aprobada") {
-      return res.status(400).json({
-        error: "No se puede eliminar una receta aprobada",
-      });
-    }
+
+       
+ if (receta.estado === "Aprobado") {
+  return res.status(400).json({
+    error: "No se puede eliminar una receta aprobado",
+  });
+}
+
 
     await receta.destroy();
     res.status(200).json({ message: "Receta eliminada correctamente" });
