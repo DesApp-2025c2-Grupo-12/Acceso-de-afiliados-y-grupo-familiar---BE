@@ -38,9 +38,11 @@ ACCESO-DE-AFILIADOS-Y-GRUPO-FAMILIAR---BE/
 │   │   │   └─ refund.js
 │   │   ├─ seeders/
 │   │   │   └─ prestadores.json
+│   │       └─ recetas.json
 │   │   └─ utils/
 │   │       └─ validations/
 │   │           └─ providerValidation.js
+│   │          └─ recipeValidation.js
 │   │
 │   └─ routes/
 │       ├─ affiliate.routes.js

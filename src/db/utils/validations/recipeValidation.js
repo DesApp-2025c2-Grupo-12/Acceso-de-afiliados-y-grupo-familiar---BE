@@ -6,26 +6,33 @@ const validateRecipeData = async (data, isUpdate = false, recipeId = null) => {
     nombreDelMedicamento,
     presentacion,
     paciente,
-    numeroDeDocumento,
     cantidad,
     estado,
     observaciones,
     fechaDeEmision,
   } = data;
 
-  // ✅ Campos obligatorios (ya no pedimos documento ni fecha)
+  // Campos obligatorios al crear receta
   if (!isUpdate) {
-    if (!nombreDelMedicamento || !presentacion || !paciente || !cantidad || !estado) {
-      throw new Error("Faltan campos obligatorios");
-    }
+    if (!paciente) throw new Error("Debe seleccionar un paciente");
+    if (!nombreDelMedicamento) throw new Error("Debe ingresar el nombre del medicamento");
+    if (!presentacion) throw new Error("Debe seleccionar la presentación");
+    if (!cantidad) throw new Error("Cantidad inválida (mínimo 1, máximo 2)");
+    if (!estado) throw new Error('El estado debe ser "Pendiente" o "Aprobada"');
+    if (!observaciones) throw new Error("Debe ingresar observaciones");
   }
 
-  // ✅ Estado válido
+  // Observaciones: máximo 300 caracteres
+  if (observaciones && observaciones.length > 300) {
+    throw new Error("Las observaciones no pueden superar los 300 caracteres");
+  }
+
+  // Estado válido
   if (estado && !["Pendiente", "Aprobada"].includes(estado)) {
     throw new Error('El estado debe ser "Pendiente" o "Aprobada"');
   }
 
-  // ✅ Nombre del medicamento
+  // Nombre del medicamento válido
   if (
     nombreDelMedicamento &&
     !/^[A-Za-zÁÉÍÓÚáéíóúÑñ0-9 ]{1,60}$/.test(nombreDelMedicamento)
@@ -35,7 +42,7 @@ const validateRecipeData = async (data, isUpdate = false, recipeId = null) => {
     );
   }
 
-  // ✅ Cantidad
+  // Cantidad válida (1-2)
   const cantidadNum = parseInt(cantidad);
   if (!isNaN(cantidadNum)) {
     if (cantidadNum < 1 || cantidadNum > 2) {
@@ -45,20 +52,15 @@ const validateRecipeData = async (data, isUpdate = false, recipeId = null) => {
     throw new Error("La cantidad debe ser un número válido entre 1 y 2");
   }
 
-  // Observaciones
-  if (observaciones && observaciones.length > 300) {
-    throw new Error("Las observaciones no pueden superar los 300 caracteres");
-  }
-
-  // Validación de fecha de emisión: solo se valida si la receta ya está aprobada
+  // Validación de fecha de emisión si está aprobada
   if (fechaDeEmision && estado === "Aprobada") {
     const fecha = new Date(fechaDeEmision);
     if (isNaN(fecha.getTime())) {
       throw new Error("La fecha de emisión no es válida");
     }
   }
- 
-  // Validaciones de negocio (solo al crear o actualizar)
+
+  // Validaciones de negocio (solo si hay paciente y medicamento)
   if (paciente && nombreDelMedicamento) {
     const hoy = new Date();
     const mes = hoy.getMonth();
@@ -80,7 +82,7 @@ const validateRecipeData = async (data, isUpdate = false, recipeId = null) => {
     const cantidadTotal = (totalCantidad || 0) + (cantidadNum || 0);
     if (cantidadTotal > 2) {
       throw new Error(
-        `Este paciente ya tiene ${totalCantidad || 0} unidades en el mes. No puede superar 2.`
+        `Este paciente ya tiene ${totalCantidad || 0} unidades de "${nombreDelMedicamento}" este mes (máximo 2)`
       );
     }
 
@@ -99,7 +101,7 @@ const validateRecipeData = async (data, isUpdate = false, recipeId = null) => {
 
       if (recetaExistente) {
         throw new Error(
-          `Ya existe una receta para "${nombreDelMedicamento}" en este mes.`
+          `Ya existe una receta para "${nombreDelMedicamento}" en este mes`
         );
       }
 

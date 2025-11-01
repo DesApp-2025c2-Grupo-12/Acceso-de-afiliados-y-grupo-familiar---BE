@@ -22,6 +22,7 @@ const createRecipe = async (req, res) => {
   }
 };
 
+
 // Obtener todas las recetas (solo para prueba)
 const getRecipes = async (req, res) => {
   try {
