@@ -1,7 +1,6 @@
-// schemas/refundSchemas.js
 const Joi = require('joi');
 
-// Schema base para reembolso
+// Schema base para reintegro
 const refundBaseSchema = Joi.object({
   fechaDePrestacion: Joi.date().iso().required()
     .messages({
@@ -92,10 +91,10 @@ const refundBaseSchema = Joi.object({
     })
 });
 
-// Schema para crear un nuevo reembolso
+// Schema para crear un nuevo reintegro
 const createRefundSchema = refundBaseSchema;
 
-// Schema para actualizar un reembolso (todos los campos opcionales)
+// Schema para actualizar un reintegro (todos los campos opcionales)
 const updateRefundSchema = Joi.object({
   fechaDePrestacion: Joi.date().iso().optional(),
   nombreDelAfiliado: Joi.string().max(150).optional(),
