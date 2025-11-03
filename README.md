@@ -7,6 +7,10 @@ ACCESO-DE-AFILIADOS-Y-GRUPO-FAMILIAR---BE/
 │
 ├─ node_modules/
 │
+├─ seeders/
+│   ├─ 20251030170938-afiliados-fijos.js
+│   └─ 20251030172502-turnos-fijos.js
+│
 ├─ src/
 │   ├─ controllers/
 │   │   ├─ affiliate.controller.js
@@ -20,6 +24,7 @@ ACCESO-DE-AFILIADOS-Y-GRUPO-FAMILIAR---BE/
 │   ├─ db/
 │   │   ├─ config/
 │   │   │   └─ config.json
+│   │   │
 │   │   ├─ migrations/
 │   │   │   ├─ 20251005153957-create-affiliate.js
 │   │   │   ├─ 20251005155025-create-recipe.js
@@ -28,6 +33,7 @@ ACCESO-DE-AFILIADOS-Y-GRUPO-FAMILIAR---BE/
 │   │   │   ├─ 20251018205902-create-appointment.js
 │   │   │   ├─ 20251022211210-create-appointment-schedule.js
 │   │   │   └─ 20251022214500-create-provider.js
+│   │   │
 │   │   ├─ models/
 │   │   │   ├─ affiliate.js
 │   │   │   ├─ appointment.js
@@ -35,31 +41,44 @@ ACCESO-DE-AFILIADOS-Y-GRUPO-FAMILIAR---BE/
 │   │   │   ├─ authorization.js
 │   │   │   ├─ provider.js
 │   │   │   ├─ recipe.js
-│   │   │   └─ refund.js
+│   │   │   ├─ refund.js
+│   │   │   └─ index.js
+│   │   │
 │   │   ├─ seeders/
-│   │   │   └─ prestadores.json
-│   │       └─ recetas.json
+│   │   │   ├─ prestadores.json
+│   │   │   └─ recetas.json
+│   │   │
 │   │   └─ utils/
 │   │       └─ validations/
-│   │           └─ providerValidation.js
-│   │          └─ recipeValidation.js
+│   │           ├─ providerValidation.js
+│   │           ├─ recipeValidation.js
+│   │           └─ validations.js
 │   │
-│   └─ routes/
-│       ├─ affiliate.routes.js
-│       ├─ appointment.routes.js
-│       ├─ appointmentschedule.routes.js
-│       ├─ authorization.routes.js
-│       ├─ provider.routes.js
-│       ├─ recipe.routes.js
-│       └─ refund.routes.js
+│   ├─ middlewares/
+│   │   ├─ validateData.js
+│   │   └─ recipeMiddleware.js
+│   │
+│   ├─ routes/
+│   │   ├─ affiliate.routes.js
+│   │   ├─ appointment.routes.js
+│   │   ├─ appointmentschedule.routes.js
+│   │   ├─ authorization.routes.js
+│   │   ├─ provider.routes.js
+│   │   ├─ recipe.routes.js
+│   │   └─ refund.routes.js
+│   │
+│   └─ schemas/
+│       ├─ refund.schema.js
+│       ├─ recipe.schema.js
+│       └─ provider.schema.js
 │
 ├─ main.js
 ├─ seedProviders.js
 ├─ .gitignore
-├─ 127.0.0.1
 ├─ package.json
 ├─ package-lock.json
-└─ README.md
+├─ README.md
+└─ 127.0.0.1  
 
 
 ```
