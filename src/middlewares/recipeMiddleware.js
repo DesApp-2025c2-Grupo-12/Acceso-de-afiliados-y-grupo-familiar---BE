@@ -1,5 +1,10 @@
-// Middleware específico para recetas usando validateRecipeData
-const { validateRecipeData } = require("../db/utils/validations/recipeValidation");
-const validateData = require("./validateData"); //  middleware genérico
+const { validateSchema } = require('../db/utils/validations/validation');
+const { createRecipeSchema, updateRecipeSchema } = require('../schemas/recipe.schema');
 
-module.exports = validateData(validateRecipeData);
+const validateRecipeSchema = (req, res, next) => {
+  // Elegimos el schema según método HTTP
+  const schema = req.method === 'POST' ? createRecipeSchema : updateRecipeSchema;
+  return validateSchema(schema)(req, res, next);
+};
+
+module.exports = validateRecipeSchema;

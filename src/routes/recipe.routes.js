@@ -10,19 +10,16 @@ const {
   getRecipeById,
 } = require("../controllers/recipe.controller");
 
-// Middleware solo para crear recetas
-const recipeMiddleware = require("../middlewares/recipeMiddleware");
+const validateRecipeSchema = require('../middlewares/recipeMiddleware');
 
 // Rutas de recetas
 router.get("/", getRecipes);
 router.get("/buscar", getRecipesByName);
 router.get("/:id", getRecipeById);
 
-// Crear receta con middleware de validación
-router.post("/", recipeMiddleware, createRecipe);
-
-// Actualizar receta (PUT) sin middleware
-router.put("/:id", updateRecipe);
+// Crear y actualizar con middleware de schema
+router.post("/", validateRecipeSchema, createRecipe);
+router.put("/:id", validateRecipeSchema, updateRecipe);
 
 // Eliminar receta
 router.delete("/:id", deleteRecipe);

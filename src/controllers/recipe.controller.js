@@ -5,18 +5,16 @@ const { validateRecipeData } = require("../db/utils/validations/recipeValidation
 // Crear receta
 const createRecipe = async (req, res) => {
   try {
-    const data = req.body;
+    // Ya pasa por el schema antes de llegar acá
+    await validateRecipeData(req.body); // Solo validaciones de negocio
 
     const hoy = new Date();
     const fechaHoy = new Date(hoy.getFullYear(), hoy.getMonth(), hoy.getDate());
 
-    // Validar datos antes de crear
-    await validateRecipeData(data);
-
     const nuevaReceta = await Recipe.create({
-      ...data,
+      ...req.body,
       fechaDeEmision: fechaHoy,
-      estado: data.estado || "Recibido",
+      estado: req.body.estado || 'Recibido'
     });
 
     res.status(201).json(nuevaReceta);
@@ -24,6 +22,7 @@ const createRecipe = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
+
 
 // Obtener todas las recetas
 const getRecipes = async (req, res) => {
