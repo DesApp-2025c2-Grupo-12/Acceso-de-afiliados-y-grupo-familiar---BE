@@ -1,6 +1,7 @@
 const { where } = require("sequelize");
 const { Appointment } = require("../db/models");
 const { Affiliate } = require("../db/models/");
+const { Op } = require('sequelize'); 
 
 
 // crear un turno médico
@@ -60,7 +61,7 @@ const getAppointmentById = async (req, res) => {
 // Actualizar turno medico
 const updateAppointment = async (req, res) => {
     try {
-        
+
         const id = req.params.id;
         const turnoAModificar = await Appointment.findByPk(id);
         if (!turnoAModificar) {
@@ -139,6 +140,22 @@ const especialidadesDisponibles = async (req, res) => {
     }
 }
 
+const turnosFuturosDeAfiliado = async (req, res) => {
+    try {
+        fechaActual = new Date()
+        const turnos = await Appointment.findAll({
+            where: {
+                affiliateId: req.params.id,
+                fecha: { [Op.gte]: new Date() }
+            }
+
+        })
+        res.status(200).json(turnos);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}
+
 
 
 module.exports = {
@@ -149,5 +166,6 @@ module.exports = {
     deleteAppointment,
     apointmentsFromAffiliate,
     unreservedAppointments,
-    especialidadesDisponibles
+    especialidadesDisponibles,
+    turnosFuturosDeAfiliado
 }
