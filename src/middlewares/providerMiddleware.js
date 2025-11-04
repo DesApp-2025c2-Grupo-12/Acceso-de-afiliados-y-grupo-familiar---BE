@@ -1,17 +1,21 @@
-const { validateProviderQuery } = require("../db/utils/validations/providerValidation");
+const { providerBodySchema, providerQuerySchema } = require('../schemas/provider.schema');
 
-const validateCreateProvider = (req, res, next) => {
- 
+const validateProviderBody = (req, res, next) => {
+  const { error } = providerBodySchema.validate(req.body, { abortEarly: false });
+  if (error) {
+    const errores = error.details.map(d => d.message);
+    return res.status(400).json({ errores });
+  }
   next();
 };
 
-const validateUpdateProvider = (req, res, next) => {
- 
+const validateProviderQuery = (req, res, next) => {
+  const { error } = providerQuerySchema.validate(req.query, { abortEarly: false });
+  if (error) {
+    const errores = error.details.map(d => d.message);
+    return res.status(400).json({ errores });
+  }
   next();
 };
 
-module.exports = {
-  validateProviderQuery,
-  validateCreateProvider,
-  validateUpdateProvider,
-};
+module.exports = { validateProviderBody, validateProviderQuery };

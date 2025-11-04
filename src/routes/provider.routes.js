@@ -1,27 +1,20 @@
 const express = require("express");
 const router = express.Router();
-
 const {
   getProviders,
   getProviderById,
   createProvider,
   updateProvider,
-  deleteProvider,
-} = require("../controllers/providers.controller.js");
+  deleteProvider
+} = require("../controllers/providers.controller");
 
-const {
-  validateProviderQuery,
-  validateCreateProvider,
-  validateUpdateProvider,
-} = require("../middlewares/providerMiddleware.js");
+const { validateProviderBody, validateProviderQuery } = require("../middlewares/providerMiddleware");
 
 // Rutas
 router.get("/", validateProviderQuery, getProviders);
 router.get("/:id", getProviderById);
-
-// CRUD (solo pruebas o mantenimiento)
-router.post("/", validateCreateProvider, createProvider);
-router.put("/:id", validateUpdateProvider, updateProvider);
+router.post("/", validateProviderBody, createProvider);
+router.put("/:id", validateProviderBody, updateProvider);
 router.delete("/:id", deleteProvider);
 
 module.exports = router;
