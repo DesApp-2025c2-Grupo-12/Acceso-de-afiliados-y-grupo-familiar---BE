@@ -26,6 +26,10 @@ const getProviders = async (req, res) => {
       where.integraCentro = zona;
       where.esCentro = true;
     }
+    if (prestadores.length === 0) {
+  return res.status(404).json({ message: "No se encontraron prestadores con esos criterios." });
+}
+
 
     const prestadores = await Provider.findAll({ where });
     res.status(200).json(prestadores);

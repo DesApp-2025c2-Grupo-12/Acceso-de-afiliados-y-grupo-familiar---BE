@@ -56,6 +56,7 @@ ACCESO-DE-AFILIADOS-Y-GRUPO-FAMILIAR---BE/
 │   │
 │   ├─ middlewares/
 │   │   ├─ validateData.js
+│   │   └─ providerMiddleware.js
 │   │   └─ recipeMiddleware.js
 │   │
 │   ├─ routes/
