@@ -1,6 +1,32 @@
-# Acceso-de-afiliados-y-grupo-familiar---BE
+# 🧩 Acceso de Afiliados y Grupo Familiar — Backend
 
-## 📁 Estructura del Proyecto
+## 🎯 Objetivo
+
+El backend del proyecto **Acceso de Afiliados y Grupo Familiar** forma parte del sistema desarrollado para la empresa *Medicina Integral*.  
+Su propósito es brindar soporte a la aplicación web de afiliados, permitiendo la gestión y almacenamiento de datos vinculados a los servicios médicos y administrativos de la empresa.
+
+A través de esta API, los afiliados y algunos miembros del grupo familiar pueden:
+
+- Solicitar turnos de atención (de acuerdo a la disponibilidad configurada por la empresa).  
+- Gestionar reintegros.  
+- Abrir pedidos de autorización de prestaciones.  
+- Registrar recetas para solicitar cobertura.  
+- Consultar la cartilla de prestadores.
+
+---
+
+## ⚙️ Tecnologías utilizadas
+
+- **Node.js** — entorno de ejecución.  
+- **Express.js** — framework para la construcción de la API REST.  
+- **Sequelize ORM** — mapeo objeto-relacional para la base de datos.  
+- **MySQL / PostgreSQL** — base de datos relacional.  
+- **JavaScript (ES6+)**  
+- **Nodemon** — recarga automática en desarrollo.
+
+---
+
+## 🗂️ Estructura del proyecto
 
 ```
 ACCESO-DE-AFILIADOS-Y-GRUPO-FAMILIAR---BE/
@@ -83,5 +109,27 @@ ACCESO-DE-AFILIADOS-Y-GRUPO-FAMILIAR---BE/
 
 
 ```
+---
+
+# 🚀 Uso
+
+1. Clonar el repositorio.
+2. Instalar las dependencias con npm install.
+3. Configurar la base de datos en el archivo src/db/config/config.json con las credenciales correspondientes.
+4. Ejecutar las migraciones y seeders con npx sequelize db:migrate y npx sequelize db:seed:all.
+5. Ejecutar el servidor de desarrollo con npm run dev.
+6. El servidor estará disponible en http://localhost:3000
+
+---
+
+# 🧑‍💻 Autores
+
+Proyecto académico desarrollado en el marco de la Universidad Nacional de Hurlingham (UnaHur). Equipo de desarrollo:
+
+* Gabriel Facundo Gutiérrez.
+* Luana Belén Calderón.
+* Ezequiel Escobar.
+* Franco Cantero.
+* Diego Andrés Primera.
 
 ---
