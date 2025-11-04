@@ -4,7 +4,12 @@ const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Recipe extends Model {
     static associate(models) {
-      // define association here
+      // Una receta pertenece a un afiliado
+      this.belongsTo(models.Affiliate, {
+        foreignKey: 'affiliateId',
+        as: 'afiliado',
+        onDelete: 'CASCADE',
+      });
     }
   }
 

@@ -2,17 +2,15 @@
 const {
   Model
 } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class Provider extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
     static associate(models) {
-      // define association here
+      // En esta app no hay relación directa con recetas
+      // (solo se consulta la cartilla)
     }
   }
+  
   Provider.init({
     numeroDeCuit_Cuil: {type:DataTypes.STRING, allowNull:false},
     nombreCompleto: {type:DataTypes.STRING, allowNull:false},
