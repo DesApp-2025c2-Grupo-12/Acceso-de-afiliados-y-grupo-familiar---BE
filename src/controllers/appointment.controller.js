@@ -1,7 +1,7 @@
 const { where } = require("sequelize");
 const { Appointment } = require("../db/models");
 const { Affiliate } = require("../db/models/");
-const { Op } = require('sequelize'); 
+const { Op } = require('sequelize');
 
 
 // crear un turno médico
@@ -112,9 +112,33 @@ const apointmentsFromAffiliate = async (req, res) => {
 //obtener todos los turnos sin reservar por ningun afiliado 
 const unreservedAppointments = async (req, res) => {
     try {
+        const fechaActual = new Date()
+        const diferencia2hs = new Date(fechaActual.getTime() + (2 * 60 * 60 * 1000))
+        const fechaHoy = fechaActual.toISOString().split('T')[0]
+        const horaMinima = diferencia2hs.toTimeString().split(' ')[0];
 
         const unreserved = await Appointment.findAll({
-            where: { affiliateId: null }
+            where: {
+                affiliateId: null,
+                [Op.or]: [
+                    /*filtro o validacion para que el turno no tenga menos de dos horas de anticipacion.Los casos son
+                     o tiene una fecha mayor a la actual o si tiene la fecha del dia presente se fija que haya
+                    mas de 2 horas de diferencia entre el turno y la hora actual.*/
+                    {
+                        fecha: {
+                            [Op.gt]: fechaHoy
+                        }
+                    },
+
+                    {
+                        fecha: fechaHoy,
+                        horario: {
+                            [Op.gte]: horaMinima
+                        }
+                    }
+                ]
+            }
+
         });
 
         if (unreserved.length === 0) {
@@ -157,6 +181,42 @@ const turnosFuturosDeAfiliado = async (req, res) => {
 }
 
 
+const asignarTurnoAAfiliado = async (req, res) => {
+    try {
+        const afiliado = req.params.affiliateId
+        const turnoID = req.params.turnoId
+        const turno = await Appointment.findByPk(turnoID);
+       
+        turno.affiliateId = afiliado;
+        await turno.save();
+
+        res.status(200).json({
+            message: "Turno reservado correctamente",
+        });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}
+
+const cancelarTurno = async (req, res) => {
+    try {
+        const turnoId = req.params.turnoId;
+        const turno = await Appointment.findByPk(turnoId);
+
+        turno.affiliateId = null;
+        await turno.save();
+
+        res.status(200).json({
+            message: "Turno cancelado correctamente"
+        });
+
+
+
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}
+
 
 module.exports = {
     createAppointment,
@@ -167,5 +227,7 @@ module.exports = {
     apointmentsFromAffiliate,
     unreservedAppointments,
     especialidadesDisponibles,
-    turnosFuturosDeAfiliado
+    turnosFuturosDeAfiliado,
+    asignarTurnoAAfiliado,
+    cancelarTurno
 }
