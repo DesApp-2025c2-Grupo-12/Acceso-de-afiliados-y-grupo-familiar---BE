@@ -485,7 +485,102 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
         affiliateId:null
+      },
+      {
+        nombreDelPrestador: "Dr Shepherd",
+        lugarDeAtencion: "Grey-Sloan Memorial",
+        especialidad: "Neurologia",
+        horario: "19:00:00",
+        fecha: "2025-11-07",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        affiliateId:null
       }
+      ,
+      {
+        nombreDelPrestador: "Dr Shepherd",
+        lugarDeAtencion: "Grey-Sloan Memorial",
+        especialidad: "Neurologia",
+        horario: "19:30:00",
+        fecha: "2025-11-07",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        affiliateId:null
+      }
+      ,
+      {
+        nombreDelPrestador: "Dr Shepherd",
+        lugarDeAtencion: "Grey-Sloan Memorial",
+        especialidad: "Neurologia",
+        horario: "20:00:00",
+        fecha: "2025-11-07",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        affiliateId:null
+      },
+      {
+        nombreDelPrestador: "Dr Shepherd",
+        lugarDeAtencion: "Grey-Sloan Memorial",
+        especialidad: "Neurologia",
+        horario: "20:30:00",
+        fecha: "2025-11-07",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        affiliateId:null
+      },
+      {
+        nombreDelPrestador: "Dr Shepherd",
+        lugarDeAtencion: "Grey-Sloan Memorial",
+        especialidad: "Neurologia",
+        horario: "21:00:00",
+        fecha: "2025-11-07",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        affiliateId:null
+      },
+      {
+        nombreDelPrestador: "Dr Shepherd",
+        lugarDeAtencion: "Grey-Sloan Memorial",
+        especialidad: "Neurologia",
+        horario: "21:30:00",
+        fecha: "2025-11-07",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        affiliateId:null
+      }
+      ,
+      {
+        nombreDelPrestador: "Dr Shepherd",
+        lugarDeAtencion: "Grey-Sloan Memorial",
+        especialidad: "Neurologia",
+        horario: "22:00:00",
+        fecha: "2025-11-07",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        affiliateId:null
+      }
+      ,
+      {
+        nombreDelPrestador: "Dr Shepherd",
+        lugarDeAtencion: "Grey-Sloan Memorial",
+        especialidad: "Neurologia",
+        horario: "20:00:00",
+        fecha: "2025-11-06",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        affiliateId:null
+      },
+      {
+        nombreDelPrestador: "Dr Shepherd",
+        lugarDeAtencion: "Grey-Sloan Memorial",
+        especialidad: "Neurologia",
+        horario: "20:30:00",
+        fecha: "2025-11-06",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        affiliateId:null
+      }
+
 
 
 

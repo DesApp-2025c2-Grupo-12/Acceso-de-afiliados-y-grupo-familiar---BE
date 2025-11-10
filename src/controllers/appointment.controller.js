@@ -180,13 +180,47 @@ const turnosFuturosDeAfiliado = async (req, res) => {
     }
 }
 
+const turnosFuturosHijos = async (req, res) => {
+    try {
+        fechaActual = new Date()
+        const afiliado = await Affiliate.findOne({
+            where: { id: req.params.id }
+        })
+
+        if (!afiliado) {
+            return res.status(404).json({ error: 'Afiliado no encontrado' });
+        }
+
+        const hijos = await Affiliate.findAll({
+            where: { perteneceA: afiliado.numeroDeDocumento,
+                     parentesco: "hijo" || "hija"
+         }
+
+        })
+
+        const idsHijos = hijos.map(h => h.id)
+
+
+        const turnos = await Appointment.findAll({
+            where: {
+                affiliateId: { [Op.in]: idsHijos },
+                fecha: { [Op.gte]: fechaActual }
+            }
+
+        })
+        res.status(200).json(turnos);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}
+
 
 const asignarTurnoAAfiliado = async (req, res) => {
     try {
         const afiliado = req.params.affiliateId
         const turnoID = req.params.turnoId
         const turno = await Appointment.findByPk(turnoID);
-       
+
         turno.affiliateId = afiliado;
         await turno.save();
 
@@ -229,5 +263,6 @@ module.exports = {
     especialidadesDisponibles,
     turnosFuturosDeAfiliado,
     asignarTurnoAAfiliado,
-    cancelarTurno
+    cancelarTurno,
+    turnosFuturosHijos
 }
