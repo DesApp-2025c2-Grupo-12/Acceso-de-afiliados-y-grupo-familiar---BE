@@ -9,7 +9,8 @@ const createAuthorization = async (req, res) => {
             nombreDelMedico,
             especialidad,
             lugarDePrestacion,
-            diasDeInternacion
+            diasDeInternacion,
+            observaciones
         } = req.body;
         // Validación de campos obligatorios
         if (
@@ -18,7 +19,7 @@ const createAuthorization = async (req, res) => {
             !nombreDelMedico ||
             !especialidad ||
             !lugarDePrestacion ||
-            !diasDeInternacion 
+            diasDeInternacion === undefined || diasDeInternacion === null
         ) {
             return res.status(400).json({ error: "Faltan campos obligatorios" });
         }
@@ -32,6 +33,7 @@ const createAuthorization = async (req, res) => {
             lugarDePrestacion,
             diasDeInternacion,
             estado: "Pendiente", // por defecto
+            observaciones,
         });
 
         res.status(201).json(nuevaAutorizacion);
