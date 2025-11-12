@@ -35,7 +35,8 @@ ACCESO-DE-AFILIADOS-Y-GRUPO-FAMILIAR---BE/
 │
 ├─ seeders/
 │   ├─ 20251030170938-afiliados-fijos.js
-│   └─ 20251030172502-turnos-fijos.js
+│   ├─ 20251030172502-turnos-fijos.js
+│   └─ 20251111120000-recetas-fijas.js
 │
 ├─ src/
 │   ├─ controllers/
@@ -79,10 +80,12 @@ ACCESO-DE-AFILIADOS-Y-GRUPO-FAMILIAR---BE/
 │   ├─ middlewares/
 │   │   ├─ affiliateMiddleware.js
 │   │   ├─ appointmentMiddleware.js
+│   │   ├─ authorization.middleware.js
 │   │   ├─ providerMiddleware.js
 │   │   ├─ recipeMiddleware.js
 │   │   ├─ validateData.js
-│   │   └─ validateIds.js
+│   │   ├─ validateIds.js
+│   │   └─ validateSchema.js
 │   │
 │   ├─ routes/
 │   │   ├─ affiliate.routes.js
@@ -94,6 +97,7 @@ ACCESO-DE-AFILIADOS-Y-GRUPO-FAMILIAR---BE/
 │   │   └─ refund.routes.js
 │   │
 │   └─ schemas/
+│       ├─ authorization.schema.js
 │       ├─ refund.schema.js
 │       ├─ recipe.schema.js
 │       └─ provider.schema.js
