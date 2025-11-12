@@ -1,4 +1,5 @@
 const Joi = require('joi');
+const affiliate = require('../db/models/affiliate');
 
 // Schema base para reintegro
 const refundBaseSchema = Joi.object({
@@ -88,7 +89,13 @@ const refundBaseSchema = Joi.object({
   observaciones: Joi.string().max(1000).optional().allow('')
     .messages({
       'string.max': 'Las observaciones no pueden exceder 1000 caracteres'
-    })
+    }),
+  affiliateId: Joi.number().integer().min(1).required()
+  .messages({
+    'string.empty': 'El id del afiliado es obligatorio',
+    'any.required': 'El id del afiliado es obligatorio',
+    'number.base': 'El id del afiliado debe ser un número',
+  })
 });
 
 // Schema para crear un nuevo reintegro

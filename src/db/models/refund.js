@@ -10,7 +10,13 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+       this.belongsTo(models.Affiliate, {
+        foreignKey:{
+           name:'affiliateId',
+           allowNull:false
+        },
+        as: 'afiliado',
+      })
     }
   }
   Refund.init({
@@ -25,7 +31,15 @@ module.exports = (sequelize, DataTypes) => {
     facturacion_NombreDePersonaACobrar: {type:DataTypes.STRING, allowNull:false},
     formaDePago: {type:DataTypes.STRING, allowNull:false},
     cbu: {type:DataTypes.STRING, allowNull:false},
-    observaciones: {type:DataTypes.STRING}
+    observaciones: {type:DataTypes.STRING},
+    affiliateId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,  
+      references: {
+        model: 'Affiliates',
+        key: 'id'
+      }
+    }
   }, {
     sequelize,
     modelName: 'Refund',

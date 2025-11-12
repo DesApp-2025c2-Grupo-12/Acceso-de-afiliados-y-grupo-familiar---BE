@@ -14,6 +14,14 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'affiliateId',   
         as: 'turnos',                 
         onDelete: 'CASCADE',          
+      }),
+      this.hasMany(models.Refund, {
+        foreignKey:{
+           name:'affiliateId',
+           allowNull:false
+        },
+        as: 'afiliado',
+        onDelete: 'CASCADE',
       })
     }
   }

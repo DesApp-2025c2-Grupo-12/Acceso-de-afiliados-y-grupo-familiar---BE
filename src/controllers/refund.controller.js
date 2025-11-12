@@ -29,7 +29,7 @@ const createRefund = async (req, res) => {
             !facturacion_ValorTotal ||
             !facturacion_NombreDePersonaACobrar ||
             !formaDePago ||
-            !cbu
+            !cbu 
         ) {
             return res.status(400).json({ error: "Faltan campos obligatorios" });
         }

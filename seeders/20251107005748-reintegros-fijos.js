@@ -19,7 +19,7 @@ module.exports = {
         observaciones: null,
         createdAt: new Date(),
         updatedAt: new Date(),
-        affiliateId: null
+        affiliateId: 1
       },
       {
         fechaDePrestacion: "2025-12-15",
@@ -36,7 +36,7 @@ module.exports = {
         observaciones: null,
         createdAt: new Date(),
         updatedAt: new Date(),
-        affiliateId: null
+        affiliateId: 1
       },
       {
         fechaDePrestacion: "2025-12-23",
@@ -53,7 +53,7 @@ module.exports = {
         observaciones: null,
         createdAt: new Date(),
         updatedAt: new Date(),
-        affiliateId: null
+        affiliateId: 1
       },
       {
         fechaDePrestacion: "2025-12-25",
@@ -70,7 +70,7 @@ module.exports = {
         observaciones: null,
         createdAt: new Date(),
         updatedAt: new Date(),
-        affiliateId: null
+        affiliateId: 1
       }
     ]
     await queryInterface.bulkInsert('Refunds', reintegros, {});
