@@ -70,10 +70,6 @@ ACCESO-DE-AFILIADOS-Y-GRUPO-FAMILIAR---BE/
 │   │   │   ├─ refund.js
 │   │   │   └─ index.js
 │   │   │
-│   │   ├─ seeders/
-│   │   │   ├─ prestadores.json
-│   │   │   └─ recetas.json
-│   │   │
 │   │   └─ utils/
 │   │       └─ validations/
 │   │           ├─ providerValidation.js
@@ -81,9 +77,12 @@ ACCESO-DE-AFILIADOS-Y-GRUPO-FAMILIAR---BE/
 │   │           └─ validations.js
 │   │
 │   ├─ middlewares/
+│   │   ├─ affiliateMiddleware.js
+│   │   ├─ appointmentMiddleware.js
+│   │   ├─ providerMiddleware.js
+│   │   ├─ recipeMiddleware.js
 │   │   ├─ validateData.js
-│   │   └─ providerMiddleware.js
-│   │   └─ recipeMiddleware.js
+│   │   └─ validateIds.js
 │   │
 │   ├─ routes/
 │   │   ├─ affiliate.routes.js
@@ -100,13 +99,11 @@ ACCESO-DE-AFILIADOS-Y-GRUPO-FAMILIAR---BE/
 │       └─ provider.schema.js
 │
 ├─ main.js
-├─ seedProviders.js
 ├─ .gitignore
 ├─ package.json
 ├─ package-lock.json
 ├─ README.md
-└─ 127.0.0.1  
-
+└─ 127.0.0.1
 
 ```
 ---
