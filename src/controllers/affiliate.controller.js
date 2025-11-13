@@ -137,7 +137,7 @@ const esSuContraseña = async (req, res) => {
 }
 
 const getAffiliateByDocument = async (req, res) => {
-  
+
   try {
     const documento = req.params.documento
 
@@ -155,7 +155,7 @@ const getAffiliateByDocument = async (req, res) => {
 
 
 const getGrupoFamiliar = async (req,res) => {
-   try {
+  try {
     const documento = req.params.documento
 
     const grupoFamiliar = await Affiliate.findAll({
@@ -171,6 +171,39 @@ const getGrupoFamiliar = async (req,res) => {
 }
 
 
+const esHijo = async (req, res) => {
+  try {
+    const afiliadoId = req.params.id;
+    const supuestoHijoId = req.params.hijoId;
+    
+    
+    const afiliado = await Affiliate.findOne({
+      where: { id: afiliadoId }
+    });
+    
+    const supuestoHijo = await Affiliate.findOne({
+      where: { id: supuestoHijoId }
+    });
+
+    
+    if (!afiliado || !supuestoHijo) {
+      return res.status(404).json({ error: "Uno o ambos afiliados no existen" });
+    }
+
+    
+    if (supuestoHijo.perteneceA === afiliado.numeroDeDocumento && 
+        (supuestoHijo.parentesco === "hijo" || supuestoHijo.parentesco === "hija")) {
+      return res.status(200).json({ existe: true });
+    } else {
+      return res.status(200).json({ existe: false });
+    }
+
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+
 
 
 module.exports = {
@@ -184,5 +217,6 @@ module.exports = {
   tieneContraseña,
   esSuContraseña,
   getAffiliateByDocument,
-  getGrupoFamiliar
+  getGrupoFamiliar,
+  esHijo
 }

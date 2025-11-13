@@ -69,7 +69,7 @@ module.exports = {
         apellido: "perez",
         fechaDeNacimiento: "2002-07-13",
         numeroDeAfiliado: "11114",
-        situacionTerapeutica: "",
+        situacionTerapeutica: "ninguna",
         parentesco: "hija",
         perteneceA: "38322514",
         planMedico: "933",
@@ -81,10 +81,10 @@ module.exports = {
         updatedAt: new Date()
       }
     ]
-    await queryInterface.bulkInsert('Affiliates', afiliados, {});
+    await queryInterface.bulkInsert('affiliates', afiliados, {});
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.bulkDelete('Affiliates', null, {});
+    await queryInterface.bulkDelete('affiliates', null, {});
   }
 };

@@ -137,7 +137,13 @@ const unreservedAppointments = async (req, res) => {
                         }
                     }
                 ]
-            }
+            },
+            include: [{
+                model: Affiliate,
+                as: 'afiliado',
+                attributes: ['id', 'nombre', 'apellido', 'numeroDeDocumento'],
+                required: false
+            }]
 
         });
 
@@ -171,7 +177,14 @@ const turnosFuturosDeAfiliado = async (req, res) => {
             where: {
                 affiliateId: req.params.id,
                 fecha: { [Op.gte]: new Date() }
-            }
+            },
+
+            include: [{
+                model: Affiliate,
+                as: 'afiliado',
+                attributes: ['id', 'nombre', 'apellido', 'numeroDeDocumento'],
+                required: false
+            }]
 
         })
         res.status(200).json(turnos);
@@ -192,9 +205,13 @@ const turnosFuturosHijos = async (req, res) => {
         }
 
         const hijos = await Affiliate.findAll({
-            where: { perteneceA: afiliado.numeroDeDocumento,
-                     parentesco: "hijo" || "hija"
-         }
+            where: {
+                perteneceA: afiliado.numeroDeDocumento,
+                [Op.or]: [
+                    { parentesco: "hijo" },
+                    { parentesco: "hija" }
+                ]
+            }
 
         })
 
@@ -205,7 +222,13 @@ const turnosFuturosHijos = async (req, res) => {
             where: {
                 affiliateId: { [Op.in]: idsHijos },
                 fecha: { [Op.gte]: fechaActual }
-            }
+            },
+            include: [{
+                model: Affiliate,
+                as: 'afiliado',
+                attributes: ['id', 'nombre', 'apellido', 'numeroDeDocumento'],
+                required: false
+            }]
 
         })
         res.status(200).json(turnos);
