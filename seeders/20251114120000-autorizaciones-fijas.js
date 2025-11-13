@@ -13,7 +13,7 @@ module.exports = {
         diasDeInternacion: 0,
         observaciones: "Chequeo general anual",
         estado: "Pendiente",
-        affiliateId: 38,
+        affiliateId: 73,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -26,7 +26,7 @@ module.exports = {
         diasDeInternacion: 2,
         observaciones: "Rehabilitación post fractura",
         estado: "Aprobada",
-        affiliateId: 39,
+        affiliateId: 74,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -39,7 +39,7 @@ module.exports = {
         diasDeInternacion: 0,
         observaciones: "Control de crecimiento",
         estado: "Observada",
-        affiliateId: 40,
+        affiliateId: 75,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -51,11 +51,25 @@ module.exports = {
         lugarDePrestacion: "Centro Médico Sur",
         diasDeInternacion: 0,
         observaciones: "Tratamiento de alergia cutánea",
-        estado: "Pendiente",
-        affiliateId: 41,
+        estado: "Observada",
+        affiliateId: 76,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        fechaDePrestacion: "2025-12-10",
+        nombreDelAfiliado: "luciana",
+        nombreDelMedico: "Dr. Romero",
+        especialidad: "Cirujano",
+        lugarDePrestacion: "Centro Médico La Trinidad",
+        diasDeInternacion: 0,
+        observaciones: "Rinoplastia",
+        estado: "Rechazada",
+        affiliateId: 74,
         createdAt: new Date(),
         updatedAt: new Date()
       }
+
     ];
 
     await queryInterface.bulkInsert('Authorizations', autorizaciones, {});
@@ -65,3 +79,9 @@ module.exports = {
     await queryInterface.bulkDelete('Authorizations', null, {});
   }
 };
+
+
+
+//npx sequelize-cli db:seed:undo:all --config src/db/config/config.json --models-path src/db/models --seeders-path seeders --migrations-path src/db/migrations
+//npm run seed:afiliados
+//npm run seed:autorizaciones
