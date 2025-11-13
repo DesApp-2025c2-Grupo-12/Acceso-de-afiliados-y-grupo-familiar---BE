@@ -18,10 +18,11 @@ module.exports = (sequelize, DataTypes) => {
     presentacion: { type: DataTypes.STRING, allowNull: false },
     paciente: { type: DataTypes.STRING, allowNull: false },
     numeroDeDocumento: { type: DataTypes.STRING, allowNull: false },
-    fechaDeEmision: { type: DataTypes.DATEONLY, allowNull: true }, // allowNull ahora es true
+    fechaDeEmision: { type: DataTypes.DATEONLY, allowNull: true },
     cantidad: { type: DataTypes.INTEGER, allowNull: false },
     estado: { type: DataTypes.STRING, allowNull: false },
-    observaciones: { type: DataTypes.STRING, allowNull: false }
+    observaciones: { type: DataTypes.STRING, allowNull: false },
+    affiliateId: { type: DataTypes.INTEGER, allowNull: false } // <-- Agregado
   }, {
     sequelize,
     modelName: 'Recipe',
