@@ -23,6 +23,10 @@ module.exports = (sequelize, DataTypes) => {
         as: 'afiliado',
         onDelete: 'CASCADE',
       })
+      this.hasMany(models.Authorization, {
+        foreignKey: 'affiliateId',
+        as: 'autorizaciones'
+      })
     }
   }
   Affiliate.init({

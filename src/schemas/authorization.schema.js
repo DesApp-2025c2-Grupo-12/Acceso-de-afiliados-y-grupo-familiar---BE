@@ -1,13 +1,10 @@
 const Joi = require("joi");
 
 const authorizationSchema = Joi.object({
-  afiliadoId: Joi.number()
-    .integer()
-    .empty("") 
-    .required()
+  affiliateId: Joi.alternatives()
+    .try(Joi.number().integer(), Joi.string().valid("")) // acepta número o string vacío
     .messages({
       "number.base": "El ID del afiliado debe ser un número.",
-      "any.required": "El campo afiliadoId es obligatorio.",
     }),
 
   fechaDePrestacion: Joi.date()
@@ -21,10 +18,10 @@ const authorizationSchema = Joi.object({
 
   nombreDelAfiliado: Joi.string()
     .min(2)
-    .required()
+    .optional()
     .messages({
       "string.base": "El nombre del afiliado debe ser un texto.",
-      "any.required": "El campo nombreDelAfiliado es obligatorio.",
+      "string.min": "El nombre del afiliado debe tener al menos 2 caracteres.",
     }),
 
   nombreDelMedico: Joi.string()
@@ -73,6 +70,25 @@ const authorizationSchema = Joi.object({
     .messages({
       "any.only": "El estado debe ser uno de los valores válidos.",
     }),
+})
+  .or("affiliateId", "nombreDelAfiliado")
+  .messages({
+    "object.missing": "Faltan campos obligatorios o algunos son inválidos.",
+  });
+
+  // Nuevo schema flexible para updates (PUT)
+const authorizationUpdateSchema = Joi.object({
+  affiliateId: Joi.number().integer().optional(),
+  fechaDePrestacion: Joi.date().optional(),
+  nombreDelAfiliado: Joi.string().optional(),
+  nombreDelMedico: Joi.string().optional(),
+  especialidad: Joi.string().optional(),
+  lugarDePrestacion: Joi.string().optional(),
+  diasDeInternacion: Joi.number().integer().min(0).optional(),
+  observaciones: Joi.string().allow("").max(255).optional(),
+  estado: Joi.string()
+    .valid("Pendiente", "En análisis", "Autorizado", "Rechazado", "Observado")
+    .optional(),
 });
 
-module.exports = { authorizationSchema };
+module.exports = { authorizationSchema, authorizationUpdateSchema };

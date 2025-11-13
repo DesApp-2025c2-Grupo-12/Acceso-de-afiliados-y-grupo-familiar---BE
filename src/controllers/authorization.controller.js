@@ -1,46 +1,56 @@
-const { Authorization } = require("../db/models");
+const { Authorization, Affiliate } = require("../db/models");
 
-// Crear una autorización
 const createAuthorization = async (req, res) => {
-    try {
-        const {
-            fechaDePrestacion,
-            nombreDelAfiliado,
-            nombreDelMedico,
-            especialidad,
-            lugarDePrestacion,
-            diasDeInternacion,
-            observaciones
-        } = req.body;
-        // Validación de campos obligatorios
-        if (
-            !fechaDePrestacion ||
-            !nombreDelAfiliado ||
-            !nombreDelMedico ||
-            !especialidad ||
-            !lugarDePrestacion ||
-            diasDeInternacion === undefined || diasDeInternacion === null
-        ) {
-            return res.status(400).json({ error: "Faltan campos obligatorios" });
-        }
+  try {
+    const {
+      affiliateId,
+      fechaDePrestacion,
+      nombreDelMedico,
+      especialidad,
+      lugarDePrestacion,
+      diasDeInternacion,
+      observaciones,
+    } = req.body;
 
-        // Crear autorización con estado inicial
-        const nuevaAutorizacion = await Authorization.create({
-            fechaDePrestacion,
-            nombreDelAfiliado,
-            nombreDelMedico,
-            especialidad,
-            lugarDePrestacion,
-            diasDeInternacion,
-            estado: "Pendiente", // por defecto
-            observaciones,
-        });
-
-        res.status(201).json(nuevaAutorizacion);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
+    // Validación básica
+    if (
+      !affiliateId ||
+      !fechaDePrestacion ||
+      !nombreDelMedico ||
+      !especialidad ||
+      !lugarDePrestacion ||
+      diasDeInternacion === undefined ||
+      diasDeInternacion === null
+    ) {
+      return res.status(400).json({ error: "Faltan campos obligatorios." });
     }
+
+    // Buscar el afiliado por ID
+    const afiliado = await Affiliate.findByPk(affiliateId);
+    if (!afiliado) {
+      return res.status(404).json({ error: "No se encontró el afiliado." });
+    }
+
+    // Crear la autorización con el nombre del afiliado
+    const nuevaAutorizacion = await Authorization.create({
+      affiliateId,
+      fechaDePrestacion,
+      nombreDelAfiliado: `${afiliado.nombre} ${afiliado.apellido}`,
+      nombreDelMedico,
+      especialidad,
+      lugarDePrestacion,
+      diasDeInternacion,
+      observaciones,
+      estado: "Pendiente",
+    });
+
+    res.status(201).json(nuevaAutorizacion);
+  } catch (error) {
+    console.error("Error al crear autorización:", error);
+    res.status(500).json({ error: "Error interno del servidor." });
+  }
 };
+
 
 // Obtener todas las autorizaciones
 const getAuthorizations = async (req, res) => {
