@@ -1,4 +1,5 @@
 const { Authorization, Affiliate } = require("../db/models");
+const { Op } = require("sequelize");
 
 const createAuthorization = async (req, res) => {
   try {
@@ -52,17 +53,39 @@ const createAuthorization = async (req, res) => {
 };
 
 
-// Obtener todas las autorizaciones
+
+
 const getAuthorizations = async (req, res) => {
-    try {
-        const autorizaciones = await Authorization.findAll(
-            {order: [["createdAt", "DESC"]],} //esto es para el orden de visualización.
-        );
-        res.status(200).json(autorizaciones);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
+  try {
+    // traemos el número de documento desde query
+    const numeroDeDocumento = req.query.numeroDeDocumento;
+    if (!numeroDeDocumento) return res.status(400).json({ error: "Falta el número de documento" });
+
+    // buscamos al afiliado principal
+    const afiliadoPrincipal = await Affiliate.findOne({ where: { numeroDeDocumento } });
+    if (!afiliadoPrincipal) return res.status(404).json({ error: "Afiliado no encontrado" });
+
+    // buscamos los integrantes del grupo familiar
+    const grupoFamiliar = await Affiliate.findAll({ where: { perteneceA: numeroDeDocumento } });
+
+    // armamos la lista de IDs
+    const ids = [afiliadoPrincipal.id, ...grupoFamiliar.map(a => a.id)];
+
+    // traemos las autorizaciones de esos IDs
+    const autorizaciones = await Authorization.findAll({
+      where: { affiliateId: { [Op.in]: ids } },
+      order: [["createdAt", "DESC"]],
+    });
+
+    return res.status(200).json(autorizaciones);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Error al obtener las autorizaciones" });
+  }
 };
+
+module.exports = { getAuthorizations };
+
 
 // Obtener autorizacion por ID
 const getAuthorizationById = async (req, res) => {
