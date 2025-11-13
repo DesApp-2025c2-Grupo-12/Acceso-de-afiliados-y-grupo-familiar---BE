@@ -1,12 +1,11 @@
-const { Recipe } = require("../db/models");
+const { Recipe, Affiliate } = require("../db/models");
 const { Op } = require("sequelize");
 const { validateRecipeData } = require("../db/utils/validations/recipeValidation");
 
 // Crear receta
 const createRecipe = async (req, res) => {
   try {
-    // Ya pasa por el schema antes de llegar acá
-    await validateRecipeData(req.body); // Solo validaciones de negocio
+    await validateRecipeData(req.body);
 
     const hoy = new Date();
     const fechaHoy = new Date(hoy.getFullYear(), hoy.getMonth(), hoy.getDate());
@@ -23,11 +22,12 @@ const createRecipe = async (req, res) => {
   }
 };
 
-
 // Obtener todas las recetas
 const getRecipes = async (req, res) => {
   try {
-    const recetas = await Recipe.findAll();
+    const recetas = await Recipe.findAll({
+      include: { model: Affiliate, as: 'afiliado' } // <-- Incluye info del afiliado
+    });
     res.status(200).json(recetas);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -37,7 +37,9 @@ const getRecipes = async (req, res) => {
 // Obtener receta por ID
 const getRecipeById = async (req, res) => {
   try {
-    const receta = await Recipe.findByPk(req.params.id);
+    const receta = await Recipe.findByPk(req.params.id, {
+      include: { model: Affiliate, as: 'afiliado' } // <-- Incluye info del afiliado
+    });
     if (!receta) return res.status(404).json({ error: "Receta no encontrada" });
     res.status(200).json(receta);
   } catch (error) {
@@ -53,6 +55,7 @@ const getRecipesByName = async (req, res) => {
       where: {
         nombreDelMedicamento: { [Op.like]: `%${nombre}%` },
       },
+      include: { model: Affiliate, as: 'afiliado' } // <-- Incluye info del afiliado
     });
     res.status(200).json(recetas);
   } catch (error) {
@@ -66,7 +69,6 @@ const updateRecipe = async (req, res) => {
     const receta = await Recipe.findByPk(req.params.id);
     if (!receta) return res.status(404).json({ error: "Receta no encontrada" });
 
-    // Validar datos antes de actualizar
     await validateRecipeData(req.body, true, receta.id);
 
     const recetaModificada = await receta.update(req.body);

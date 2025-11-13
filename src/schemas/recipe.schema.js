@@ -38,7 +38,11 @@ const recipeBaseSchema = Joi.object({
     .messages({
       'string.max': 'Las observaciones no pueden superar los 300 caracteres'
     }),
-  fechaDeEmision: Joi.date().iso().optional()
+  fechaDeEmision: Joi.date().iso().optional(),
+  affiliateId: Joi.number().integer().required()
+    .messages({
+      'any.required': 'Debe seleccionar un afiliado'
+    }) // <-- Agregado
 });
 
 const createRecipeSchema = recipeBaseSchema;
