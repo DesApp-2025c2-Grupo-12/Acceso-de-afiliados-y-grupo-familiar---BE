@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
        this.belongsTo(models.Affiliate, {
         foreignKey:{
            name:'affiliateId',
-           allowNull:false
+           allowNull:true
         },
         as: 'afiliado',
       })
@@ -32,9 +32,10 @@ module.exports = (sequelize, DataTypes) => {
     formaDePago: {type:DataTypes.STRING, allowNull:false},
     cbu: {type:DataTypes.STRING, allowNull:false},
     observaciones: {type:DataTypes.STRING},
+
     affiliateId: {
       type: DataTypes.INTEGER,
-      allowNull: false,  
+      allowNull: true,  
       references: {
         model: 'Affiliates',
         key: 'id'

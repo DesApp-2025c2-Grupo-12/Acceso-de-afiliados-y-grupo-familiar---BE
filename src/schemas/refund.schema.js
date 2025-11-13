@@ -45,9 +45,9 @@ const refundBaseSchema = Joi.object({
       'any.required': 'La fecha de facturación es obligatoria'
     }),
 
-  facturacion_Cuit: Joi.string().pattern(/^\d{11}$/).required()
+  facturacion_Cuit: Joi.string().pattern(/^\d{2}-\d{8}-\d{1}$/).required() // ← ACEPTAR guiones
     .messages({
-      'string.pattern.base': 'El CUIT debe contener exactamente 11 dígitos',
+      'string.pattern.base': 'El CUIT debe tener formato XX-XXXXXXXX-X',
       'string.empty': 'El CUIT es obligatorio',
       'any.required': 'El CUIT es obligatorio'
     }),
@@ -90,12 +90,10 @@ const refundBaseSchema = Joi.object({
     .messages({
       'string.max': 'Las observaciones no pueden exceder 1000 caracteres'
     }),
-  affiliateId: Joi.number().integer().min(1).required()
-  .messages({
-    'string.empty': 'El id del afiliado es obligatorio',
-    'any.required': 'El id del afiliado es obligatorio',
-    'number.base': 'El id del afiliado debe ser un número',
-  })
+  affiliateId: Joi.number().integer().min(1).optional().allow(null) // ← CAMBIAR a optional
+    .messages({
+      'number.base': 'El id del afiliado debe ser un número',
+    })
 });
 
 // Schema para crear un nuevo reintegro
@@ -109,7 +107,7 @@ const updateRefundSchema = Joi.object({
   especialidad: Joi.string().max(100).optional(),
   lugarDeAtencion: Joi.string().max(255).optional(),
   facturacion_Fecha: Joi.date().iso().optional(),
-  facturacion_Cuit: Joi.string().pattern(/^\d{11}$/).optional(),
+  facturacion_Cuit: Joi.string().pattern(/^\d{2}-\d{8}-\d{1}$/).optional(),
   facturacion_ValorTotal: Joi.number().integer().min(0).optional(),
   facturacion_NombreDePersonaACobrar: Joi.string().max(150).optional(),
   formaDePago: Joi.string().valid(
