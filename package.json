@@ -14,10 +14,13 @@
     "seed:undo:reintegros": "sequelize-cli db:seed:undo --seed 20251107005748-reintegros-fijos --config src/db/config/config.json --models-path src/db/models --seeders-path seeders --migrations-path src/db/migrations",
     "seed:undo:turnos": "sequelize-cli db:seed:undo --seed 20251030172502-turnos-fijos --config src/db/config/config.json --models-path src/db/models --seeders-path seeders --migrations-path src/db/migrations",
     "seed:undo:all": "sequelize-cli db:seed:undo:all --config src/db/config/config.json --models-path src/db/models --seeders-path seeders --migrations-path src/db/migrations",
-"seed:recetas": "sequelize-cli db:seed --seed 20251111120000-recetas-fijas.js --config src/db/config/config.json --models-path src/db/models --seeders-path seeders --migrations-path src/db/migrations",
-"seed:undo:recetas": "sequelize-cli db:seed:undo --seed 20251111120000-recetas-fijas.js --config src/db/config/config.json --models-path src/db/models --seeders-path seeders --migrations-path src/db/migrations",
-"seed:prestadores": "sequelize-cli db:seed --seed 20251113120000-prestadores-fijos --config src/db/config/config.json --models-path src/db/models --seeders-path seeders --migrations-path src/db/migrations",
-"seed:undo:prestadores": "sequelize-cli db:seed:undo --seed 20251113120000-prestadores-fijos --config src/db/config/config.json --models-path src/db/models --seeders-path seeders --migrations-path src/db/migrations"
+    "seed:recetas": "sequelize-cli db:seed --seed 20251111120000-recetas-fijas.js --config src/db/config/config.json --models-path src/db/models --seeders-path seeders --migrations-path src/db/migrations",
+    "seed:undo:recetas": "sequelize-cli db:seed:undo --seed 20251111120000-recetas-fijas.js --config src/db/config/config.json --models-path src/db/models --seeders-path seeders --migrations-path src/db/migrations",
+    "seed:prestadores": "sequelize-cli db:seed --seed 20251113120000-prestadores-fijos --config src/db/config/config.json --models-path src/db/models --seeders-path seeders --migrations-path src/db/migrations",
+    "seed:undo:prestadores": "sequelize-cli db:seed:undo --seed 20251113120000-prestadores-fijos --config src/db/config/config.json --models-path src/db/models --seeders-path seeders --migrations-path src/db/migrations",
+    "seed:autorizaciones": "sequelize-cli db:seed --seed 20251114120000-autorizaciones-fijas --config src/db/config/config.json --models-path src/db/models --seeders-path seeders --migrations-path src/db/migrations",
+    "seed:undo:autorizaciones": "sequelize-cli db:seed:undo --seed 20251114120000-autorizaciones-fijas.js --config src/db/config/config.json --models-path src/db/models --seeders-path seeders --migrations-path src/db/migrations"
+
 
   },
   "repository": {
