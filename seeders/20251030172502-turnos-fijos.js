@@ -431,7 +431,7 @@ module.exports = {
         lugarDeAtencion: "Gurruchaga 233,Hurlingham",
         especialidad: "pediatria",
         horario: "15:20:00",
-        fecha: "2025-11-12",
+        fecha: "2025-11-14",
         createdAt: new Date(),
         updatedAt: new Date(),
         affiliateId:null
