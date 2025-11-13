@@ -203,6 +203,30 @@ const esHijo = async (req, res) => {
   }
 };
 
+const getTieneHijos = async  (req,res) => {
+  try {
+    const afiliadoId = req.params.id
+
+     const afiliado = await Affiliate.findOne({
+      where: { id: afiliadoId }
+    });
+
+     if (!afiliado) {
+      return res.status(404).json({ error: "El afiliado no existe" });
+    }
+
+    if(afiliado.parentesco !== "hijo" && afiliado.parentesco !== "hija" ){
+      return res.status(200).json({ existe: true });
+    }
+    else{
+       return res.status(200).json({ existe: false });
+    }
+
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
+
 
 
 
@@ -218,5 +242,8 @@ module.exports = {
   esSuContraseña,
   getAffiliateByDocument,
   getGrupoFamiliar,
-  esHijo
+  esHijo,
+  getTieneHijos
+  
+
 }

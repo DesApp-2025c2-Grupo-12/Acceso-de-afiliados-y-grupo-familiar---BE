@@ -8,6 +8,7 @@ const { validateDocument, validatePassword } = require('../middlewares/affiliate
 router.get("/",AffiliateController.getAffiliates);
 router.get("/:id/esHijo/:hijoId",AffiliateController.esHijo);
 router.get("/:id",validateIds,AffiliateController.getAffiliateById);
+router.get("/:id/tieneHijos",validateIds,AffiliateController.getTieneHijos);
 router.get("/verificar-documento/:documento", validateDocument,AffiliateController.verificarsiHayAfiliadoConDocumento);
 router.get("/verificar-password/:documento",validateDocument,AffiliateController.tieneContraseña)
 router.get("/es-su-contrasena/:documento/:password", validateDocument, validatePassword,AffiliateController.esSuContraseña)

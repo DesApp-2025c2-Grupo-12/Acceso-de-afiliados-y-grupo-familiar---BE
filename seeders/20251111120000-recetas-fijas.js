@@ -9,7 +9,7 @@ module.exports = {
         cantidad: 1,
         estado: "Recibido",
         observaciones: "Tomar cada 8 horas durante 7 días, con comida",
-        affiliateId: 1, // Juan
+        affiliateId: 94, // Juan
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -21,7 +21,7 @@ module.exports = {
         cantidad: 2,
         estado: "En análisis",
         observaciones: "No exceder 3 dosis al día, tomar con agua",
-        affiliateId: 2, // Gabriel
+        affiliateId: 95, // Gabriel
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -33,7 +33,7 @@ module.exports = {
         cantidad: 1,
         estado: "Observado",
         observaciones: "Adecuado para fiebre y dolor, seguir dosis según edad",
-        affiliateId: 3, // Minerba
+        affiliateId: 96, // Minerba
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -45,7 +45,7 @@ module.exports = {
         cantidad: 1,
         estado: "Recibido",
         observaciones: "Antihistamínico, ideal para alergias estacionales",
-        affiliateId: 4, // Luciana
+        affiliateId: 97, // Luciana
         createdAt: new Date(),
         updatedAt: new Date(),
       },
