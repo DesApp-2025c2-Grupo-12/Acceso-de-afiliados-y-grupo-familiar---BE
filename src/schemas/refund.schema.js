@@ -45,9 +45,10 @@ const refundBaseSchema = Joi.object({
       'any.required': 'La fecha de facturación es obligatoria'
     }),
 
-  facturacion_Cuit: Joi.string().pattern(/^\d{2}-\d{8}-\d{1}$/).required() // ← ACEPTAR guiones
+  facturacion_Cuit: Joi.string().length(13).pattern(/^\d{2}-\d{8}-\d{1}$/).required() // ← ACEPTAR guiones
     .messages({
       'string.pattern.base': 'El CUIT debe tener formato XX-XXXXXXXX-X',
+      'string.length': 'El CUIT debe contener exactamente 11 dígitos y los 2 guiones',
       'string.empty': 'El CUIT es obligatorio',
       'any.required': 'El CUIT es obligatorio'
     }),
