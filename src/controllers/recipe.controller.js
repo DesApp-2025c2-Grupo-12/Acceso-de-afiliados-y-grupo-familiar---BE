@@ -63,6 +63,7 @@ const getRecipesByName = async (req, res) => {
   }
 };
 
+
 // Actualizar receta
 const updateRecipe = async (req, res) => {
   try {
@@ -71,13 +72,25 @@ const updateRecipe = async (req, res) => {
 
     await validateRecipeData(req.body, true, receta.id);
 
-    const recetaModificada = await receta.update(req.body);
+    let datos = { ...req.body };
+
+    // Si el estado pasa a "Aprobado", guardar la fecha de aprobación
+    if (req.body.estado === "Aprobado" && receta.estado !== "Aprobado") {
+      const hoy = new Date();
+      datos.fechaDeAprobacion = new Date(
+        hoy.getFullYear(),
+        hoy.getMonth(),
+        hoy.getDate()
+      );
+    }
+
+    const recetaModificada = await receta.update(datos);
     res.status(200).json(recetaModificada);
+
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 };
-
 // Eliminar receta
 const deleteRecipe = async (req, res) => {
   try {
