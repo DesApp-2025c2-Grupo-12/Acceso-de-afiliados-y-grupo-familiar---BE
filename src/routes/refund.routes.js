@@ -1,7 +1,11 @@
 const { Router } = require("express");
 const router = Router();
 const RefundControllers = require("../controllers/refund.controller");
-const {validateRefundSchema, validateRefundQuerySchema} = require("../middlewares/refundMiddleware")
+const {validateRefundSchema, 
+    validateRefundQuerySchema, 
+    defaultRefundValues,
+    billingConsistency,
+    normalizeRefund} = require("../middlewares/refundMiddleware")
 const validateIds = require('../middlewares/validateIds')
 
 router.get("/",
@@ -11,12 +15,17 @@ router.get("/",
 router.get("/:id", validateIds, RefundControllers.getRefundById);
 
 router.post("/", 
-    validateRefundSchema,
+    billingConsistency,
+    validateRefundSchema, 
+    defaultRefundValues,
+    normalizeRefund,
     RefundControllers.createRefund);
 
 router.put("/:id", 
     validateIds,
+    billingConsistency,
     validateRefundSchema, 
+    normalizeRefund,
     RefundControllers.updateRefund);
 
 router.delete("/:id", RefundControllers.deleteRefund);
