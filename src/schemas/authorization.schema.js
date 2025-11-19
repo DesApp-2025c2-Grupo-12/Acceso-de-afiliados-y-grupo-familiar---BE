@@ -87,7 +87,7 @@ const authorizationUpdateSchema = Joi.object({
   diasDeInternacion: Joi.number().integer().min(0).optional(),
   observaciones: Joi.string().allow("").max(255).optional(),
   estado: Joi.string()
-    .valid("Pendiente", "En análisis", "Aprobada", "Rechazada", "Observada")
+    .valid("Pendiente", "En análisis", "Aprobada", "Rechazada", "Observada", "Recibido")
     .optional(),
 });
 

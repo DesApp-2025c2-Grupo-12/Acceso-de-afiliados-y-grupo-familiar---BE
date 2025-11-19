@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
     diasDeInternacion: { type: DataTypes.INTEGER, allowNull: false },
     observaciones: { type: DataTypes.STRING },
     estado: {
-      type: DataTypes.ENUM('Pendiente', 'Observada', 'Rechazada', 'En análisis', 'Aprobada'),
+      type: DataTypes.ENUM('Pendiente', 'Observada', 'Rechazada', 'En análisis', 'Aprobada', 'Recibido'),
       allowNull: false,
       defaultValue: 'Pendiente'
     },

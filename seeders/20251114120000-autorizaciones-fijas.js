@@ -13,7 +13,7 @@ module.exports = {
         diasDeInternacion: 0,
         observaciones: "Chequeo general anual",
         estado: "Pendiente",
-        affiliateId: 73,
+        affiliateId: 93,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -26,7 +26,7 @@ module.exports = {
         diasDeInternacion: 2,
         observaciones: "Rehabilitación post fractura",
         estado: "Aprobada",
-        affiliateId: 74,
+        affiliateId: 94,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -39,7 +39,7 @@ module.exports = {
         diasDeInternacion: 0,
         observaciones: "Control de crecimiento",
         estado: "Observada",
-        affiliateId: 75,
+        affiliateId: 95,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -52,7 +52,7 @@ module.exports = {
         diasDeInternacion: 0,
         observaciones: "Tratamiento de alergia cutánea",
         estado: "Observada",
-        affiliateId: 76,
+        affiliateId: 96,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -65,7 +65,20 @@ module.exports = {
         diasDeInternacion: 0,
         observaciones: "Rinoplastia",
         estado: "Rechazada",
-        affiliateId: 74,
+        affiliateId: 93,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        fechaDePrestacion: "2025-12-08",
+        nombreDelAfiliado: "gabriel",
+        nombreDelMedico: "Dra. Castro",
+        especialidad: "Pediatría",
+        lugarDePrestacion: "Centro Médico La Trinidad",
+        diasDeInternacion: 0,
+        observaciones: "Mucha tos",
+        estado: "Recibido",
+        affiliateId: 94,
         createdAt: new Date(),
         updatedAt: new Date()
       }
@@ -79,7 +92,6 @@ module.exports = {
     await queryInterface.bulkDelete('Authorizations', null, {});
   }
 };
-
 
 
 //npx sequelize-cli db:seed:undo:all --config src/db/config/config.json --models-path src/db/models --seeders-path seeders --migrations-path src/db/migrations
