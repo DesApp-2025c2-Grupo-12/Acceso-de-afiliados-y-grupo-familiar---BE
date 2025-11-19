@@ -2,27 +2,27 @@
 
 ## 🎯 Objetivo
 
-El backend del proyecto **Acceso de Afiliados y Grupo Familiar** forma parte del sistema desarrollado para la empresa *Medicina Integral*.  
-Su propósito es brindar soporte a la aplicación web de afiliados, permitiendo la gestión y almacenamiento de datos vinculados a los servicios médicos y administrativos de la empresa.
+El backend del proyecto **Acceso de Afiliados y Grupo Familiar** forma parte del sistema desarrollado para la empresa Medicina Integral.
+Su propósito es brindar soporte a la aplicación web utilizada por los afiliados, permitiendo la gestión y almacenamiento de información vinculada a servicios médicos y administrativos.
 
 A través de esta API, los afiliados y algunos miembros del grupo familiar pueden:
 
-- Solicitar turnos de atención (de acuerdo a la disponibilidad configurada por la empresa).  
-- Gestionar reintegros.  
-- Abrir pedidos de autorización de prestaciones.  
-- Registrar recetas para solicitar cobertura.  
+- Solicitar turnos de atención (según disponibilidad).
+- Gestionar reintegros.
+- Iniciar pedidos de autorización de prestaciones.
+- Registrar recetas para solicitar cobertura.
 - Consultar la cartilla de prestadores.
 
 ---
 
 ## ⚙️ Tecnologías utilizadas
 
-- **Node.js** — entorno de ejecución.  
-- **Express.js** — framework para la construcción de la API REST.  
-- **Sequelize ORM** — mapeo objeto-relacional para la base de datos.  
-- **MySQL / PostgreSQL** — base de datos relacional.  
-- **JavaScript (ES6+)**  
-- **Nodemon** — recarga automática en desarrollo.
+- **Node.js** — Entorno de ejecución.
+- **Express.js** — Framework para API REST.
+- **Sequelize ORM** — Mapeo objeto-relacional.
+- **MySQL / PostgreSQL** — Bases de datos relacionales.
+- **JavaScript (ES6+)**
+- **Nodemon** — Recarga en desarrollo.
 
 ---
 
@@ -111,15 +111,98 @@ ACCESO-DE-AFILIADOS-Y-GRUPO-FAMILIAR---BE/
 
 ```
 ---
+# 📡 Endpoints principales
+
+### 🧩 Ejemplo - Afiliados
+
+
+
+| Método | Endpoint                              | Descripción                  |
+| ------ | ------------------------------------- | ---------------------------- |
+| GET    | `http://localhost:3000/affiliate`     | Obtiene todos los afiliados. |
+| GET    | `http://localhost:3000/affiliate/:id` | Obtiene un afiliado por ID.  |
+| POST   | `http://localhost:3000/affiliate`     | Crea un nuevo afiliado.      |
+| PUT    | `http://localhost:3000/affiliate/:id` | Actualiza un afiliado.       |
+| DELETE | `http://localhost:3000/affiliate/:id` | Elimina un afiliado.         |
+
+
+# 🧪 Ejemplo — GET todos los afiliados
+
+```
+[
+  {
+    "id": 1,
+    "nombre": "juan",
+    "apellido": "Perez",
+    "numeroDeDocumento": "38322514",
+    "numeroDeAfiliado": "11111",
+    "planMedico": "933"
+  },
+  {
+    "id": 2,
+    "nombre": "gabriel",
+    "apellido": "Perez",
+    "numeroDeDocumento": "38322515",
+    "numeroDeAfiliado": "11112",
+    "planMedico": "933"
+  },
+  {
+    "id": 3,
+    "nombre": "minerba",
+    "apellido": "perez",
+    "numeroDeDocumento": "38322516",
+    "numeroDeAfiliado": "11113",
+    "planMedico": "933"
+  },
+  {
+    "id": 4,
+    "nombre": "luciana",
+    "apellido": "perez",
+    "numeroDeDocumento": "38322517",
+    "numeroDeAfiliado": "11114",
+    "planMedico": "933"
+  }
+]
+```
+---
+
 
 # 🚀 Uso
 
 1. Clonar el repositorio.
-2. Instalar las dependencias con npm install.
-3. Configurar la base de datos en el archivo src/db/config/config.json con las credenciales correspondientes.
-4. Ejecutar las migraciones y seeders con npx sequelize db:migrate y npx sequelize db:seed:all.
-5. Ejecutar el servidor de desarrollo con npm run dev.
-6. El servidor estará disponible en http://localhost:3000
+
+2. Instalar dependencias: 
+
+```
+npm install
+```
+
+3. Configurar la base de datos en: 
+
+``` 
+src/db/config/config.json
+```
+
+4. Ejecutar migraciones y seeders:
+
+```
+npx sequelize db:migrate
+npx sequelize db:seed:all
+```
+
+5. Iniciar el servidor en desarrollo:
+
+```
+npm run dev
+```
+
+6. Servidor disponible en:
+
+```
+✔️ Conexión a la base de datos OK
+✔️ Generación de tablas OK
+🚀 La app arrancó en el puerto 3000
+```
 
 ---
 
