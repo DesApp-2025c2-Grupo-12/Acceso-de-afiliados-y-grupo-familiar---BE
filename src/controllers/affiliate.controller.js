@@ -3,6 +3,7 @@ const { Op } = require('sequelize');
 
 
 
+
 const createAffiliate = async (req, res) => {
   try {
     const nuevoAffiliate = await Affiliate.create(req.body);
@@ -159,7 +160,7 @@ const getGrupoFamiliar = async (req, res) => {
   try {
     const documento = req.params.documento;
 
-   
+
     const afiliado = await Affiliate.findOne({
       where: { numeroDeDocumento: documento }
     });
@@ -174,18 +175,18 @@ const getGrupoFamiliar = async (req, res) => {
       grupoFamiliar = await Affiliate.findAll({
         where: {
           [Op.or]: [
-            { id: afiliado.id }, 
-            { titularId: afiliado.id } 
+            { id: afiliado.id },
+            { titularId: afiliado.id }
           ]
         }
       });
-    } 
+    }
     else if (afiliado.parentesco === 'CONYUGE' || afiliado.parentesco === 'HIJO') {
       grupoFamiliar = await Affiliate.findAll({
         where: {
           [Op.or]: [
             { id: afiliado.titularId },
-            { titularId: afiliado.titularId } 
+            { titularId: afiliado.titularId }
           ]
         }
       });
@@ -198,6 +199,40 @@ const getGrupoFamiliar = async (req, res) => {
 
   } catch (error) {
     res.status(500).json({ error: error.message });
+  }
+}
+
+const tieneHijos = async (req, res) => {
+  try {
+    const affiliateId = req.params.id
+    const afiliado = await Affiliate.findOne(
+      { where: { id: affiliateId } }
+    )
+   let hijos = []
+    if (!afiliado) {
+      return res.status(404).json({ message: "Afiliado no encontrado" });
+    }
+    if (afiliado.parentesco === "TITULAR"){
+      hijos = await Affiliate.findAll({
+      where: { titularId: affiliateId, parentesco : "HIJO" }
+     })
+    }else if(afiliado.parentesco === "CONYUGE"){
+      const titular = await afiliado.titularId
+      hijos = await Affiliate.findAll({
+      where: {  titularId: titular, parentesco : "HIJO" }
+     })
+    }
+    else{
+      hijos = []
+    }
+
+
+    res.status(200).json({ existe: hijos.length > 0 });
+
+
+
+  } catch (error) {
+     res.status(500).json({ error: error.message });
   }
 }
 
@@ -218,4 +253,5 @@ module.exports = {
   esSuContraseña,
   getAffiliateByDocument,
   getGrupoFamiliar,
+  tieneHijos
 }

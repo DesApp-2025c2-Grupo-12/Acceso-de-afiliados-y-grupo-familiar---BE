@@ -38,7 +38,7 @@ router.get("/:id", getRecipeById);
 
 // Crear y actualizar con middleware de schema
 router.post("/", validateRecipeSchema,canManageFamilyMember, createRecipe);
-router.put("/:id", validateRecipeSchema,canManageFamilyMember, updateRecipe);
+router.put("/:id", validateRecipeSchema, updateRecipe);
 
 // Eliminar receta
 router.delete("/:id", deleteRecipe);
