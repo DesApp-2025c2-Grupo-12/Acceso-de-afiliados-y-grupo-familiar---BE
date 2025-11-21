@@ -1,4 +1,5 @@
 const { Affiliate } = require("../db/models");
+const { Op } = require('sequelize');
 
 
 
@@ -154,78 +155,53 @@ const getAffiliateByDocument = async (req, res) => {
 }
 
 
-const getGrupoFamiliar = async (req,res) => {
+const getGrupoFamiliar = async (req, res) => {
   try {
-    const documento = req.params.documento
+    const documento = req.params.documento;
 
-    const grupoFamiliar = await Affiliate.findAll({
-      where: { perteneceA: documento }
-    });
-    if (!grupoFamiliar) {
-      return res.status(404).json({ message: "Grupo Familiar  no encontrado" });
-    }
-    res.status(201).json(grupoFamiliar)
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-}
-
-
-const esHijo = async (req, res) => {
-  try {
-    const afiliadoId = req.params.id;
-    const supuestoHijoId = req.params.hijoId;
-    
-    
+   
     const afiliado = await Affiliate.findOne({
-      where: { id: afiliadoId }
-    });
-    
-    const supuestoHijo = await Affiliate.findOne({
-      where: { id: supuestoHijoId }
+      where: { numeroDeDocumento: documento }
     });
 
-    
-    if (!afiliado || !supuestoHijo) {
-      return res.status(404).json({ error: "Uno o ambos afiliados no existen" });
+    if (!afiliado) {
+      return res.status(404).json({ message: "Afiliado no encontrado" });
     }
 
-    
-    if (supuestoHijo.perteneceA === afiliado.numeroDeDocumento && 
-        (supuestoHijo.parentesco === "hijo" || supuestoHijo.parentesco === "hija")) {
-      return res.status(200).json({ existe: true });
-    } else {
-      return res.status(200).json({ existe: false });
+    let grupoFamiliar;
+
+    if (afiliado.parentesco === 'TITULAR') {
+      grupoFamiliar = await Affiliate.findAll({
+        where: {
+          [Op.or]: [
+            { id: afiliado.id }, 
+            { titularId: afiliado.id } 
+          ]
+        }
+      });
+    } 
+    else if (afiliado.parentesco === 'CONYUGE' || afiliado.parentesco === 'HIJO') {
+      grupoFamiliar = await Affiliate.findAll({
+        where: {
+          [Op.or]: [
+            { id: afiliado.titularId },
+            { titularId: afiliado.titularId } 
+          ]
+        }
+      });
+    }
+    else {
+      grupoFamiliar = [afiliado];
     }
 
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-};
-
-const getTieneHijos = async  (req,res) => {
-  try {
-    const afiliadoId = req.params.id
-
-     const afiliado = await Affiliate.findOne({
-      where: { id: afiliadoId }
-    });
-
-     if (!afiliado) {
-      return res.status(404).json({ error: "El afiliado no existe" });
-    }
-
-    if(afiliado.parentesco !== "hijo" && afiliado.parentesco !== "hija" ){
-      return res.status(200).json({ existe: true });
-    }
-    else{
-       return res.status(200).json({ existe: false });
-    }
+    res.status(200).json(grupoFamiliar);
 
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 }
+
+
 
 
 
@@ -242,8 +218,4 @@ module.exports = {
   esSuContraseña,
   getAffiliateByDocument,
   getGrupoFamiliar,
-  esHijo,
-  getTieneHijos
-  
-
 }

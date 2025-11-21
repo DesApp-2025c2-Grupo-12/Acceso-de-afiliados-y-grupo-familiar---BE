@@ -10,50 +10,66 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       tipoDeDocumento: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
       },
       numeroDeDocumento: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
       },
       nombre: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
       },
       apellido: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
       },
       fechaDeNacimiento: {
-        type: Sequelize.DATEONLY
+        type: Sequelize.DATEONLY,
+        allowNull: false
       },
       numeroDeAfiliado: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
       },
       situacionTerapeutica: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
       },
-      perteneceA: {
-        type: Sequelize.STRING
+      parentesco: {
+        type: Sequelize.ENUM('TITULAR', 'CONYUGE', 'HIJO', 'OTRO'),
+        allowNull: false
       },
-
-
-      parentesco: { //AGREGA ESTO 
-          type: Sequelize.STRING,
-          allowNull: false
-        },
-      
-
-
-
       planMedico: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
       },
       telefono: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
       },
       correoElectronico: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
       },
       direccion: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      password: {
+        type: Sequelize.STRING,
+        allowNull: true
+      },
+      titularId: {
+        type: Sequelize.INTEGER,
+        allowNull: true,
+        references: {
+          model: 'Affiliates',
+          key: 'id'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
       },
       createdAt: {
         allowNull: false,
@@ -64,7 +80,12 @@ module.exports = {
         type: Sequelize.DATE
       }
     });
+
+    
+    await queryInterface.addIndex('Affiliates', ['titularId']);
+    await queryInterface.addIndex('Affiliates', ['numeroDeDocumento']); // Ya debería ser único
   },
+
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('Affiliates');
   }

@@ -70,6 +70,11 @@ const authorizationSchema = Joi.object({
     .messages({
       "any.only": "El estado debe ser uno de los valores válidos.",
     }),
+      
+      usuarioLogueadoId: Joi.number().integer().required()
+        .messages({
+          'any.required': 'Error de autenticación'
+        })
 })
   .or("affiliateId", "nombreDelAfiliado")
   .messages({

@@ -194,47 +194,55 @@ const turnosFuturosDeAfiliado = async (req, res) => {
 }
 
 const turnosFuturosHijos = async (req, res) => {
-    try {
-        fechaActual = new Date()
-        const afiliado = await Affiliate.findOne({
-            where: { id: req.params.id }
-        })
+  try {
+    fechaActual = new Date()
+    const afiliado = await Affiliate.findOne({
+      where: { id: req.params.id }
+    })
 
-        if (!afiliado) {
-            return res.status(404).json({ error: 'Afiliado no encontrado' });
-        }
-
-        const hijos = await Affiliate.findAll({
-            where: {
-                perteneceA: afiliado.numeroDeDocumento,
-                [Op.or]: [
-                    { parentesco: "hijo" },
-                    { parentesco: "hija" }
-                ]
-            }
-
-        })
-
-        const idsHijos = hijos.map(h => h.id)
-
-
-        const turnos = await Appointment.findAll({
-            where: {
-                affiliateId: { [Op.in]: idsHijos },
-                fecha: { [Op.gte]: fechaActual }
-            },
-            include: [{
-                model: Affiliate,
-                as: 'afiliado',
-                attributes: ['id', 'nombre', 'apellido', 'numeroDeDocumento'],
-                required: false
-            }]
-
-        })
-        res.status(200).json(turnos);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
+    if (!afiliado) {
+      return res.status(404).json({ error: 'Afiliado no encontrado' });
     }
+
+    let hijos;
+    
+    if (afiliado.parentesco === 'TITULAR') {
+      hijos = await Affiliate.findAll({
+        where: {
+          titularId: afiliado.id,
+          parentesco: 'HIJO'
+        }
+      });
+    } else if (afiliado.parentesco === 'CONYUGE') {
+      hijos = await Affiliate.findAll({
+        where: {
+          titularId: afiliado.titularId,
+          parentesco: 'HIJO'
+        }
+      });
+    } else {
+      hijos = [];
+    }
+
+    const idsHijos = hijos.map(h => h.id)
+
+    const turnos = await Appointment.findAll({
+      where: {
+        affiliateId: { [Op.in]: idsHijos },
+        fecha: { [Op.gte]: fechaActual }
+      },
+      include: [{
+        model: Affiliate,
+        as: 'afiliado',
+        attributes: ['id', 'nombre', 'apellido', 'numeroDeDocumento'],
+        required: false
+      }]
+    })
+    
+    res.status(200).json(turnos);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 }
 
 

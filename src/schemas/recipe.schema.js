@@ -42,7 +42,12 @@ const recipeBaseSchema = Joi.object({
   affiliateId: Joi.number().integer().required()
     .messages({
       'any.required': 'Debe seleccionar un afiliado'
-    }) // <-- Agregado
+    }),
+  
+  usuarioLogueadoId: Joi.number().integer().required()
+    .messages({
+      'any.required': 'Error de autenticación'
+    })
 });
 
 const createRecipeSchema = recipeBaseSchema;

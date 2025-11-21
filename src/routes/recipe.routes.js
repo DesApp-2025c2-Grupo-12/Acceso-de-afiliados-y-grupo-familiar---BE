@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const { canManageFamilyMember } = require('../middlewares/affiliateMiddlewares');
 
 const {
   createRecipe,
@@ -36,8 +37,8 @@ router.get("/buscar", getRecipesByName);
 router.get("/:id", getRecipeById);
 
 // Crear y actualizar con middleware de schema
-router.post("/", validateRecipeSchema, createRecipe);
-router.put("/:id", validateRecipeSchema, updateRecipe);
+router.post("/", validateRecipeSchema,canManageFamilyMember, createRecipe);
+router.put("/:id", validateRecipeSchema,canManageFamilyMember, updateRecipe);
 
 // Eliminar receta
 router.delete("/:id", deleteRecipe);

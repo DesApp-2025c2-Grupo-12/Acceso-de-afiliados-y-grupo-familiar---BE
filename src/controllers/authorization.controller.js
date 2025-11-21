@@ -52,12 +52,9 @@ const createAuthorization = async (req, res) => {
   }
 };
 
-
-
-
 const getAuthorizations = async (req, res) => {
   try {
-    // traemos el número de documento desde query
+    
     const numeroDeDocumento = req.query.numeroDeDocumento;
     if (!numeroDeDocumento) return res.status(400).json({ error: "Falta el número de documento" });
 
@@ -65,11 +62,22 @@ const getAuthorizations = async (req, res) => {
     const afiliadoPrincipal = await Affiliate.findOne({ where: { numeroDeDocumento } });
     if (!afiliadoPrincipal) return res.status(404).json({ error: "Afiliado no encontrado" });
 
-    // buscamos los integrantes del grupo familiar
-    const grupoFamiliar = await Affiliate.findAll({ where: { perteneceA: numeroDeDocumento } });
-
-    // armamos la lista de IDs
-    const ids = [afiliadoPrincipal.id, ...grupoFamiliar.map(a => a.id)];
+    let ids;
+    
+    if (afiliadoPrincipal.parentesco === 'TITULAR') {
+      // Si es titular, buscar él y sus familiares
+      const grupoFamiliar = await Affiliate.findAll({ 
+        where: { titularId: afiliadoPrincipal.id } 
+      });
+      ids = [afiliadoPrincipal.id, ...grupoFamiliar.map(a => a.id)];
+    } else {
+      // Si NO es titular, buscar su titular y todos los del titular
+      const titular = await Affiliate.findByPk(afiliadoPrincipal.titularId);
+      const grupoFamiliar = await Affiliate.findAll({ 
+        where: { titularId: afiliadoPrincipal.titularId } 
+      });
+      ids = [titular.id, ...grupoFamiliar.map(a => a.id)];
+    }
 
     // traemos las autorizaciones de esos IDs
     const autorizaciones = await Authorization.findAll({

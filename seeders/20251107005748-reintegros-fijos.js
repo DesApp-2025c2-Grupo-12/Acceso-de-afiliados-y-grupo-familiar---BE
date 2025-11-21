@@ -19,7 +19,7 @@ module.exports = {
         observaciones: "Consulta por hernia",
         createdAt: new Date(),
         updatedAt: new Date(),
-        affiliateId: null
+        affiliateId:1
       },
       {
         fechaDePrestacion: "2025-10-18",
@@ -36,7 +36,7 @@ module.exports = {
         observaciones: "Control diabetes",
         createdAt: new Date(),
         updatedAt: new Date(),
-        affiliateId: null
+        affiliateId:2
       },
       {
         fechaDePrestacion: "2025-10-22",
@@ -53,7 +53,7 @@ module.exports = {
         observaciones: "Control hipotiroidismo",
         createdAt: new Date(),
         updatedAt: new Date(),
-        affiliateId: null
+        affiliateId:3
       },
       {
         fechaDePrestacion: "2025-10-28",
@@ -70,7 +70,7 @@ module.exports = {
         observaciones: "Estudios neurológicos",
         createdAt: new Date(),
         updatedAt: new Date(),
-        affiliateId: null
+        affiliateId:1
       },
       {
         fechaDePrestacion: "2025-11-05",
@@ -87,7 +87,7 @@ module.exports = {
         observaciones: "Control cardiológico rutinario",
         createdAt: new Date(),
         updatedAt: new Date(),
-        affiliateId: null
+        affiliateId:4
       }
     ]
     await queryInterface.bulkInsert('Refunds', reintegros, {});

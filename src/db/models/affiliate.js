@@ -10,32 +10,46 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      this.hasMany(models.Appointment, {
-        foreignKey: 'affiliateId',   
-        as: 'turnos',                 
-        onDelete: 'CASCADE',          
-      }),
-      this.hasMany(models.Refund, {
-        foreignKey:{
-           name:'affiliateId',
-           allowNull:false
-        },
-        as: 'afiliado',
+      //RELACION GRUPO FAMILIAR Y TITULAR
+      this.belongsTo(models.Affiliate, {
+        foreignKey: 'titularId',
+        as: 'titular',
         onDelete: 'CASCADE',
-      })
+      });
+
+      this.hasMany(models.Affiliate, {
+        foreignKey: 'titularId',
+        as: 'familiares',
+        onDelete: 'CASCADE',
+      });
+      //RELACION CON TURNOS
+      this.hasMany(models.Appointment, {
+        foreignKey: 'affiliateId',
+        as: 'turnos',
+        onDelete: 'CASCADE',
+      }),
+        //RELACION CON AUTORIZACIONES
+        this.hasMany(models.Refund, {
+          foreignKey: {
+            name: 'affiliateId',
+            allowNull: false
+          },
+          as: 'afiliado',
+          onDelete: 'CASCADE',
+        })
       this.hasMany(models.Authorization, {
         foreignKey: 'affiliateId',
         as: 'autorizaciones'
       })
-//RELACION DE RECETAS
-       this.hasMany(models.Recipe, {
-    foreignKey: {
-      name: 'affiliateId',
-      allowNull: false
-    },
-    as: 'recetas',
-    onDelete: 'CASCADE',
-  })
+      //RELACION DE RECETAS
+      this.hasMany(models.Recipe, {
+        foreignKey: {
+          name: 'affiliateId',
+          allowNull: false
+        },
+        as: 'recetas',
+        onDelete: 'CASCADE',
+      })
 
     }
   }
@@ -47,13 +61,24 @@ module.exports = (sequelize, DataTypes) => {
     fechaDeNacimiento: { type: DataTypes.DATEONLY, allowNull: false },
     numeroDeAfiliado: { type: DataTypes.STRING, allowNull: false },
     situacionTerapeutica: { type: DataTypes.STRING, allowNull: false },
-    parentesco: { type: DataTypes.STRING, allowNull: false },
-    perteneceA: { type: DataTypes.STRING, allowNull: false },
+    parentesco: {
+      type: DataTypes.ENUM('TITULAR', 'CONYUGE', 'HIJO', 'OTRO'),
+      allowNull: false
+    },
     planMedico: { type: DataTypes.STRING, allowNull: false },
     telefono: { type: DataTypes.STRING, allowNull: false },
     correoElectronico: { type: DataTypes.STRING, allowNull: false },
     direccion: { type: DataTypes.STRING, allowNull: false },
-    password: { type: DataTypes.STRING }
+    password: { type: DataTypes.STRING,allowNull:true },
+    titularId: {
+      type: DataTypes.INTEGER,
+      allowNull: true, 
+      references: {
+        model: 'Affiliates', 
+        key: 'id'
+      }
+    }
+
   }, {
     sequelize,
     modelName: 'Affiliate',

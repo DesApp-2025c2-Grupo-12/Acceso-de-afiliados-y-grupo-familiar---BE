@@ -3,6 +3,7 @@ const router = Router();
 const AppointmentControllers = require("../controllers/appointment.controller");
 const validateIds = require('../middlewares/validateIds')
 const validateAppointmentOperations = require('../middlewares/appointmentMiddleware');
+const { canManageFamilyMember } = require('../middlewares/affiliateMiddlewares');
 
 router.get("/", AppointmentControllers.getAppointments);
 router.get("/unreserved-appointments/",AppointmentControllers.unreservedAppointments);
@@ -13,7 +14,7 @@ router.get("/turnosFuturos/:id",validateIds,AppointmentControllers.turnosFuturos
 router.get("/affiliated-appointments/:id",validateIds,AppointmentControllers.apointmentsFromAffiliate);
 router.post("/", AppointmentControllers.createAppointment);
 router.put('/:turnoId/cancel',validateIds,validateAppointmentOperations, AppointmentControllers.cancelarTurno);
-router.put('/:turnoId/assign/:affiliateId',validateIds,validateAppointmentOperations, AppointmentControllers.asignarTurnoAAfiliado);
+router.put('/:turnoId/assign/:usuarioLogueadoId/:affiliateId', validateIds, canManageFamilyMember, validateAppointmentOperations, AppointmentControllers.asignarTurnoAAfiliado);
 router.put("/:id",validateIds, AppointmentControllers.updateAppointment);
 router.delete("/:id",validateIds, AppointmentControllers.deleteAppointment);
 

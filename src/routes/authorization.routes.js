@@ -2,6 +2,7 @@ const { Router } = require("express");
 const router = Router();
 const AuthorizationControllers = require("../controllers/authorization.controller");
 const { validateAuthorization, validateAuthorizationUpdate } = require("../middlewares/authorization.middleware");
+const { canManageFamilyMember } = require('../middlewares/affiliateMiddlewares');
 
 // Obtener todas las autorizaciones
 router.get("/", AuthorizationControllers.getAuthorizations);
@@ -10,7 +11,7 @@ router.get("/", AuthorizationControllers.getAuthorizations);
 router.get("/:id", AuthorizationControllers.getAuthorizationById);
 
 // Crear una nueva autorización (valida el body con Joi)
-router.post("/", validateAuthorization, AuthorizationControllers.createAuthorization);
+router.post("/", validateAuthorization,canManageFamilyMember, AuthorizationControllers.createAuthorization);
 
 // Actualizar una autorización existente (valida el body con Joi)
 router.put("/:id", validateAuthorizationUpdate, AuthorizationControllers.updateAuthorization);
