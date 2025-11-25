@@ -13,7 +13,6 @@ const {
 
 const validateRecipeSchema = require('../middlewares/recipeMiddleware');
 
-// Nueva ruta para obtener recetas de un afiliado (antes de /:id)
 router.get("/affiliate/:id", async (req, res) => {
   try {
     const recetas = await require("../db/models").Recipe.findAll({
@@ -31,16 +30,15 @@ router.get("/affiliate/:id", async (req, res) => {
   }
 });
 
-// Rutas existentes
+
 router.get("/", getRecipes);
 router.get("/buscar", getRecipesByName);
 router.get("/:id", getRecipeById);
 
-// Crear y actualizar con middleware de schema
 router.post("/", validateRecipeSchema,canManageFamilyMember, createRecipe);
 router.put("/:id", validateRecipeSchema, updateRecipe);
 
-// Eliminar receta
+
 router.delete("/:id", deleteRecipe);
 
 module.exports = router;
