@@ -13,7 +13,7 @@ module.exports = {
         diasDeInternacion: 0,
         observaciones: "Chequeo general anual",
         estado: "Pendiente",
-        affiliateId: 93,
+        affiliateId: 1,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -26,7 +26,7 @@ module.exports = {
         diasDeInternacion: 2,
         observaciones: "Rehabilitación post fractura",
         estado: "Aprobada",
-        affiliateId: 94,
+        affiliateId: 2,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -39,7 +39,7 @@ module.exports = {
         diasDeInternacion: 0,
         observaciones: "Control de crecimiento",
         estado: "Observada",
-        affiliateId: 95,
+        affiliateId: 3,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -52,7 +52,7 @@ module.exports = {
         diasDeInternacion: 0,
         observaciones: "Tratamiento de alergia cutánea",
         estado: "Observada",
-        affiliateId: 96,
+        affiliateId: 4,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -65,7 +65,7 @@ module.exports = {
         diasDeInternacion: 0,
         observaciones: "Rinoplastia",
         estado: "Rechazada",
-        affiliateId: 93,
+        affiliateId: 4,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -78,7 +78,7 @@ module.exports = {
         diasDeInternacion: 0,
         observaciones: "Mucha tos",
         estado: "Recibido",
-        affiliateId: 94,
+        affiliateId: 2,
         createdAt: new Date(),
         updatedAt: new Date()
       }

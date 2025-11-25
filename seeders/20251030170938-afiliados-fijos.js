@@ -3,32 +3,33 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    // PRIMERO: Insertar solo el titular
-    await queryInterface.bulkInsert('affiliates', [{
-      tipoDeDocumento: 'DNI',
-      numeroDeDocumento: '30123456',
-      nombre: 'Juan',
-      apellido: 'Pérez',
-      fechaDeNacimiento: '1980-05-15',
-      numeroDeAfiliado: 'TIT001',
-      situacionTerapeutica: 'Estable',
-      parentesco: 'TITULAR',
-      planMedico: 'Plan Oro',
-      telefono: '1122334455',
-      correoElectronico: 'juan@email.com',
-      direccion: 'Calle 123',
-      password: null,
-      titularId: null, 
-      createdAt: new Date(),
-      updatedAt: new Date()
-    }], {});
+    await queryInterface.sequelize.query('SET FOREIGN_KEY_CHECKS = 0');
 
-    // SEGUNDO: Insertar familiares que referencian al titular
     await queryInterface.bulkInsert('affiliates', [
       {
+        id: 1,
+        tipoDeDocumento: 'DNI',
+        numeroDeDocumento: '30123456',
+        nombre: 'Juan',
+        apellido: 'Pérez',
+        fechaDeNacimiento: '1980-05-15',
+        numeroDeAfiliado: 'TIT001',
+        situacionTerapeutica: 'Estable',
+        parentesco: 'TITULAR',
+        planMedico: 'Plan Oro',
+        telefono: '1122334455',
+        correoElectronico: 'juan@email.com',
+        direccion: 'Calle 123',
+        password: null,
+        titularId: null, 
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        id: 2,
         tipoDeDocumento: 'DNI',
         numeroDeDocumento: '28987654',
-        nombre: 'María',
+        nombre: 'Gabriel',
         apellido: 'Pérez',
         fechaDeNacimiento: '1982-08-20',
         numeroDeAfiliado: 'CON001',
@@ -36,7 +37,7 @@ module.exports = {
         parentesco: 'CONYUGE', 
         planMedico: 'Plan Oro',
         telefono: '1166778899',
-        correoElectronico: 'maria@email.com',
+        correoElectronico: 'gabriel@email.com',
         direccion: 'Calle 123',
         password: null,
         titularId: 1,
@@ -44,9 +45,10 @@ module.exports = {
         updatedAt: new Date()
       },
       {
+        id: 3,
         tipoDeDocumento: 'DNI',
         numeroDeDocumento: '56123456',
-        nombre: 'Pedro',
+        nombre: 'Minerba',
         apellido: 'Pérez',
         fechaDeNacimiento: '2015-03-10', 
         numeroDeAfiliado: 'HIJ001',
@@ -54,7 +56,7 @@ module.exports = {
         parentesco: 'HIJO', 
         planMedico: 'Plan Oro',
         telefono: '1122334455',
-        correoElectronico: 'pedro@email.com',
+        correoElectronico: 'minerba@email.com',
         direccion: 'Calle 123',
         password: null,
         titularId: 1,
@@ -62,9 +64,10 @@ module.exports = {
         updatedAt: new Date()
       },
       {
+        id: 4,
         tipoDeDocumento: 'DNI',
         numeroDeDocumento: '45123456',
-        nombre: 'Ana',
+        nombre: 'Luciana',
         apellido: 'Pérez',
         fechaDeNacimiento: '2000-01-05', 
         numeroDeAfiliado: 'HIJ002',
@@ -72,7 +75,7 @@ module.exports = {
         parentesco: 'HIJO', 
         planMedico: 'Plan Oro',
         telefono: '1122334455',
-        correoElectronico: 'ana@email.com',
+        correoElectronico: 'luciana@email.com',
         direccion: 'Calle 123',
         password: null,
         titularId: 1,
@@ -80,6 +83,8 @@ module.exports = {
         updatedAt: new Date()
       }
     ], {});
+
+    await queryInterface.sequelize.query('SET FOREIGN_KEY_CHECKS = 1');
   },
 
   async down(queryInterface, Sequelize) {
