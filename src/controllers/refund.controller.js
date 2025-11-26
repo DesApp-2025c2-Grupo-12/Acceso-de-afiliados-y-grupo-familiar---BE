@@ -3,11 +3,6 @@ const { Refund } = require("../db/models");
 // Crear un reintegro
 const createRefund = async (req, res) => {
     try {
-        console.log("📥 RAW Body recibido:", req.body);
-        console.log("🔤 nombreDelMedico:", req.body.nombreDelMedico);
-        console.log("🔤 nombreDelAfiliado:", req.body.nombreDelAfiliado);
-        console.log("🔤 especialidad:", req.body.especialidad);
-        // Validación de campos obligatorios
         const {
             fechaDePrestacion,
             nombreDelAfiliado,

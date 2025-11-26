@@ -79,23 +79,25 @@ const refundBaseSchema = Joi.object({
       'any.required': 'La forma de pago es obligatoria'
     }),
 
-  cbu: Joi.string().length(22).pattern(/^\d+$/).required()
-    .messages({
-      'string.length': 'El CBU debe contener exactamente 22 dígitos',
-      'string.pattern.base': 'El CBU solo puede contener números',
-      'string.empty': 'El CBU es obligatorio',
-      'any.required': 'El CBU es obligatorio'
-    }),
+  cbu: Joi.alternatives().try(
+    Joi.string().length(22).pattern(/^\d+$/),
+    Joi.string().pattern(/^[a-zA-Z0-9\.\-]+$/).min(5).max(30)
+  ).required().messages({
+    'alternatives.types': 'El CBU/Alias debe ser: 22 dígitos numéricos (CBU) o entre 5-30 caracteres alfanuméricos (Alias)',
+    'alternatives.match': 'Formato inválido. Use CBU (22 números) o Alias (5-30 caracteres alfanuméricos)',
+    'string.empty': 'El CBU/Alias es obligatorio',
+    'any.required': 'El CBU/Alias es obligatorio'
+  }),
 
   observaciones: Joi.string().max(1000).optional().allow('')
     .messages({
       'string.max': 'Las observaciones no pueden exceder 1000 caracteres'
     }),
-  affiliateId: Joi.number().integer().min(1).optional().allow(null) // ← CAMBIAR a optional
+  affiliateId: Joi.number().integer().min(1).optional().allow(null)
     .messages({
       'number.base': 'El id del afiliado debe ser un número',
     }),
-  
+
   usuarioLogueadoId: Joi.number().integer().required()
     .messages({
       'any.required': 'Error de autenticación'
@@ -122,12 +124,15 @@ const updateRefundSchema = Joi.object({
     'cheque',
     'efectivo'
   ).optional(),
-  cbu: Joi.string().length(22).pattern(/^\d+$/).optional(),
+  cbu: Joi.alternatives().try(
+    Joi.string().length(22).pattern(/^\d+$/),
+    Joi.string().min(5).max(30)
+  ).optional(),
   observaciones: Joi.string().max(1000).optional().allow('')
 }).min(1) // Al menos un campo debe ser proporcionado para actualizar
-.messages({
-  'object.min': 'Se debe proporcionar al menos un campo para actualizar'
-});
+  .messages({
+    'object.min': 'Se debe proporcionar al menos un campo para actualizar'
+  });
 
 // Schema para queries/búsquedas
 const refundQuerySchema = Joi.object({
