@@ -1,6 +1,6 @@
-# 🧩 Acceso de Afiliados y Grupo Familiar — Backend
+# Acceso de Afiliados y Grupo Familiar — Backend
 
-## 🎯 Objetivo
+## Objetivo
 
 El backend del proyecto **Acceso de Afiliados y Grupo Familiar**  forma parte del sistema desarrollado para la empresa Medicina Integral.
 Su propósito es brindar soporte a la aplicación web utilizada por los afiliados, permitiendo la gestión y almacenamiento de información vinculada a servicios médicos y administrativos.
@@ -18,7 +18,7 @@ Su propósito es brindar soporte a la aplicación web utilizada por los afiliado
 ---
 A través de esta API, los afiliados y algunos miembros del grupo familiar pueden:
 
-- **Solicitar turnos de atención médica:** Permite solicitar turnos según disponibilidad. Los turnos pueden cancelarse hasta un día antes de la fecha asignada
+-**Solicitar turnos de atención médica:** Permite solicitar turnos según disponibilidad. Los turnos pueden cancelarse hasta un día antes de la fecha asignada
 facilitando la gestión desde la web o la app.
 
 - **Registrar y renovar recetas:** Posibilita cargar, renovar y consultar recetas previas, mostrando los estados actualizados para un seguimiento claro y seguro.
@@ -30,7 +30,7 @@ facilitando la gestión desde la web o la app.
 - **Gestionar autorizaciones:** Permite cargar y dar seguimiento a solicitudes de autorización, con notificaciones de estado que aseguran un proceso claro y confiable.
 ---
 
-## ⚙️ Tecnologías utilizadas
+## Tecnologías utilizadas
 
 - **Node.js** — Entorno de ejecución de JavaScript del lado del servidor, que permite crear aplicaciones escalables y rápidas.
 - **Express.js** — Framework para construir APIs REST de manera sencilla y organizada.
@@ -41,7 +41,7 @@ facilitando la gestión desde la web o la app.
 
 ---
 
-## 🗂️ Estructura del proyecto
+## Estructura del proyecto
 
 ```
 ACCESO-DE-AFILIADOS-Y-GRUPO-FAMILIAR---BE/
@@ -131,9 +131,9 @@ ACCESO-DE-AFILIADOS-Y-GRUPO-FAMILIAR---BE/
 └─ 127.0.0.1
 ```
 ---
-## 📡 Endpoints principales
+## Endpoints principales
 
-### 🧩 Ejemplo - Afiliados
+### Ejemplo - Afiliados
 
 
 
@@ -146,7 +146,7 @@ ACCESO-DE-AFILIADOS-Y-GRUPO-FAMILIAR---BE/
 | DELETE | `http://localhost:3000/affiliate/:id` | Elimina un afiliado.         |
 
 
-### 🧪 Ejemplo — GET todos los afiliados
+### Ejemplo — GET todos los afiliados
 
 ```
 [
@@ -187,7 +187,7 @@ ACCESO-DE-AFILIADOS-Y-GRUPO-FAMILIAR---BE/
 ---
 
 
-## 🚀 Uso
+## Uso
 
 1. Clonar el repositorio.
 
@@ -197,7 +197,7 @@ ACCESO-DE-AFILIADOS-Y-GRUPO-FAMILIAR---BE/
 npm install
 ```
 
-3. Configurar la base de datos en: 
+3. Configurar la contraseña en la base de datos en: 
 
 ``` 
 src/db/config/config.json
@@ -226,7 +226,7 @@ npm run dev
 
 ---
 
-## 🧑‍💻 Autores
+## Autores
 
 Proyecto académico desarrollado en el marco de la materia Desarrollo de Aplicaciones- 2do cuatrimestre 2025 - Grupo  N° 12 - Universidad Nacional de Hurlingham (UnaHur).
 
@@ -237,4 +237,3 @@ Proyecto académico desarrollado en el marco de la materia Desarrollo de Aplicac
 * Diego Andrés Primera.
 
 ---
-
