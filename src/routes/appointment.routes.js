@@ -12,10 +12,7 @@ router.get("/:id/turnosHijos",validateIds,AppointmentControllers.turnosFuturosHi
 router.get("/:id", validateIds,AppointmentControllers.getAppointmentById);
 router.get("/turnosFuturos/:id",validateIds,AppointmentControllers.turnosFuturosDeAfiliado);
 router.get("/affiliated-appointments/:id",validateIds,AppointmentControllers.apointmentsFromAffiliate);
-router.post("/", AppointmentControllers.createAppointment);
 router.put('/:turnoId/cancel',validateIds,validateAppointmentOperations, AppointmentControllers.cancelarTurno);
 router.put('/:turnoId/assign/:usuarioLogueadoId/:affiliateId', validateIds, canManageFamilyMember, validateAppointmentOperations, AppointmentControllers.asignarTurnoAAfiliado);
-router.put("/:id",validateIds, AppointmentControllers.updateAppointment);
-router.delete("/:id",validateIds, AppointmentControllers.deleteAppointment);
 
 module.exports = router;
