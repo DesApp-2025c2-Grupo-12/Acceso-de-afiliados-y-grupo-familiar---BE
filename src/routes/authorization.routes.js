@@ -11,12 +11,12 @@ router.get("/", AuthorizationControllers.getAuthorizations);
 router.get("/:id", AuthorizationControllers.getAuthorizationById);
 
 // Crear una nueva autorización (valida el body con Joi)
-router.post("/", validateAuthorization,canManageFamilyMember, AuthorizationControllers.createAuthorization);
+router.post("/", validateAuthorization, canManageFamilyMember, AuthorizationControllers.createAuthorization);
 
 // Actualizar una autorización existente (valida el body con Joi)
-router.put("/:id", validateAuthorizationUpdate, AuthorizationControllers.updateAuthorization);
+router.put("/:id/usuario/:usuarioLogueadoId/afiliado/:affiliateId", canManageFamilyMember, AuthorizationControllers.updateAuthorization);
 
 // Eliminar una autorización
-router.delete("/:id", AuthorizationControllers.deleteAuthorization);
+router.delete("/:id/usuario/:usuarioLogueadoId/afiliado/:affiliateId", canManageFamilyMember, AuthorizationControllers.deleteAuthorization);
 
 module.exports = router;
