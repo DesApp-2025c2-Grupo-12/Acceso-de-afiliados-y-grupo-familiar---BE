@@ -6,20 +6,20 @@ module.exports = {
     const autorizaciones = [
       {
         fechaDePrestacion: "2025-11-10",
-        nombreDelAfiliado: "juan",
+        nombreDelAfiliado: "Juan Pérez",
         nombreDelMedico: "Dr. Gonzalez",
         especialidad: "Cardiología",
         lugarDePrestacion: "Hospital Central",
         diasDeInternacion: 0,
         observaciones: "Chequeo general anual",
-        estado: "Pendiente",
+        estado: "En análisis",
         affiliateId: 1,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
         fechaDePrestacion: "2025-11-11",
-        nombreDelAfiliado: "gabriel",
+        nombreDelAfiliado: "Gabriel Pérez",
         nombreDelMedico: "Dra. Fernandez",
         especialidad: "Traumatología",
         lugarDePrestacion: "Clínica del Oeste",
@@ -32,7 +32,7 @@ module.exports = {
       },
       {
         fechaDePrestacion: "2025-11-12",
-        nombreDelAfiliado: "minerba",
+        nombreDelAfiliado: "Minerba Pérez",
         nombreDelMedico: "Dra. Castro",
         especialidad: "Pediatría",
         lugarDePrestacion: "Sanatorio Norte",
@@ -45,20 +45,20 @@ module.exports = {
       },
       {
         fechaDePrestacion: "2025-11-13",
-        nombreDelAfiliado: "luciana",
+        nombreDelAfiliado: "Luciana Pérez",
         nombreDelMedico: "Dr. Medina",
         especialidad: "Dermatología",
         lugarDePrestacion: "Centro Médico Sur",
         diasDeInternacion: 0,
         observaciones: "Tratamiento de alergia cutánea",
-        estado: "Observada",
+        estado: "Recibido",
         affiliateId: 4,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
         fechaDePrestacion: "2025-12-10",
-        nombreDelAfiliado: "luciana",
+        nombreDelAfiliado: "Luciana Pérez",
         nombreDelMedico: "Dr. Romero",
         especialidad: "Cirujano",
         lugarDePrestacion: "Centro Médico La Trinidad",
@@ -71,7 +71,7 @@ module.exports = {
       },
       {
         fechaDePrestacion: "2025-12-08",
-        nombreDelAfiliado: "gabriel",
+        nombreDelAfiliado: "Gabriel Pérez",
         nombreDelMedico: "Dra. Castro",
         especialidad: "Pediatría",
         lugarDePrestacion: "Centro Médico La Trinidad",
