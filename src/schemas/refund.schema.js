@@ -94,6 +94,11 @@ const refundBaseSchema = Joi.object({
   affiliateId: Joi.number().integer().min(1).optional().allow(null) // ← CAMBIAR a optional
     .messages({
       'number.base': 'El id del afiliado debe ser un número',
+    }),
+  
+  usuarioLogueadoId: Joi.number().integer().required()
+    .messages({
+      'any.required': 'Error de autenticación'
     })
 });
 
