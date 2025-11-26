@@ -18,7 +18,7 @@ Su propósito es brindar soporte a la aplicación web utilizada por los afiliado
 ---
 A través de esta API, los afiliados y algunos miembros del grupo familiar pueden:
 
--**Solicitar turnos de atención médica:** Permite solicitar turnos según disponibilidad. Los turnos pueden cancelarse hasta un día antes de la fecha asignada
+- **Solicitar turnos de atención médica:** Permite solicitar turnos según disponibilidad. Los turnos pueden cancelarse hasta un día antes de la fecha asignada
 facilitando la gestión desde la web o la app.
 
 - **Registrar y renovar recetas:** Posibilita cargar, renovar y consultar recetas previas, mostrando los estados actualizados para un seguimiento claro y seguro.
