@@ -3,6 +3,10 @@ const { Refund } = require("../db/models");
 // Crear un reintegro
 const createRefund = async (req, res) => {
     try {
+        console.log("📥 RAW Body recibido:", req.body);
+        console.log("🔤 nombreDelMedico:", req.body.nombreDelMedico);
+        console.log("🔤 nombreDelAfiliado:", req.body.nombreDelAfiliado);
+        console.log("🔤 especialidad:", req.body.especialidad);
         // Validación de campos obligatorios
         const {
             fechaDePrestacion,
@@ -36,8 +40,10 @@ const createRefund = async (req, res) => {
 
         // Crear reintegro
         const nuevoReintegro = await Refund.create(req.body);
+        console.log("Datos GUARDADOS en BD:", nuevoReintegro.toJSON());
         res.status(201).json(nuevoReintegro);
     } catch (error) {
+        console.error("❌ Error en createRefund:", error);
         res.status(500).json({ error: error.message });
     }
 };

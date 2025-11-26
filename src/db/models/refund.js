@@ -32,7 +32,11 @@ module.exports = (sequelize, DataTypes) => {
     formaDePago: {type:DataTypes.STRING, allowNull:false},
     cbu: {type:DataTypes.STRING, allowNull:false},
     observaciones: {type:DataTypes.STRING},
-
+    estado: {
+      type: DataTypes.ENUM('Recibido', 'En análisis', 'Observado', 'Aprobado', 'Rechazado'),
+      allowNull: false,
+      defaultValue: 'Recibido'
+    },
     affiliateId: {
       type: DataTypes.INTEGER,
       allowNull: true,  

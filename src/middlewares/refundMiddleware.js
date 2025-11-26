@@ -42,35 +42,15 @@ const billingConsistency = (req, res, next) => {
 const normalizeRefund = (req, res, next) => {
     const body = req.body;
 
-    // 1. TRIM GLOBAL 
+    // SOLO TRIM Y LIMPIEZA BÁSICA - SIN CAPITALIZACIÓN
     Object.keys(body).forEach(key => {
         if (typeof body[key] === 'string') {
             body[key] = body[key].trim();
-            if (body[key] === '') body[key] = null; // Conversión de vacío → null
+            if (body[key] === '') body[key] = null;
         }
     });
 
-    // 2. CAPITALIZAR TEXTOS IMPORTANTES 
-    const capitalize = str =>
-        str
-            .toLowerCase()
-            .replace(/\b\w/g, c => c.toUpperCase()); // Primera letra de cada palabra en mayúscula
-
-    const fieldsToCapitalize = [
-        'nombreDelAfiliado',
-        'nombreDelMedico',
-        'especialidad',
-        'lugarDeAtencion',
-        'facturacion_NombreDePersonaACobrar'
-    ];
-
-    fieldsToCapitalize.forEach(field => {
-        if (body[field]) {
-            body[field] = capitalize(body[field]);
-        }
-    });
-
-    // 3. LIMPIEZA AVANZADA DE OBSERVACIONES
+    // LIMPIEZA DE OBSERVACIONES (se mantiene)
     if (body.observaciones) {
         body.observaciones = body.observaciones
             .replace(/\s+/g, ' ')      // Reducir espacios múltiples
