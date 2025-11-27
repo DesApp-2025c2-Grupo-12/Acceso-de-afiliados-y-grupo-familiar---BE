@@ -36,7 +36,7 @@ router.get("/buscar", getRecipesByName);
 router.get("/:id", getRecipeById);
 
 router.post("/", validateRecipeSchema,canManageFamilyMember, createRecipe);
-router.put("/:id", validateRecipeSchema, updateRecipe);
+router.put("/:id/usuario/:usuarioLogueadoId/afiliado/:affiliateId", validateRecipeSchema,canManageFamilyMember, updateRecipe);
 
 
 router.delete("/:id", deleteRecipe);

@@ -7,7 +7,7 @@ module.exports = {
         paciente: "Juan Perez",
         numeroDeDocumento: "38322514",
         cantidad: 1,
-        estado: "Recibido",
+        estado: "Aprobado",
         observaciones: "Tomar cada 8 horas durante 7 días, con comida",
         affiliateId:1, // Juan
         createdAt: new Date(),
@@ -49,6 +49,7 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
       },
+      
     ]);
   },
 
