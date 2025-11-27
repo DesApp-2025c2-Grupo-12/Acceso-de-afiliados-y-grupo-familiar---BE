@@ -16,19 +16,19 @@ module.exports = {
       {
         nombreDelMedicamento: "Ibuprofeno 400 mg x 20",
         presentacion: "Comprimidos",
-        paciente: "Gabriel Perez",
+        paciente: "Maria Perez",
         numeroDeDocumento: "38322515",
         cantidad: 2,
-        estado: "En análisis",
+        estado: "Aprobado",
         observaciones: "No exceder 3 dosis al día, tomar con agua",
-        affiliateId:2, // Gabriel
+        affiliateId:2, // maria
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
         nombreDelMedicamento: "Paracetamol 500 mg x 16",
         presentacion: "Jarabe",
-        paciente: "Minerba Perez",
+        paciente: "Gabriel Perez",
         numeroDeDocumento: "38322516",
         cantidad: 1,
         estado: "Observado",
@@ -46,6 +46,17 @@ module.exports = {
         estado: "Recibido",
         observaciones: "Antihistamínico, ideal para alergias estacionales",
         affiliateId:4, // Luciana
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },{
+        nombreDelMedicamento: "Paracetamol 1 g x 16",
+        presentacion: "Jarabe",
+        paciente: "Gabriel Perez",
+        numeroDeDocumento: "38322516",
+        cantidad: 1,
+        estado: "En analisis",
+        observaciones: "Adecuado para fiebre y dolor, seguir dosis según edad",
+        affiliateId:3, // gabriel
         createdAt: new Date(),
         updatedAt: new Date(),
       },

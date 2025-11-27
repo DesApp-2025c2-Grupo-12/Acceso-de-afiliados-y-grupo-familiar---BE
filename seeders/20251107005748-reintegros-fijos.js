@@ -78,7 +78,7 @@ module.exports = {
       },
       {
         fechaDePrestacion: "2025-11-05",
-        nombreDelAfiliado: "Minerva Pérez (HIJO)",
+        nombreDelAfiliado: "Gabriel Pérez (HIJO)",
         nombreDelMedico: "Dr. García",
         especialidad: "Cardiología",
         lugarDeAtencion: "Av. Siempreviva 1234, CABA",

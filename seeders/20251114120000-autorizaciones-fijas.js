@@ -19,7 +19,7 @@ module.exports = {
       },
       {
         fechaDePrestacion: "2025-11-11",
-        nombreDelAfiliado: "Gabriel Pérez",
+        nombreDelAfiliado: "Maria Pérez",
         nombreDelMedico: "Dra. Fernandez",
         especialidad: "Traumatología",
         lugarDePrestacion: "Clínica del Oeste",
@@ -79,6 +79,19 @@ module.exports = {
         observaciones: "Mucha tos",
         estado: "Recibido",
         affiliateId: 2,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        fechaDePrestacion: "2025-12-08",
+        nombreDelAfiliado: "Gabriel Pérez",
+        nombreDelMedico: "Dra. Castro",
+        especialidad: "Pediatría",
+        lugarDePrestacion: "Centro Médico La Trinidad",
+        diasDeInternacion: 0,
+        observaciones: "Mucha tos",
+        estado: "Aprobada",
+        affiliateId: 3,
         createdAt: new Date(),
         updatedAt: new Date()
       }

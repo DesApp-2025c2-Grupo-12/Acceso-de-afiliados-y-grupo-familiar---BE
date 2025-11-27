@@ -48,7 +48,7 @@ module.exports = {
         id: 3,
         tipoDeDocumento: 'DNI',
         numeroDeDocumento: '56123456',
-        nombre: 'Minerva',
+        nombre: 'Gabriel',
         apellido: 'Pérez',
         fechaDeNacimiento: '2015-03-10', 
         numeroDeAfiliado: 'HIJ001',
