@@ -54,7 +54,7 @@ module.exports = {
         paciente: "Gabriel Perez",
         numeroDeDocumento: "38322516",
         cantidad: 1,
-        estado: "En analisis",
+        estado: "En análisis",
         observaciones: "Adecuado para fiebre y dolor, seguir dosis según edad",
         affiliateId:3, // gabriel
         createdAt: new Date(),

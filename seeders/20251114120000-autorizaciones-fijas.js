@@ -78,7 +78,7 @@ module.exports = {
         diasDeInternacion: 0,
         observaciones: "Mucha tos",
         estado: "Recibido",
-        affiliateId: 2,
+        affiliateId: 3,
         createdAt: new Date(),
         updatedAt: new Date()
       },

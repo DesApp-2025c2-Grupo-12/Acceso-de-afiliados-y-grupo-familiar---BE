@@ -33,7 +33,8 @@ const getDashboardResumen = async (req, res) => {
     
     const reintegrosAprobados = await Refund.count({
       where: {
-        affiliateId
+        affiliateId,
+        estado: "Aprobado"
       }
     });
 
