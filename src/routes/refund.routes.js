@@ -13,6 +13,9 @@ router.get("/",
     validateRefundQuerySchema,
     RefundControllers.getRefunds);
 
+router.get("/refundAffiliate/:affiliateId",RefundControllers.getRefundsFromAffiliate)
+router.get("/refundChildren/:affiliateId",RefundControllers.getRefundsFromChildren)
+
 router.get("/:id", validateIds, RefundControllers.getRefundById);
 
 router.post("/",

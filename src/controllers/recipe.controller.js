@@ -1,6 +1,7 @@
 const { Recipe, Affiliate } = require("../db/models");
 const { Op } = require("sequelize");
 const { validateRecipeData } = require("../db/utils/validations/recipeValidation");
+const affiliate = require("../db/models/affiliate");
 
 // Crear receta
 const createRecipe = async (req, res) => {
@@ -63,6 +64,82 @@ const getRecipesByName = async (req, res) => {
   }
 };
 
+const getRecipeFromAffiliate = async (req, res) => {
+  try {
+    const affiliateId = req.params.affiliateId
+    const affiliate = await Affiliate.findByPk(affiliateId)
+
+    //validacion id afiliado
+    if (!affiliateId) {
+      return res.status(400).json({ error: "ID de afiliado requerido" });
+    }
+
+    //validacion existencia afiliado
+    if (!affiliate) {
+      return res.status(404).json({ error: "Afiliado no encontrado" })
+    }
+    const recipesFromAffiliate = await Recipe.findAll({
+      where: { affiliateId: affiliateId },
+      include: { model: Affiliate, as: 'afiliado' }
+    })
+
+    res.status(200).json(recipesFromAffiliate);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
+
+const getChildrensRecipes = async (req, res) => {
+
+  try {
+    const affiliateId = req.params.affiliateId
+    const affiliate = await Affiliate.findByPk(affiliateId)
+    //validacion id afiliado
+    if (!affiliateId) {
+      return res.status(400).json({ error: "ID de afiliado requerido" });
+    }
+
+    //validacion existencia afiliado
+    if (!affiliate) {
+      return res.status(404).json({ error: "Afiliado no encontrado" })
+    }
+
+    let hijos;
+
+    if (affiliate.parentesco === 'TITULAR') {
+      hijos = await Affiliate.findAll({
+        where: {
+          titularId: affiliate.id,
+          parentesco: 'HIJO'
+        }
+      });
+    } else if (affiliate.parentesco === 'CONYUGE') {
+      hijos = await Affiliate.findAll({
+        where: {
+          titularId: affiliate.titularId,
+          parentesco: 'HIJO'
+        }
+      });
+    } else {
+      hijos = [];
+    }
+
+    const idsHijos = hijos.map(h => h.id)
+
+    const recipesFromChildren = await Recipe.findAll({
+      where: {
+        affiliateId: { [Op.in]: idsHijos }
+      },
+      include: { model: Affiliate, as: 'afiliado' }
+    })
+
+    res.status(200).json(recipesFromChildren);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+
+}
+
 
 // Actualizar receta
 const updateRecipe = async (req, res) => {
@@ -115,4 +192,6 @@ module.exports = {
   getRecipesByName,
   updateRecipe,
   deleteRecipe,
+  getRecipeFromAffiliate,
+  getChildrensRecipes
 };

@@ -146,7 +146,7 @@ module.exports = {
         estado: "Rechazado",
         createdAt: new Date(),
         updatedAt: new Date(),
-        affiliateId:1
+        affiliateId:2
       }
     ]
     await queryInterface.bulkInsert('Refunds', reintegros, {});

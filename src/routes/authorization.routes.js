@@ -7,6 +7,11 @@ const { canManageFamilyMember } = require('../middlewares/affiliateMiddlewares')
 // Obtener todas las autorizaciones
 router.get("/", AuthorizationControllers.getAuthorizations);
 
+
+//Obtener todas las autorizaciones de un mismo afiliado
+router.get("/affiliateId/:affiliateId",AuthorizationControllers.getAuthorizationFromAffiliate)
+//Obtener las autorizaciones de los hijos de un afiliado si este los tuviera
+router.get("/childrensAffiliate/:affiliateId",AuthorizationControllers.getAuthorizationFromChildren)
 // Obtener una autorización por ID
 router.get("/:id", AuthorizationControllers.getAuthorizationById);
 

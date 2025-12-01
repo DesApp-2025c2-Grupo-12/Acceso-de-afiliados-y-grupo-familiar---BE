@@ -54,7 +54,7 @@ const createAuthorization = async (req, res) => {
 
 const getAuthorizations = async (req, res) => {
   try {
-    
+
     const numeroDeDocumento = req.query.numeroDeDocumento;
     if (!numeroDeDocumento) return res.status(400).json({ error: "Falta el número de documento" });
 
@@ -63,18 +63,18 @@ const getAuthorizations = async (req, res) => {
     if (!afiliadoPrincipal) return res.status(404).json({ error: "Afiliado no encontrado" });
 
     let ids;
-    
+
     if (afiliadoPrincipal.parentesco === 'TITULAR') {
       // Si es titular, buscar él y sus familiares
-      const grupoFamiliar = await Affiliate.findAll({ 
-        where: { titularId: afiliadoPrincipal.id } 
+      const grupoFamiliar = await Affiliate.findAll({
+        where: { titularId: afiliadoPrincipal.id }
       });
       ids = [afiliadoPrincipal.id, ...grupoFamiliar.map(a => a.id)];
     } else {
       // Si NO es titular, buscar su titular y todos los del titular
       const titular = await Affiliate.findByPk(afiliadoPrincipal.titularId);
-      const grupoFamiliar = await Affiliate.findAll({ 
-        where: { titularId: afiliadoPrincipal.titularId } 
+      const grupoFamiliar = await Affiliate.findAll({
+        where: { titularId: afiliadoPrincipal.titularId }
       });
       ids = [titular.id, ...grupoFamiliar.map(a => a.id)];
     }
@@ -97,51 +97,131 @@ module.exports = { getAuthorizations };
 
 // Obtener autorizacion por ID
 const getAuthorizationById = async (req, res) => {
-    try {
-        const id = req.params.id;
-        const autorizacionPorId = await Authorization.findByPk(id);
-        if (!autorizacionPorId) {
-            return res.status(404).json({ error: "Autorización no encontrada" });
-        }
-        res.status(200).json(autorizacionPorId);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
+  try {
+    const id = req.params.id;
+    const autorizacionPorId = await Authorization.findByPk(id);
+    if (!autorizacionPorId) {
+      return res.status(404).json({ error: "Autorización no encontrada" });
     }
+    res.status(200).json(autorizacionPorId);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 };
 
 // Actualización de una autorización (ej: estado)
 const updateAuthorization = async (req, res) => {
-    try {
-        const id = req.params.id;
-        const autorizacionAModificar = await Authorization.findByPk(id);
-        if (!autorizacionAModificar) {
-            return res.status(404).json({ error: "Autorización no encontrada" });
-        }
-        const autorizacionModificada = await autorizacionAModificar.update(req.body);
-        res.status(200).json(autorizacionModificada);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
+  try {
+    const id = req.params.id;
+    const autorizacionAModificar = await Authorization.findByPk(id);
+    if (!autorizacionAModificar) {
+      return res.status(404).json({ error: "Autorización no encontrada" });
     }
+    const autorizacionModificada = await autorizacionAModificar.update(req.body);
+    res.status(200).json(autorizacionModificada);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 };
 
 // Eliminación de una autorización
 const deleteAuthorization = async (req, res) => {
-    try {
-        const id = req.params.id;
-        const deleted = await Authorization.destroy({ where: { id } });
-        if (!deleted) {
-            return res.status(404).json({ error: "Autorización no encontrada" });
-        }
-        res.status(200).json({ message: "Autorización eliminada correctamente" });
-    } catch (error) {
-        res.status(500).json({ error: error.message });
+  try {
+    const id = req.params.id;
+    const deleted = await Authorization.destroy({ where: { id } });
+    if (!deleted) {
+      return res.status(404).json({ error: "Autorización no encontrada" });
     }
+    res.status(200).json({ message: "Autorización eliminada correctamente" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 };
 
+
+const getAuthorizationFromAffiliate = async (req, res) => {
+  try {
+    const affiliateId = req.params.affiliateId
+    const affiliate = await Affiliate.findByPk(affiliateId)
+
+    //validacion id afiliado
+    if (!affiliateId) {
+      return res.status(400).json({ error: "ID de afiliado requerido" });
+    }
+
+    //validacion existencia afiliado
+    if (!affiliate) {
+      return res.status(404).json({ error: "Afiliado no encontrado" })
+    }
+
+    const authorizationFromAffiliate = await Authorization.findAll({
+      where: {
+        affiliateId: affiliateId
+      }
+    })
+
+    res.status(200).json(authorizationFromAffiliate);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
+
+
+const getAuthorizationFromChildren = async (req, res) => {
+  try {
+    const affiliateId = req.params.affiliateId
+    const affiliate = await Affiliate.findByPk(affiliateId)
+    //validacion id afiliado
+    if (!affiliateId) {
+      return res.status(400).json({ error: "ID de afiliado requerido" });
+    }
+
+    //validacion existencia afiliado
+    if (!affiliate) {
+      return res.status(404).json({ error: "Afiliado no encontrado" })
+    }
+
+    let hijos;
+
+    if (affiliate.parentesco === 'TITULAR') {
+      hijos = await Affiliate.findAll({
+        where: {
+          titularId: affiliate.id,
+          parentesco: 'HIJO'
+        }
+      });
+    } else if (affiliate.parentesco === 'CONYUGE') {
+      hijos = await Affiliate.findAll({
+        where: {
+          titularId: affiliate.titularId,
+          parentesco: 'HIJO'
+        }
+      });
+    } else {
+      hijos = [];
+    }
+
+    const idsHijos = hijos.map(h => h.id)
+
+    const authorizationFromChildren = await Authorization.findAll({
+      where: {
+        affiliateId: { [Op.in]: idsHijos }
+      },
+      include: { model: Affiliate, as: 'afiliado' }
+    })
+
+    res.status(200).json(authorizationFromChildren);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
+
 module.exports = {
-    createAuthorization,
-    getAuthorizations,
-    getAuthorizationById,
-    updateAuthorization,
-    deleteAuthorization
+  createAuthorization,
+  getAuthorizations,
+  getAuthorizationById,
+  updateAuthorization,
+  deleteAuthorization,
+  getAuthorizationFromAffiliate,
+  getAuthorizationFromChildren
 }

@@ -9,7 +9,7 @@ module.exports = {
         lugarDeAtencion: "calle blibli 245",
         especialidad: "pediatria",
         horario: "08:00:00",
-        fecha: "2025-11-28",
+        fecha: "2025-12-4",
         createdAt: new Date(),
         updatedAt: new Date(),
         affiliateId:null
@@ -19,7 +19,7 @@ module.exports = {
         lugarDeAtencion: "calle blibli 245",
         especialidad: "pediatria",
         horario: "08:20:00",
-        fecha: "2025-11-28",
+        fecha: "2025-12-4",
         createdAt: new Date(),
         updatedAt: new Date(),
         affiliateId:null
@@ -29,7 +29,7 @@ module.exports = {
         lugarDeAtencion: "calle blibli 245",
         especialidad: "pediatria",
         horario: "08:40:00",
-        fecha: "2025-11-28",
+        fecha: "2025-12-4",
         createdAt: new Date(),
         updatedAt: new Date(),
         affiliateId:null
@@ -39,7 +39,7 @@ module.exports = {
         lugarDeAtencion: "calle blibli 245",
         especialidad: "pediatria",
         horario: "09:00:00",
-        fecha: "2025-11-29",
+        fecha: "2025-12-4",
         createdAt: new Date(),
         updatedAt: new Date(),
         affiliateId:null
@@ -49,7 +49,7 @@ module.exports = {
         lugarDeAtencion: "calle blibli 245",
         especialidad: "pediatria",
         horario: "09:20:00",
-        fecha: "2025-11-29",
+        fecha: "2025-12-4",
         createdAt: new Date(),
         updatedAt: new Date(),
         affiliateId:null
@@ -59,7 +59,7 @@ module.exports = {
         lugarDeAtencion: "calle blibli 245",
         especialidad: "pediatria",
         horario: "09:40:00",
-        fecha: "2025-11-29",
+        fecha: "2025-12-4",
         createdAt: new Date(),
         updatedAt: new Date(),
         affiliateId:null
