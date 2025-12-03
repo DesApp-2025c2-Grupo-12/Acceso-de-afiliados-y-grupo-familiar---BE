@@ -582,7 +582,7 @@ module.exports = {
       },{
         nombreDelPrestador: "Dr Yang",
         lugarDeAtencion: "Grey-Sloan Memorial",
-        especialidad: "Cardiologia",
+        especialidad: "cardiologia",
         horario: "10:00:00",
         fecha: "2025-12-6",
         createdAt: new Date(),
@@ -592,7 +592,7 @@ module.exports = {
       {
         nombreDelPrestador: "Dr Yang",
         lugarDeAtencion: "Grey-Sloan Memorial",
-        especialidad: "Cardiologia",
+        especialidad: "cardiologia",
         horario: "10:30:00",
         fecha: "2025-12-6",
         createdAt: new Date(),
@@ -602,7 +602,7 @@ module.exports = {
       {
         nombreDelPrestador: "Dr Yang",
         lugarDeAtencion: "Grey-Sloan Memorial",
-        especialidad: "Cardiologia",
+        especialidad: "cardiologia",
         horario: "11:00:00",
         fecha: "2025-12-6",
         createdAt: new Date(),
@@ -612,7 +612,7 @@ module.exports = {
       {
         nombreDelPrestador: "Dr Yang",
         lugarDeAtencion: "Grey-Sloan Memorial",
-        especialidad: "Cardiologia",
+        especialidad: "cardiologia",
         horario: "11:30:00",
         fecha: "2025-12-6",
         createdAt: new Date(),
@@ -622,7 +622,7 @@ module.exports = {
       {
         nombreDelPrestador: "Dr Yang",
         lugarDeAtencion: "Grey-Sloan Memorial",
-        especialidad: "Cardiologia",
+        especialidad: "cardiologia",
         horario: "12:00:00",
         fecha: "2025-12-6",
         createdAt: new Date(),
@@ -632,7 +632,7 @@ module.exports = {
       {
         nombreDelPrestador: "Dr Yang",
         lugarDeAtencion: "Grey-Sloan Memorial",
-        especialidad: "Cardiologia",
+        especialidad: "cardiologia",
         horario: "12:30:00",
         fecha: "2025-12-6",
         createdAt: new Date(),
@@ -642,7 +642,7 @@ module.exports = {
       {
         nombreDelPrestador: "Dr Yang",
         lugarDeAtencion: "Grey-Sloan Memorial",
-        especialidad: "Cardiologia",
+        especialidad: "cardiologia",
         horario: "13:00:00",
         fecha: "2025-12-6",
         createdAt: new Date(),
