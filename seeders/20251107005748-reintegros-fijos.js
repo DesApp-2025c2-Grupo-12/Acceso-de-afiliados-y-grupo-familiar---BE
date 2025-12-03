@@ -147,6 +147,24 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
         affiliateId:2
+      },
+      {
+        fechaDePrestacion: "2025-01-05",
+        nombreDelAfiliado: "Gabriel Pérez (HIJO)",
+        nombreDelMedico: "Dr. García",
+        especialidad: "Cardiología",
+        lugarDeAtencion: "Av. Siempreviva 1234, CABA",
+        facturacion_Fecha: "2025-01-08",
+        facturacion_Cuit: "20-38322514-8",
+        facturacion_ValorTotal: 42000,
+        facturacion_NombreDePersonaACobrar: "Juan Pérez (TITULAR)",
+        formaDePago: "Efectivo",
+        cbu: "2850590940090418135201",
+        observaciones: "Control cardiológico rutinario",
+        estado: "Rechazado",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        affiliateId:4
       }
     ]
     await queryInterface.bulkInsert('Refunds', reintegros, {});
