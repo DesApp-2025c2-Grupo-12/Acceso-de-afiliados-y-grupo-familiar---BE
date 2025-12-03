@@ -10,7 +10,7 @@ module.exports = {
         cantidad: 1,
         estado: "Aprobado",
         observaciones: "Tomar cada 8 horas durante 7 días, con comida",
-        affiliateId:1, // Juan
+        affiliateId:1,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -23,7 +23,7 @@ module.exports = {
         cantidad: 2,
         estado: "Aprobado",
         observaciones: "No exceder 3 dosis al día, tomar con agua",
-        affiliateId:2, // maria
+        affiliateId:2,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -35,19 +35,7 @@ module.exports = {
         cantidad: 1,
         estado: "Observado",
         observaciones: "Adecuado para fiebre y dolor, seguir dosis según edad",
-        affiliateId:3, // Minerba
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-      {
-        nombreDelMedicamento: "Loratadina 10 mg x 10",
-        presentacion: "Comprimidos",
-        paciente: "Luciana Perez",
-        numeroDeDocumento: "38322517",
-        cantidad: 1,
-        estado: "Recibido",
-        observaciones: "Antihistamínico, ideal para alergias estacionales",
-        affiliateId:4, // Luciana
+        affiliateId:3, 
         createdAt: new Date(),
         updatedAt: new Date(),
       },{
@@ -58,7 +46,7 @@ module.exports = {
         cantidad: 1,
         estado: "En análisis",
         observaciones: "Adecuado para fiebre y dolor, seguir dosis según edad",
-        affiliateId:3, // gabriel
+        affiliateId:3, 
         createdAt: new Date(),
         updatedAt: new Date(),
       },{
@@ -70,7 +58,7 @@ module.exports = {
         cantidad: 1,
         estado: "Aprobado",
         observaciones: "Adecuado para fiebre y dolor, seguir dosis según edad",
-        affiliateId:1, // Juan
+        affiliateId:1, 
         createdAt: new Date(),
         updatedAt: new Date(),
       },{
@@ -81,7 +69,7 @@ module.exports = {
         cantidad: 1,
         estado: "Rechazado",
         observaciones: "Adecuado para fiebre y dolor, seguir dosis según edad",
-        affiliateId:3, // gabriel
+        affiliateId:3, 
         createdAt: new Date(),
         updatedAt: new Date(),
       },

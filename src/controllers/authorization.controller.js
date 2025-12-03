@@ -1,6 +1,7 @@
 const { Authorization, Affiliate } = require("../db/models");
 const { Op } = require("sequelize");
 
+
 const createAuthorization = async (req, res) => {
   try {
     const {
@@ -143,6 +144,7 @@ const getAuthorizationFromAffiliate = async (req, res) => {
   try {
     const affiliateId = req.params.affiliateId
     const affiliate = await Affiliate.findByPk(affiliateId)
+    const fechaActual = new Date()
 
     //validacion id afiliado
     if (!affiliateId) {
@@ -156,7 +158,8 @@ const getAuthorizationFromAffiliate = async (req, res) => {
 
     const authorizationFromAffiliate = await Authorization.findAll({
       where: {
-        affiliateId: affiliateId
+        affiliateId: affiliateId,
+        fechaDePrestacion: { [Op.gte]: fechaActual }
       }
     })
 
@@ -171,6 +174,7 @@ const getAuthorizationFromChildren = async (req, res) => {
   try {
     const affiliateId = req.params.affiliateId
     const affiliate = await Affiliate.findByPk(affiliateId)
+    const fechaActual = new Date()
     //validacion id afiliado
     if (!affiliateId) {
       return res.status(400).json({ error: "ID de afiliado requerido" });
@@ -205,9 +209,11 @@ const getAuthorizationFromChildren = async (req, res) => {
 
     const authorizationFromChildren = await Authorization.findAll({
       where: {
-        affiliateId: { [Op.in]: idsHijos }
+        affiliateId: { [Op.in]: idsHijos },
+        fechaDePrestacion: { [Op.gte]: fechaActual }
       },
       include: { model: Affiliate, as: 'afiliado' }
+      
     })
 
     res.status(200).json(authorizationFromChildren);
