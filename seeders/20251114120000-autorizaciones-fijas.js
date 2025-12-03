@@ -32,7 +32,7 @@ module.exports = {
       },
       {
         fechaDePrestacion: "2025-11-12",
-        nombreDelAfiliado: "Minerba Pérez",
+        nombreDelAfiliado: "Gabriel Pérez",
         nombreDelMedico: "Dra. Castro",
         especialidad: "Pediatría",
         lugarDePrestacion: "Sanatorio Norte",
@@ -106,7 +106,3 @@ module.exports = {
   }
 };
 
-
-//npx sequelize-cli db:seed:undo:all --config src/db/config/config.json --models-path src/db/models --seeders-path seeders --migrations-path src/db/migrations
-//npm run seed:afiliados
-//npm run seed:autorizaciones

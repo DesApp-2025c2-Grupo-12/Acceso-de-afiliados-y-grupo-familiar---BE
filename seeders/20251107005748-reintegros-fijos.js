@@ -38,7 +38,7 @@ module.exports = {
         estado: "Observado",
         createdAt: new Date(),
         updatedAt: new Date(),
-        affiliateId:2
+        affiliateId:4
       },
       {
         fechaDePrestacion: "2025-10-22",
@@ -56,7 +56,7 @@ module.exports = {
         estado: "En análisis",
         createdAt: new Date(),
         updatedAt: new Date(),
-        affiliateId:3
+        affiliateId:4
       },
       {
         fechaDePrestacion: "2025-10-28",
@@ -92,11 +92,11 @@ module.exports = {
         estado: "Rechazado",
         createdAt: new Date(),
         updatedAt: new Date(),
-        affiliateId:4
+        affiliateId:3
       },
       {
         fechaDePrestacion: "2025-11-13",
-        nombreDelAfiliado: "Minerva Pérez (HIJO)",
+        nombreDelAfiliado: "Maria Pérez (CONYUGE)",
         nombreDelMedico: "Dr. García",
         especialidad: "Pediatría",
         lugarDeAtencion: "Av. Siempreviva 1234, CABA",
@@ -114,7 +114,7 @@ module.exports = {
       },
       {
         fechaDePrestacion: "2025-11-15",
-        nombreDelAfiliado: "Minerva Pérez (HIJO)",
+        nombreDelAfiliado: "Luciana Pérez (HIJO)",
         nombreDelMedico: "Dr. García",
         especialidad: "Pediatría",
         lugarDeAtencion: "Av. Siempreviva 1234, CABA",
@@ -128,7 +128,7 @@ module.exports = {
         estado: "Recibido",
         createdAt: new Date(),
         updatedAt: new Date(),
-        affiliateId:3
+        affiliateId:4
       },
       {
         fechaDePrestacion: "2025-11-20",
@@ -150,7 +150,7 @@ module.exports = {
       },
       {
         fechaDePrestacion: "2025-01-05",
-        nombreDelAfiliado: "Gabriel Pérez (HIJO)",
+        nombreDelAfiliado: "Joaquin Pérez (OTRO)",
         nombreDelMedico: "Dr. García",
         especialidad: "Cardiología",
         lugarDeAtencion: "Av. Siempreviva 1234, CABA",
@@ -164,7 +164,7 @@ module.exports = {
         estado: "Rechazado",
         createdAt: new Date(),
         updatedAt: new Date(),
-        affiliateId:4
+        affiliateId:5
       }
     ]
     await queryInterface.bulkInsert('Refunds', reintegros, {});
