@@ -72,7 +72,19 @@ module.exports = {
         affiliateId:3, 
         createdAt: new Date(),
         updatedAt: new Date(),
-      },
+      },{
+        nombreDelMedicamento: "Paracetamol 500 mg x 16",
+        presentacion: "Comprimidos",
+        paciente: "Juan Perez",
+        numeroDeDocumento: "38322514",
+        fechaDeAprobacion: "2025/01/04",
+        cantidad: 1,
+        estado: "Aprobado",
+        observaciones: "Adecuado para fiebre y dolor, seguir dosis según edad",
+        affiliateId:1, 
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      }
       
     ]);
   },
