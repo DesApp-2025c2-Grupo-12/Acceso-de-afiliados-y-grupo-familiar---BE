@@ -5,7 +5,7 @@ module.exports = {
   async up(queryInterface, Sequelize) {
     const autorizaciones = [
       {
-        fechaDePrestacion: "2025-12-10",
+        fechaDePrestacion: "2025-12-05",
         nombreDelAfiliado: "Juan Pérez",
         nombreDelMedico: "Dr. Gonzalez",
         especialidad: "Cardiología",
@@ -18,7 +18,7 @@ module.exports = {
         updatedAt: new Date()
       },
       {
-        fechaDePrestacion: "2025-12-15",
+        fechaDePrestacion: "2025-12-08",
         nombreDelAfiliado: "Maria Pérez",
         nombreDelMedico: "Dra. Fernandez",
         especialidad: "Traumatología",
@@ -31,7 +31,7 @@ module.exports = {
         updatedAt: new Date()
       },
       {
-        fechaDePrestacion: "2025-12-08",
+        fechaDePrestacion: "2025-12-20",
         nombreDelAfiliado: "Gabriel Pérez",
         nombreDelMedico: "Dra. Castro",
         especialidad: "Pediatría",
@@ -44,7 +44,7 @@ module.exports = {
         updatedAt: new Date()
       },
       {
-        fechaDePrestacion: "2025-12-12",
+        fechaDePrestacion: "2025-12-25",
         nombreDelAfiliado: "Luciana Pérez",
         nombreDelMedico: "Dr. Medina",
         especialidad: "Dermatología",
@@ -57,7 +57,7 @@ module.exports = {
         updatedAt: new Date()
       },
       {
-        fechaDePrestacion: "2025-12-10",
+        fechaDePrestacion: "2025-12-15",
         nombreDelAfiliado: "Luciana Pérez",
         nombreDelMedico: "Dr. Romero",
         especialidad: "Cirujano",
@@ -70,7 +70,7 @@ module.exports = {
         updatedAt: new Date()
       },
       {
-        fechaDePrestacion: "2025-12-08",
+        fechaDePrestacion: "2026-01-03",
         nombreDelAfiliado: "Gabriel Pérez",
         nombreDelMedico: "Dra. Castro",
         especialidad: "Pediatría",
@@ -83,7 +83,7 @@ module.exports = {
         updatedAt: new Date()
       },
       {
-        fechaDePrestacion: "2025-12-08",
+        fechaDePrestacion: "2026-01-10",
         nombreDelAfiliado: "Gabriel Pérez",
         nombreDelMedico: "Dra. Castro",
         especialidad: "Pediatría",
