@@ -44,6 +44,8 @@ const recipeBaseSchema = Joi.object({
       'any.required': 'Debe seleccionar un afiliado'
     }),
   
+  fechaDeAprobacion: Joi.date().iso().allow(null).optional(),
+
   usuarioLogueadoId: Joi.number().integer().required()
     .messages({
       'any.required': 'Error de autenticación'

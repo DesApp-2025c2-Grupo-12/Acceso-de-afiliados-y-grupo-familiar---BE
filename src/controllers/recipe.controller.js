@@ -161,6 +161,8 @@ const updateRecipe = async (req, res) => {
       );
     }
 
+  
+
     const recetaModificada = await receta.update(datos);
     res.status(200).json(recetaModificada);
 
